@@ -1,0 +1,2 @@
+# SMT
+Java Projekt
