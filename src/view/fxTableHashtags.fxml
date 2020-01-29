@@ -15,7 +15,7 @@
             <TableColumn fx:id="tcChoise" prefWidth="139.0" resizable="false" text="Auswahl" />
         </columns>
       </TableView>
-      <Button fx:id="btnChoose" layoutX="252.0" layoutY="355.0" mnemonicParsing="false" onAction="#MediaChooser" text="Auswählen">
+      <Button fx:id="btnChoose" layoutX="252.0" layoutY="355.0" mnemonicParsing="false" onAction="#selectedHashtags" text="Auswählen">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
