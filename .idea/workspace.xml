@@ -56,6 +56,9 @@
       <setting name="OPEN_NEW_TAB" value="false" />
     </FindUsagesManager>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectId" id="1X4T2u7xeR2afJwQtzsILVYuBEq" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -82,6 +85,7 @@
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="recentsLimit" value="5" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -200,6 +204,9 @@
   <component name="VcsManagerConfiguration">
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
     <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
+    <ignored-roots>
+      <path value="$PROJECT_DIR$" />
+    </ignored-roots>
   </component>
   <component name="WindowStateProjectService">
     <state x="552" y="174" key="#Project_Structure" timestamp="1580304290946">
@@ -230,5 +237,13 @@
       <screen x="0" y="0" width="1920" height="1034" />
     </state>
     <state width="1877" height="279" key="GridCell.Tab.0.right/-1920.0.1920.1034/0.0.1920.1034@0.0.1920.1034" timestamp="1580304698707" />
+    <state x="461" y="158" key="SettingsEditor" timestamp="1580306761004">
+      <screen x="0" y="0" width="1920" height="1034" />
+    </state>
+    <state x="461" y="158" key="SettingsEditor/-1920.0.1920.1034/0.0.1920.1034@0.0.1920.1034" timestamp="1580306761004" />
+    <state x="656" y="339" key="com.intellij.ide.util.TipDialog" timestamp="1580306727077">
+      <screen x="0" y="0" width="1920" height="1034" />
+    </state>
+    <state x="656" y="339" key="com.intellij.ide.util.TipDialog/-1920.0.1920.1034/0.0.1920.1034@0.0.1920.1034" timestamp="1580306727077" />
   </component>
 </project>
