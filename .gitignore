@@ -172,3 +172,9 @@ $RECYCLE.BIN/
 # End of https://www.gitignore.io/api/java,macos,windows,intellij
 .idea/vcs.xml
 .idea/workspace.xml
+SMT.iml
+.idea/modules.xml
+.idea/misc.xml
+.idea/compiler.xml
+.idea/description.html
+.idea/encodings.xml
