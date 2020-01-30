@@ -270,16 +270,15 @@ public class ControllerMain {
             taMessage.setStyle("-fx-text-inner-color: red;");
             taHashtags.setStyle("-fx-text-inner-color: red;");
 
-            //The check box for twitter must be unchecked and disabled when the total characters limit exceeds 140 characters
+            //The check box for twitter must be unchecked and disabled when the total characters limit exceeds 280 characters
         } else if (tlen.length() > 280) {
             taMessage.setStyle("-fx-text-inner-color: black;");
             taHashtags.setStyle("-fx-text-inner-color: black;");
             cbtwitter.setSelected(false);
             cbtwitter.setDisable(true);
 
-            //The text must set to default color(black) when the total characters is reduced to the limit 255 charcaters
+            //The text must set to default color(black) when the total characters is reduced to the limit-
         } else {
-            //tpost.setStyle("-fx-background-color: none;");
             taMessage.setStyle("-fx-text-inner-color: black;");
             taHashtags.setStyle("-fx-text-inner-color: black;");
             cbtwitter.setDisable(false);
@@ -302,7 +301,7 @@ public class ControllerMain {
             taMessage.setStyle("-fx-text-inner-color: red;");
             taHashtags.setStyle("-fx-text-inner-color: red;");
 
-            //The check box for twitter must be unchecked and disabled when the total characters limit exceeds 140 characters
+            //The check box for twitter must be unchecked and disabled when the total characters limit exceeds 280 characters
         } else if (tlen.length() > 280) {
             taMessage.setStyle("-fx-text-inner-color: black;");
             taHashtags.setStyle("-fx-text-inner-color: black;");
@@ -310,7 +309,6 @@ public class ControllerMain {
             cbtwitter.setDisable(true);
             //The text must set to default color(black) when the total characters is reduced to the limit 255 charcaters
         } else {
-            //tpost.setStyle("-fx-background-color: none;");
             taMessage.setStyle("-fx-text-inner-color: black;");
             taHashtags.setStyle("-fx-text-inner-color: black;");
             cbtwitter.setDisable(false);
@@ -329,6 +327,8 @@ public class ControllerMain {
 
     @FXML
         void randomDateTime(ActionEvent event) {
+            //When clicked ,must generate Random Date and Time
+        }
             Instant jetzt = Instant.now();
             Instant einWoche = Instant.now().plus(Duration.ofDays(7));
             Instant randomInstant = zwischen(jetzt, einWoche);
