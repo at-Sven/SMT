@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.shape.*?>
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
@@ -19,9 +14,10 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ControllerMain">
+<AnchorPane fx:id="anchorpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ControllerMain">
    <children>
       <TabPane prefHeight="660.0" prefWidth="1200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <tabs>
@@ -45,7 +41,7 @@
                            <font>
                               <Font size="15.0" />
                            </font></Button>
-                        <Button fx:id="btnRandmDateTime" layoutX="815.0" layoutY="499.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0" text="Zufall" AnchorPane.rightAnchor="262.0">
+                        <Button fx:id="btnRandmDateTime" layoutX="815.0" layoutY="499.0" mnemonicParsing="false" onAction="#randomDateTime" prefHeight="30.0" prefWidth="120.0" text="Zufall" AnchorPane.rightAnchor="262.0">
                            <font>
                               <Font size="15.0" />
                            </font></Button>
@@ -57,11 +53,11 @@
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font></Button>
-                        <TextArea fx:id="taMessage" layoutX="307.0" layoutY="22.0" prefHeight="235.0" prefWidth="631.0" promptText="Ihre Nachricht ..." AnchorPane.leftAnchor="307.0" AnchorPane.rightAnchor="262.0">
+                        <TextArea fx:id="taMessage" layoutX="307.0" layoutY="22.0" onKeyPressed="#countPost" prefHeight="235.0" prefWidth="631.0" promptText="Ihre Nachricht ..." AnchorPane.leftAnchor="307.0" AnchorPane.rightAnchor="262.0">
                            <font>
                               <Font size="18.0" />
                            </font></TextArea>
-                        <TextArea fx:id="taHashtags" layoutX="306.0" layoutY="268.0" prefHeight="75.0" prefWidth="519.0" promptText="Hashtags ..." AnchorPane.leftAnchor="306.0" AnchorPane.rightAnchor="375.0">
+                        <TextArea fx:id="taHashtags" layoutX="306.0" layoutY="268.0" onKeyReleased="#countHashtag" prefHeight="75.0" prefWidth="519.0" promptText="Hashtags ..." AnchorPane.leftAnchor="306.0" AnchorPane.rightAnchor="375.0">
                            <font>
                               <Font size="18.0" />
                            </font>

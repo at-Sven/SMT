@@ -255,6 +255,69 @@ public class ControllerMain {
     }
 
     @FXML
+    void countHashtag(KeyEvent event) {
+        //While writing/entering the Tags, it counts the total character length of post and tags
+        String post = taMessage.getText();
+        String tag = taHashtags.getText();
+        String tlen = taMessage.getText() + taHashtags.getText();
+
+        Integer len = post.length() + tag.length();
+        String msg = len.toString() + " / 280 zeichen";
+        lbRestChar.setText(msg);
+
+        //The text in post and hashtag must turn Red when the total characters limit exceeds
+        if (tlen.length() > 63206) {
+            taMessage.setStyle("-fx-text-inner-color: red;");
+            taHashtags.setStyle("-fx-text-inner-color: red;");
+
+            //The check box for twitter must be unchecked and disabled when the total characters limit exceeds 140 characters
+        } else if (tlen.length() > 280) {
+            taMessage.setStyle("-fx-text-inner-color: black;");
+            taHashtags.setStyle("-fx-text-inner-color: black;");
+            cbtwitter.setSelected(false);
+            cbtwitter.setDisable(true);
+
+            //The text must set to default color(black) when the total characters is reduced to the limit 255 charcaters
+        } else {
+            //tpost.setStyle("-fx-background-color: none;");
+            taMessage.setStyle("-fx-text-inner-color: black;");
+            taHashtags.setStyle("-fx-text-inner-color: black;");
+            cbtwitter.setDisable(false);
+        //Syamala
+    }
+
+    @FXML
+    void countPost(KeyEvent event) {
+        //While writing the Post, it counts the total character length of post and tags
+        String post = taMessage.getText();
+        String tag = taHashtags.getText();
+        String tlen = taMessage.getText() + taHashtags.getText();
+
+        Integer len = post.length() + tag.length();
+        String msg = len.toString() + " / 280 zeichen";
+        lbRestChar.setText(msg);
+
+        //The text in post and hashtag must turn Red when the total characters limit exceeds
+        if (tlen.length() > 63206) {
+            taMessage.setStyle("-fx-text-inner-color: red;");
+            taHashtags.setStyle("-fx-text-inner-color: red;");
+
+            //The check box for twitter must be unchecked and disabled when the total characters limit exceeds 140 characters
+        } else if (tlen.length() > 280) {
+            taMessage.setStyle("-fx-text-inner-color: black;");
+            taHashtags.setStyle("-fx-text-inner-color: black;");
+            cbtwitter.setSelected(false);
+            cbtwitter.setDisable(true);
+            //The text must set to default color(black) when the total characters is reduced to the limit 255 charcaters
+        } else {
+            //tpost.setStyle("-fx-background-color: none;");
+            taMessage.setStyle("-fx-text-inner-color: black;");
+            taHashtags.setStyle("-fx-text-inner-color: black;");
+            cbtwitter.setDisable(false);
+        }
+        //Syamala
+    }
+    @FXML
     void randomDate(ActionEvent event) {
         // Syamala
     }
@@ -262,6 +325,26 @@ public class ControllerMain {
     @FXML
     void randomTime(ActionEvent event) {
         // Syamala
+    }
+
+    @FXML
+        void randomDateTime(ActionEvent event) {
+            Instant jetzt = Instant.now();
+            Instant einWoche = Instant.now().plus(Duration.ofDays(7));
+            Instant randomInstant = zwischen(jetzt, einWoche);
+            Date randonDate = Date.from(randomInstant);
+            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+            String randomTime = timeFormat.format(randonDate);
+            dpDate.setValue(randomInstant.atZone(ZoneId.systemDefault()).toLocalDate());
+            tfTime.setText(randomTime);
+        }
+
+        private Instant zwischen(Instant jetzt, Instant einWoche) {
+            long anfang = jetzt.getEpochSecond();
+            long ende = einWoche.getEpochSecond();
+            long randomSeconds = ThreadLocalRandom.current().nextLong(anfang, ende);
+            return Instant.ofEpochSecond(randomSeconds);
+        //Syamala
     }
 
     @FXML
