@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 /**
- * Controllerklasse für die FXML Datei fxRegistration
+ * Controller class for the FXML file fxRegistration
  */
 public class ControllerRegistration {
 

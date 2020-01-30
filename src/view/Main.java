@@ -7,7 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- * Die Main Klasse des Programmes SMT
+ * The main class for the program SMT
  */
 public class Main extends Application {
 

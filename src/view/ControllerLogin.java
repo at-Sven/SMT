@@ -16,7 +16,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
- * Controllerklasse für die FXML Datei fxLogin
+ * Control class for the FXML file fxLogin
  */
 public class ControllerLogin {
 
@@ -36,7 +36,7 @@ public class ControllerLogin {
     private Button btnRegistration;
 
     /**
-     * Diese Methode schließt nach erfolg das Login Fenster und öffnet das Main Fenster des Programmes.
+     * This method close the Login window and opens the main program window
      */
     @FXML
     void showMain() {
@@ -47,10 +47,10 @@ public class ControllerLogin {
 
 
     /**
-     * Diese Methode öffnet das Registerfenster
+     * This method opens the fmxl file fxRegistration
      *
-     * @param event Blick des Buttons "Registieren"
-     * @throws IOException Falls die FXML Datei nicht geöffnet werden kann
+     * @param event click on the Button "Registieren"
+     * @throws IOException if the fxml file can't be opened
      */
     @FXML
     void showRegistration(ActionEvent event) throws IOException {
@@ -58,11 +58,11 @@ public class ControllerLogin {
     }
 
     /**
-     * Diese Methode öffnet eine FXML Datei im gleichen Fenster, wo der Auslöser ist.
+     * This method opens a fmxl file in the same window, where it will called
      *
-     * @param event Actionevent
-     * @param route Pfad von der FXML Datei
-     * @throws IOException Wenn die FXML Datei nicht geöffnet werden kann
+     * @param event click on the Button "Anmelden"
+     * @param route Path of the FXML file
+     * @throws IOException if the fxml file can't be opened
      */
     private void showPanel(ActionEvent event, String route) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource(route));
@@ -73,7 +73,7 @@ public class ControllerLogin {
     }
 
     /**
-     * Diese Methode öffnet eine FXML Datei als komplett neues Fenster
+     * This method opens a FXML file in a new window
      */
     private void showNewPanel() {
         try {
