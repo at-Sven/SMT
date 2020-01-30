@@ -268,8 +268,8 @@ public class ControllerMain {
         String tag = taHashtags.getText();
         String tlen = taMessage.getText() + taHashtags.getText();
 
-        Integer len = post.length() + tag.length();
-        String msg = len.toString() + " / 280 zeichen";
+        int len = post.length() + tag.length();
+        String msg = String.valueOf(len) + " / 280 zeichen";
         lbRestChar.setText(msg);
 
         //The text in post and hashtag must turn Red when the total characters limit exceeds
@@ -299,8 +299,8 @@ public class ControllerMain {
         String tag = taHashtags.getText();
         String tlen = taMessage.getText() + taHashtags.getText();
 
-        Integer len = post.length() + tag.length();
-        String msg = len.toString() + " / 280 zeichen";
+        int len = post.length() + tag.length();
+        String msg =  String.valueOf(len) + " / 280 zeichen";
         lbRestChar.setText(msg);
 
         //The text in post and hashtag must turn Red when the total characters limit exceeds
