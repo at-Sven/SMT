@@ -2,6 +2,12 @@ package view;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.concurrent.ThreadLocalRandom;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,6 +24,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
@@ -274,17 +281,17 @@ public class ControllerMain {
         } else if (tlen.length() > 280) {
             taMessage.setStyle("-fx-text-inner-color: black;");
             taHashtags.setStyle("-fx-text-inner-color: black;");
-            cbtwitter.setSelected(false);
-            cbtwitter.setDisable(true);
+            cbTwitter.setSelected(false);
+            cbTwitter.setDisable(true);
 
             //The text must set to default color(black) when the total characters is reduced to the limit-
         } else {
             taMessage.setStyle("-fx-text-inner-color: black;");
             taHashtags.setStyle("-fx-text-inner-color: black;");
-            cbtwitter.setDisable(false);
-        //Syamala
+            cbTwitter.setDisable(false);
+            //Syamala
+        }
     }
-
     @FXML
     void countPost(KeyEvent event) {
         //While writing the Post, it counts the total character length of post and tags
@@ -305,13 +312,13 @@ public class ControllerMain {
         } else if (tlen.length() > 280) {
             taMessage.setStyle("-fx-text-inner-color: black;");
             taHashtags.setStyle("-fx-text-inner-color: black;");
-            cbtwitter.setSelected(false);
-            cbtwitter.setDisable(true);
+            cbTwitter.setSelected(false);
+            cbTwitter.setDisable(true);
             //The text must set to default color(black) when the total characters is reduced to the limit 255 charcaters
         } else {
             taMessage.setStyle("-fx-text-inner-color: black;");
             taHashtags.setStyle("-fx-text-inner-color: black;");
-            cbtwitter.setDisable(false);
+            cbTwitter.setDisable(false);
         }
         //Syamala
     }
@@ -328,7 +335,6 @@ public class ControllerMain {
     @FXML
         void randomDateTime(ActionEvent event) {
             //When clicked ,must generate Random Date and Time
-        }
             Instant jetzt = Instant.now();
             Instant einWoche = Instant.now().plus(Duration.ofDays(7));
             Instant randomInstant = zwischen(jetzt, einWoche);
