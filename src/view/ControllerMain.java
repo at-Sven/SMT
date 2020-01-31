@@ -1,15 +1,22 @@
 package view;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.concurrent.ThreadLocalRandom;
 
+import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -87,7 +94,7 @@ public class ControllerMain {
     private Button btnPicture;
 
     @FXML
-    private Label lbStatus;
+    private Label lbMessageStatus;
 
     @FXML
     private Label lbFilename;
@@ -96,19 +103,19 @@ public class ControllerMain {
     private TableView<?> tvPosts;
 
     @FXML
-    private TableColumn<?, ?> tcText1;
+    private TableColumn<?, ?> tcText;
 
     @FXML
     private TableColumn<?, ?> tcDate1;
 
     @FXML
-    private TableColumn<?, ?> tcPlatform1;
+    private TableColumn<?, ?> tcPlatform;
 
     @FXML
-    private TableColumn<?, ?> tcReaction1;
+    private TableColumn<?, ?> tcReaction;
 
     @FXML
-    private TableColumn<?, ?> tcPostAction1;
+    private TableColumn<?, ?> tcPostAction;
 
     @FXML
     private Button btnPostPrev;
@@ -120,13 +127,13 @@ public class ControllerMain {
     private TableView<?> tvHashtags;
 
     @FXML
-    private TableColumn<?, ?> tcTheme1;
+    private TableColumn<?, ?> tcTheme;
 
     @FXML
-    private TableColumn<?, ?> tcList1;
+    private TableColumn<?, ?> tcList;
 
     @FXML
-    private TableColumn<?, ?> tcHashAction1;
+    private TableColumn<?, ?> tcHashAction;
 
     @FXML
     private Button btnHashPrev;
@@ -136,6 +143,9 @@ public class ControllerMain {
 
     @FXML
     private Button btnNewList;
+
+    @FXML
+    private Button btnLogSave;
 
     @FXML
     private TextField btnFBUsername;
@@ -164,8 +174,13 @@ public class ControllerMain {
     @FXML
     private Button btnSaveSettings;
 
-    File selectedFile;
+    @FXML
+    private TextArea taLog;
 
+    @FXML
+    private Label lbLogSavedFeedback;
+
+    File selectedFile;
 
     /**
      * Diese Methode &ouml;ffnet ein kleines Fenster, in welcher der Benutzer Hashtags ausw&auml;hlen kann.
@@ -270,8 +285,12 @@ public class ControllerMain {
     }
 
     @FXML
-    void postEntry(ActionEvent event) {
+    void postMessage(ActionEvent event) {
         // Speichert einen neuen Post in die Datenbank
+
+        lbMessageStatus.setText("Nachricht wurde gespeichert!");
+        resetText(lbMessageStatus);
+
     }
 
     @FXML
@@ -305,6 +324,7 @@ public class ControllerMain {
             //Syamala
         }
     }
+
     @FXML
     void countPost(KeyEvent event) {
         //While writing the Post, it counts the total character length of post and tags
@@ -313,7 +333,7 @@ public class ControllerMain {
         String tlen = taMessage.getText() + taHashtags.getText();
 
         int len = post.length() + tag.length();
-        String msg =  String.valueOf(len) + " / 480 Zeichen";
+        String msg = String.valueOf(len) + " / 480 Zeichen";
         lbRestChar.setText(msg);
 
         //The text in post and hashtag must turn Red when the total characters limit exceeds
@@ -333,37 +353,48 @@ public class ControllerMain {
             taHashtags.setStyle("-fx-text-inner-color: black;");
             cbTwitter.setDisable(false);
         }
-        //Syamala
-    }
-    @FXML
-    void randomDate(ActionEvent event) {
-        // Syamala
     }
 
     @FXML
-    void randomTime(ActionEvent event) {
-        // Syamala
+    void randomDateTime(ActionEvent event) {
+        //When clicked ,must generate Random Date and Time
+        Instant jetzt = Instant.now();
+        Instant einWoche = Instant.now().plus(Duration.ofDays(7));
+        Instant randomInstant = zwischen(jetzt, einWoche);
+        Date randonDate = Date.from(randomInstant);
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+        String randomTime = timeFormat.format(randonDate);
+        dpDate.setValue(randomInstant.atZone(ZoneId.systemDefault()).toLocalDate());
+        tfTime.setText(randomTime);
     }
 
+    private Instant zwischen(Instant jetzt, Instant einWoche) {
+        long anfang = jetzt.getEpochSecond();
+        long ende = einWoche.getEpochSecond();
+        long randomSeconds = ThreadLocalRandom.current().nextLong(anfang, ende);
+        return Instant.ofEpochSecond(randomSeconds);
+    }
+
+
     @FXML
-        void randomDateTime(ActionEvent event) {
-            //When clicked ,must generate Random Date and Time
-            Instant jetzt = Instant.now();
-            Instant einWoche = Instant.now().plus(Duration.ofDays(7));
-            Instant randomInstant = zwischen(jetzt, einWoche);
-            Date randonDate = Date.from(randomInstant);
-            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
-            String randomTime = timeFormat.format(randonDate);
-            dpDate.setValue(randomInstant.atZone(ZoneId.systemDefault()).toLocalDate());
-            tfTime.setText(randomTime);
+    void saveLog(ActionEvent event) {
+        try {
+            ObservableList<CharSequence> paragraph = taLog.getParagraphs();
+            Iterator<CharSequence> iter = paragraph.iterator();
+            BufferedWriter bf = null;
+            bf = new BufferedWriter(new FileWriter(new File("SMT_Log_Report.txt")));
+            while (iter.hasNext()) {
+                CharSequence seq = iter.next();
+                bf.append(seq);
+                bf.newLine();
+            }
+            bf.flush();
+            bf.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-        private Instant zwischen(Instant jetzt, Instant einWoche) {
-            long anfang = jetzt.getEpochSecond();
-            long ende = einWoche.getEpochSecond();
-            long randomSeconds = ThreadLocalRandom.current().nextLong(anfang, ende);
-            return Instant.ofEpochSecond(randomSeconds);
-        //Syamala
+        lbLogSavedFeedback.setText("Log als Datei gespeichert!");
+        resetText(lbLogSavedFeedback);
     }
 
     @FXML
@@ -376,4 +407,29 @@ public class ControllerMain {
         // DB starten?
 
     }
+
+    /**
+     * This method reset the content of a Label Component after 2,5 seconds
+     * @param label Label in which the text should be reset
+     */
+    void resetText(Label label) {
+        Task<Void> sleeper = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                try {
+                    Thread.sleep(2500);
+                } catch (InterruptedException e) {
+                }
+                return null;
+            }
+        };
+        sleeper.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent event) {
+                label.setText("");
+            }
+        });
+        new Thread(sleeper).start();
+    }
+
 }

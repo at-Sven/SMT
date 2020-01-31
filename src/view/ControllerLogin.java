@@ -85,6 +85,7 @@ public class ControllerLogin {
             MainStage.setScene(scene);
             MainStage.setX(300);
             MainStage.setY(150);
+            MainStage.setResizable(false);
             MainStage.show();
 
         } catch (IOException ex) {
