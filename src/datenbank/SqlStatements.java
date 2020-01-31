@@ -3,7 +3,7 @@ package datenbank;
 public class SqlStatements {
 
     // Aktuelle Version
-    public final static int VERSION = 1;
+    public final static int VERSION = 0;
 
     // Befehle zum Setzen und Auslesen der Version
     public final static String GET_VERSION = "PRAGMA USER_VERSION;";

@@ -14,7 +14,7 @@ import java.sql.SQLException;
 public class Datenbank extends SQLiteDatenbankverbindung {
 
     private static Datenbank db;
-    private final static String DBFILE = "c:\\temp\\telefonbuch.sqlite";
+    private final static String DBFILE = "sml-db.sqlite";
 
     /**
      * private Konstruktor

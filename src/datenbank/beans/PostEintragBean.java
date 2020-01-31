@@ -13,6 +13,7 @@ import java.util.HashMap;
 public class PostEintragBean {
 
     private static PreparedStatement pstmtSelect;
+    private static PreparedStatement pstmtInsertUser;
     private static PreparedStatement pstmtInsertVorname;
     private static PreparedStatement pstmtInsertNachname;
     private static PreparedStatement pstmtInsertStrasse;
@@ -33,6 +34,10 @@ public class PostEintragBean {
         System.out.println("static-Block ausgeführt");
 
         // Statements vorbereiten
+        pstmtSelect = Datenbank.getInstance().prepareStatement("SELECT email, passwort, FROM table_users;");
+        pstmtInsertUser = Datenbank.getInstance().prepareStatement("INSERT INTO table_users (uid, email, passwort) VALUE(?,?,?)");
+
+
         pstmtSelect = Datenbank.getInstance().prepareStatement("SELECT Vorname, Nachname, Straße, HausNr, PLZ, Ort, TelefonNr FROM telefonbuch;");
         pstmtInsertVorname = Datenbank.getInstance().prepareStatement("INSERT INTO table_vorname (vorname) SELECT ? WHERE NOT EXISTS (SELECT 1 FROM table_vorname WHERE vorname = ?);");
         pstmtInsertNachname = Datenbank.getInstance().prepareStatement("INSERT INTO table_nachname (nachname) SELECT ? WHERE NOT EXISTS (SELECT 1 FROM table_nachname WHERE nachname = ?);");
@@ -49,7 +54,7 @@ public class PostEintragBean {
                                                                         "(SELECT id FROM table_plz WHERE plz = ?), " +
                                                                         "(SELECT id FROM table_ort WHERE ort = ?), " +
                                                                         "?;");
-        pstmtUpdate = Datenbank.getInstance().prepareStatement("UPDATE table_telefonbuch SET " +
+/*        pstmtUpdate = Datenbank.getInstance().prepareStatement("UPDATE table_telefonbuch SET " +
                                                                         "vorname_id = (SELECT id FROM table_vorname WHERE vorname = ?), " +
                                                                         "nachname_id = (SELECT id FROM table_nachname WHERE nachname = ?), " +
                                                                         "strasse_id = (SELECT id FROM table_strasse WHERE strasse = ?), " +
@@ -57,7 +62,7 @@ public class PostEintragBean {
                                                                         "plz_id = (SELECT id FROM table_plz WHERE plz = ?), " +
                                                                         "ort_id = (SELECT id FROM table_ort WHERE ort = ?), " +
                                                                         "telefonnr = ? WHERE telefonnr = ?;");
-        pstmtDelete = Datenbank.getInstance().prepareStatement("DELETE FROM table_telefonbuch WHERE telefonnr = ?;");
+        pstmtDelete = Datenbank.getInstance().prepareStatement("DELETE FROM table_telefonbuch WHERE telefonnr = ?;");*/
 
         idListe = new HashMap<>();
     }
