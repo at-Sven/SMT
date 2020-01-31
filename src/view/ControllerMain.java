@@ -199,10 +199,10 @@ public class ControllerMain {
     @FXML
     void clearFields(ActionEvent event) {
         // Leere die gesamten Felder
-        taMessage.clear();
-        taHashtags.clear();
-        dpDate.getEditor().clear();
-        tfTime.clear();
+        this.taMessage.setText("");
+        this.taHashtags.setText("");
+        this.dpDate.setValue(null);
+        this.tfTime.setText("");
 
         // Entferne die Datei aus dem File Objekt
         selectedFile = null;
@@ -234,7 +234,7 @@ public class ControllerMain {
 
         if (selectedFile != null) {
 
-            lbFilename.setText(selectedFile.getName());
+            lbFilename.setText("Datei: " + selectedFile.getName());
         } else {
             lbFilename.setText("Keine Bild oder Film ausgewählt");
         }
@@ -243,7 +243,20 @@ public class ControllerMain {
 
     @FXML
     void createNewHashList(ActionEvent event) {
-        // Neue Hashtabelle einfügen
+        try {
+            Stage MainStage = new Stage();
+            FXMLLoader loader = new FXMLLoader();
+            Pane root = loader.load(getClass().getResource("fxAddHashtagListe.fxml").openStream());
+            Scene scene = new Scene(root);
+            MainStage.setTitle("SMT - Social Media Tool: Hashtags");
+            MainStage.setScene(scene);
+            MainStage.setX(400);
+            MainStage.setY(300);
+            MainStage.show();
+
+        } catch (IOException ex) {
+            ex.getStackTrace();
+        }
     }
 
     @FXML
@@ -269,7 +282,7 @@ public class ControllerMain {
         String tlen = taMessage.getText() + taHashtags.getText();
 
         int len = post.length() + tag.length();
-        String msg = String.valueOf(len) + " / 280 zeichen";
+        String msg = String.valueOf(len) + " / 480 Zeichen";
         lbRestChar.setText(msg);
 
         //The text in post and hashtag must turn Red when the total characters limit exceeds
@@ -278,7 +291,7 @@ public class ControllerMain {
             taHashtags.setStyle("-fx-text-inner-color: red;");
 
             //The check box for twitter must be unchecked and disabled when the total characters limit exceeds 280 characters
-        } else if (tlen.length() > 280) {
+        } else if (tlen.length() > 480) {
             taMessage.setStyle("-fx-text-inner-color: black;");
             taHashtags.setStyle("-fx-text-inner-color: black;");
             cbTwitter.setSelected(false);
@@ -300,7 +313,7 @@ public class ControllerMain {
         String tlen = taMessage.getText() + taHashtags.getText();
 
         int len = post.length() + tag.length();
-        String msg =  String.valueOf(len) + " / 280 zeichen";
+        String msg =  String.valueOf(len) + " / 480 Zeichen";
         lbRestChar.setText(msg);
 
         //The text in post and hashtag must turn Red when the total characters limit exceeds
@@ -309,7 +322,7 @@ public class ControllerMain {
             taHashtags.setStyle("-fx-text-inner-color: red;");
 
             //The check box for twitter must be unchecked and disabled when the total characters limit exceeds 280 characters
-        } else if (tlen.length() > 280) {
+        } else if (tlen.length() > 480) {
             taMessage.setStyle("-fx-text-inner-color: black;");
             taHashtags.setStyle("-fx-text-inner-color: black;");
             cbTwitter.setSelected(false);
@@ -351,11 +364,6 @@ public class ControllerMain {
             long randomSeconds = ThreadLocalRandom.current().nextLong(anfang, ende);
             return Instant.ofEpochSecond(randomSeconds);
         //Syamala
-    }
-
-    @FXML
-    void randomHashtags(ActionEvent event) {
-        // Holt sich Hashtags aus der Datenbank. Anzahl undefiniert.
     }
 
     @FXML

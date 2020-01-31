@@ -9,30 +9,40 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="281.0" prefWidth="456.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ControllerLogin">
     <children>
-        <Label fx:id="lbFeedback" layoutX="190.0" layoutY="230.0" text="Anfrage Status">
+        <Label fx:id="lbStatusLogin" layoutX="177.0" layoutY="242.0" text="Anfrage Status" AnchorPane.bottomAnchor="15.0">
             <font>
-                <Font size="13.0" />
+                <Font name="System Bold" size="16.0" />
             </font>
         </Label>
-      <TextField fx:id="tfEmail" layoutX="117.0" layoutY="57.0" prefHeight="37.0" prefWidth="222.0" promptText="E-Mail Addresse">
+      <TextField fx:id="tfEmail" layoutX="122.0" layoutY="92.0" prefHeight="37.0" prefWidth="222.0" promptText="E-Mail Addresse">
          <font>
             <Font size="16.0" />
          </font>
       </TextField>
-      <PasswordField fx:id="pwfPassword" layoutX="117.0" layoutY="104.0" prefHeight="25.0" prefWidth="222.0" promptText="Passwort">
+      <PasswordField fx:id="pwfPassword" layoutX="122.0" layoutY="139.0" prefHeight="25.0" prefWidth="222.0" promptText="Passwort">
          <font>
             <Font size="16.0" />
          </font>
       </PasswordField>
-      <Button fx:id="btnLogin" layoutX="117.0" layoutY="174.0" mnemonicParsing="false" onAction="#showMain" prefHeight="30.0" prefWidth="94.0" text="Anmelden">
+      <Button fx:id="btnLogin" layoutX="122.0" layoutY="192.0" mnemonicParsing="false" onAction="#showMain" prefHeight="35.0" prefWidth="100.0" text="Anmelden" AnchorPane.topAnchor="188.0">
          <font>
-            <Font size="14.0" />
+            <Font size="15.0" />
          </font>
       </Button>
-      <Button fx:id="btnRegistration" layoutX="245.0" layoutY="174.0" mnemonicParsing="false" onAction="#showRegistration" prefHeight="30.0" prefWidth="94.0" text="Registrieren">
+      <Button fx:id="btnRegistration" layoutX="244.0" layoutY="192.0" mnemonicParsing="false" onAction="#showRegistration" prefHeight="35.0" prefWidth="100.0" text="Registrieren" AnchorPane.topAnchor="188.0">
          <font>
-            <Font size="14.0" />
+            <Font size="15.0" />
          </font>
       </Button>
+      <Label layoutX="206.0" layoutY="14.0" text="SMT" AnchorPane.topAnchor="15.0">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </Label>
+      <Label layoutX="96.0" layoutY="50.0" text="Social Media Tool für Facebook &amp; Twitter" AnchorPane.topAnchor="55.0">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>

@@ -21,7 +21,7 @@ import javafx.stage.Stage;
 public class ControllerLogin {
 
     @FXML
-    private Label lbFeedback;
+    private Label lbStatusLogin;
 
     @FXML
     private TextField tfEmail;

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="400.0" maxWidth="600.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ControllerAddHashtagListe">
+   <children>
+      <TextField fx:id="tfNewList" layoutX="33.0" layoutY="73.0" prefHeight="31.0" prefWidth="535.0" promptText="Name der Liste">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+      <TextArea fx:id="taNewHashtags" layoutX="33.0" layoutY="114.0" prefHeight="209.0" prefWidth="535.0" promptText="Ihre Hashtags">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextArea>
+      <Label layoutX="181.0" layoutY="14.0" text="Neue Hashtagliste anlegen">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+      </Label>
+      <Separator layoutX="116.0" layoutY="42.0" prefHeight="21.0" prefWidth="369.0" />
+      <Button fx:id="btnAddNewList" layoutX="209.0" layoutY="337.0" mnemonicParsing="false" onAction="#addNewList" prefHeight="31.0" prefWidth="185.0" text="Liste anlegen" AnchorPane.bottomAnchor="25.0">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

@@ -20,7 +20,7 @@ import java.io.IOException;
 public class ControllerRegistration {
 
     @FXML
-    private Label lbFeedback;
+    private Label lbStatusRegistration;
 
     @FXML
     private TextField tfEmail;
@@ -32,7 +32,15 @@ public class ControllerRegistration {
     private Button btnRegistration;
 
     @FXML
-    void showLogin(ActionEvent event) throws IOException {
+    private Button btnAbortRegistration;
+
+    @FXML
+    void createLoginAccount(ActionEvent event) {
+
+    }
+
+    @FXML
+    void abortRegistration(ActionEvent event) throws IOException {
 
         Parent root = FXMLLoader.load(getClass().getResource("fxLogin.fxml"));
         Node node = (Node) event.getSource();
