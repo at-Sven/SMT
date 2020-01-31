@@ -31,7 +31,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 /**
- * Control class for the FXML file fxMain
+ * Controllerklasse für die FXML Datei fxMain
  */
 public class ControllerMain {
 
@@ -58,12 +58,6 @@ public class ControllerMain {
 
     @FXML
     private Button btnResetFields;
-
-    @FXML
-    private Button btnCopyLog;
-
-    @FXML
-    private Button btnSaveLog;
 
     @FXML
     private TextArea taMessage;
@@ -174,10 +168,10 @@ public class ControllerMain {
 
 
     /**
-     * This method opens a new window, where the user can pick stored hashtags for the new posts
+     * Diese Methode &ouml;ffnet ein kleines Fenster, in welcher der Benutzer Hashtags ausw&auml;hlen kann.
      *
      * @param event Buttonclick
-     * @throws IOException if the fxml file can't be opened
+     * @throws IOException Wenn die fxml nicht ge&ouml;ffnet werden kann
      */
     @FXML
     void ShowHashtags(ActionEvent event) throws IOException {
@@ -198,10 +192,12 @@ public class ControllerMain {
     }
 
     /**
-     * This method will clean all fields and selected files
+     * Diese Methode leert alle Felder und den Upload Bereich auf der Oberfl&auml;che "Neuer Posts"
+     *
+     * @param event Klick auf den Button "Zur&uuml;cksetzen"
      */
     @FXML
-    void clearFields() {
+    void clearFields(ActionEvent event) {
         // Leere die gesamten Felder
         taMessage.clear();
         taHashtags.clear();
@@ -214,7 +210,8 @@ public class ControllerMain {
     }
 
     /**
-     * This method select a picture or video file from the Hard Drive and add it to the post
+     * Diese Methode erm&ouml;glicht das Uploaden von Dateien
+     * Die Beschr&auml;nkung liegt bei Bild- und Videodateien.
      */
     @FXML
     void MediaChooser() {
@@ -246,7 +243,7 @@ public class ControllerMain {
 
     @FXML
     void createNewHashList(ActionEvent event) {
-        // Neue Hashliste einfügen
+        // Neue Hashtabelle einfügen
     }
 
     @FXML
@@ -295,7 +292,6 @@ public class ControllerMain {
             //Syamala
         }
     }
-
     @FXML
     void countPost(KeyEvent event) {
         //While writing the Post, it counts the total character length of post and tags
@@ -304,7 +300,7 @@ public class ControllerMain {
         String tlen = taMessage.getText() + taHashtags.getText();
 
         int len = post.length() + tag.length();
-        String msg = String.valueOf(len) + " / 280 zeichen";
+        String msg =  String.valueOf(len) + " / 280 zeichen";
         lbRestChar.setText(msg);
 
         //The text in post and hashtag must turn Red when the total characters limit exceeds
@@ -324,41 +320,37 @@ public class ControllerMain {
             taHashtags.setStyle("-fx-text-inner-color: black;");
             cbTwitter.setDisable(false);
         }
+        //Syamala
     }
-
-    /**
-     * This class randomly creates the date and time for the associated input fields
-     */
     @FXML
-    void randomDateTime() {
-        //When clicked ,must generate Random Date and Time
-        Instant jetzt = Instant.now();
-        Instant einWoche = Instant.now().plus(Duration.ofDays(7));
-        Instant randomInstant = zwischen(jetzt, einWoche);
-        Date randonDate = Date.from(randomInstant);
-        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
-        String randomTime = timeFormat.format(randonDate);
-        dpDate.setValue(randomInstant.atZone(ZoneId.systemDefault()).toLocalDate());
-        tfTime.setText(randomTime);
-    }
-
-
-    private Instant zwischen(Instant jetzt, Instant einWoche) {
-        long anfang = jetzt.getEpochSecond();
-        long ende = einWoche.getEpochSecond();
-        long randomSeconds = ThreadLocalRandom.current().nextLong(anfang, ende);
-        return Instant.ofEpochSecond(randomSeconds);
+    void randomDate(ActionEvent event) {
+        // Syamala
     }
 
     @FXML
-    void copyLog(ActionEvent event) {
-        // Idee: Kopiert die gesamten Log in den Zwischenspeicher
+    void randomTime(ActionEvent event) {
+        // Syamala
     }
 
     @FXML
-    void saveLog(ActionEvent event) {
-        // Idee: Speichert die gesamte Log in eine txt Datei
+        void randomDateTime(ActionEvent event) {
+            //When clicked ,must generate Random Date and Time
+            Instant jetzt = Instant.now();
+            Instant einWoche = Instant.now().plus(Duration.ofDays(7));
+            Instant randomInstant = zwischen(jetzt, einWoche);
+            Date randonDate = Date.from(randomInstant);
+            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+            String randomTime = timeFormat.format(randonDate);
+            dpDate.setValue(randomInstant.atZone(ZoneId.systemDefault()).toLocalDate());
+            tfTime.setText(randomTime);
+        }
 
+        private Instant zwischen(Instant jetzt, Instant einWoche) {
+            long anfang = jetzt.getEpochSecond();
+            long ende = einWoche.getEpochSecond();
+            long randomSeconds = ThreadLocalRandom.current().nextLong(anfang, ende);
+            return Instant.ofEpochSecond(randomSeconds);
+        //Syamala
     }
 
     @FXML
