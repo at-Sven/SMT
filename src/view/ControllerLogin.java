@@ -1,7 +1,6 @@
 package view;
 
-import java.io.IOException;
-
+import datenbank.beans.UserBean;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +13,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 
 /**
  * Controllerklasse für die FXML Datei fxLogin
@@ -34,6 +35,23 @@ public class ControllerLogin {
 
     @FXML
     private Button btnRegistration;
+
+    UserBean user = new UserBean();
+
+
+    @FXML
+    void login(ActionEvent event) {
+
+        if (tfEmail.getText().trim().equals("") || pwfPassword.getText().trim().equals("")) {
+            lbStatusLogin.setText("Ihre E-Mail Addresse und Passwort eingegeben!");
+            tfEmail.requestFocus();
+        } else if (user.isUser(this.tfEmail.getText(), this.pwfPassword.getText())) {
+            showMain();
+        } else {
+            lbStatusLogin.setText("Account nicht vorhanden");
+        }
+
+    }
 
     /**
      * Diese Methode schließt nach erfolg das Login Fenster und öffnet das Main Fenster des Programmes.
@@ -96,5 +114,6 @@ public class ControllerLogin {
     @FXML
     void initialize() {
         // DB starten?
+
     }
 }

@@ -34,10 +34,6 @@ public class PostEintragBean {
         System.out.println("static-Block ausgeführt");
 
         // Statements vorbereiten
-        pstmtSelect = Datenbank.getInstance().prepareStatement("SELECT email, passwort, FROM table_users;");
-        pstmtInsertUser = Datenbank.getInstance().prepareStatement("INSERT INTO table_users (uid, email, passwort) VALUE(?,?,?)");
-
-
         pstmtSelect = Datenbank.getInstance().prepareStatement("SELECT Vorname, Nachname, Straße, HausNr, PLZ, Ort, TelefonNr FROM telefonbuch;");
         pstmtInsertVorname = Datenbank.getInstance().prepareStatement("INSERT INTO table_vorname (vorname) SELECT ? WHERE NOT EXISTS (SELECT 1 FROM table_vorname WHERE vorname = ?);");
         pstmtInsertNachname = Datenbank.getInstance().prepareStatement("INSERT INTO table_nachname (nachname) SELECT ? WHERE NOT EXISTS (SELECT 1 FROM table_nachname WHERE nachname = ?);");

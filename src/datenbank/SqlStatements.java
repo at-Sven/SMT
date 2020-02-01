@@ -10,26 +10,25 @@ public class SqlStatements {
     public final static String SET_VERSION = "PRAGMA USER_VERSION = ";
 
     // +-------------------------------------------------------------------------------------------------------------------------+
-    // |                                                  VERSION 1																 |
+    // |                                                  VERSION 0																 |
     // +-------------------------------------------------------------------------------------------------------------------------+
 
     // Erstellen der Tabellen
 
-    public static final String CREATE_TABLE_USERS = "CREATE TABLE \"table_users\" ( "
+    public static final String CREATE_TABLE_USERS = "CREATE TABLE \"user\" ( "
             + "uid INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
             + "email VARCHAR(100) NOT NULL, "
             + "passwort VARCHAR(100) NOT NULL, "
             + ");";
 
-    public static final String CREATE_TABLE_SOCIALMEDIAACCOUNTS = "CREATE TABLE \"table_Socialmediaaccounts\" ( "
+    public static final String CREATE_TABLE_SOCIALMEDIAACCOUNTS = "CREATE TABLE \"Socialmediaaccounts\" ( "
             + "sid INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
             + "username VARCHAR(100) NOT NULL, "
-            + "passwort VARCHAR(100) NOT NULL, "
             + "passwort VARCHAR(100) NOT NULL, "
             // TODO: Was kommt noch rein?
             + ");";
 
-    public static final String CREATE_TABLE_TWITTERACCOUNTS = "CREATE TABLE \"table_users\" ( "
+    public static final String CREATE_TABLE_TWITTERACCOUNTS = "CREATE TABLE \"Twitteraccount\" ( "
             + "tid INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
             + "user INTEGER NOT NULL, "
             + "consumerKey VARCHAR(200) NOT NULL, "
