@@ -3,6 +3,9 @@ package model;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+/**
+ * The Class for the User of the Program
+ */
 public class UserEintrag {
 
     private final StringProperty email;

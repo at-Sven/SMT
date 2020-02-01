@@ -31,14 +31,13 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 /**
- * Controllerklasse für die FXML Datei fxMain
+ * Controller class for the FXML file 'fxMain'
  */
 public class ControllerMain {
 
@@ -183,13 +182,10 @@ public class ControllerMain {
     File selectedFile;
 
     /**
-     * Diese Methode &ouml;ffnet ein kleines Fenster, in welcher der Benutzer Hashtags ausw&auml;hlen kann.
-     *
-     * @param event Buttonclick
-     * @throws IOException Wenn die fxml nicht ge&ouml;ffnet werden kann
+     * This method opens the FXML file fxTableHashtags in a small window
      */
     @FXML
-    void ShowHashtags(ActionEvent event) throws IOException {
+    void ShowHashtags() {
         try {
             Stage MainStage = new Stage();
             FXMLLoader loader = new FXMLLoader();
@@ -207,42 +203,29 @@ public class ControllerMain {
     }
 
     /**
-     * Diese Methode leert alle Felder und den Upload Bereich auf der Oberfl&auml;che "Neuer Posts"
-     *
-     * @param event Klick auf den Button "Zur&uuml;cksetzen"
+     * This method clear all fields and the selected file on the FXML file fxMain
      */
     @FXML
-    void clearFields(ActionEvent event) {
-        // Leere die gesamten Felder
+    void clearFields() {
         this.taMessage.setText("");
         this.taHashtags.setText("");
-        this.dpDate.setValue(null);
+        this.dpDate.getEditor().clear();
         this.tfTime.setText("");
 
-        // Entferne die Datei aus dem File Objekt
         selectedFile = null;
         lbFilename.setText("Keine Bild oder Film ausgewählt");
     }
 
     /**
-     * Diese Methode erm&ouml;glicht das Uploaden von Dateien
-     * Die Beschr&auml;nkung liegt bei Bild- und Videodateien.
+     * This method opens a File Chooser for Pictures and Video Files
      */
     @FXML
     void MediaChooser() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Bild oder Video anhängen");
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("JPG Format", "*.jpg"),
-                new FileChooser.ExtensionFilter("JPEG Format", "*.jpeg"),
-                new FileChooser.ExtensionFilter("GIF Format", "*.gif"),
-                new FileChooser.ExtensionFilter("PNG Format", "*.png"),
-                new FileChooser.ExtensionFilter("AVI (AVI-Video)", "*.avi"),
-                new FileChooser.ExtensionFilter("MOV (QuickTime-Video)", "*.mov"),
-                new FileChooser.ExtensionFilter("MP4 (MPEG-4-Video)", "*.mp4"),
-                new FileChooser.ExtensionFilter("MPEG (MPEG-Video)", "*.mpeg"),
-                new FileChooser.ExtensionFilter("WMV (Windows Media-Video)", "*.wmv"),
-                new FileChooser.ExtensionFilter("OGG (Ogg Media-Format)", "*.ogg")
+                new FileChooser.ExtensionFilter("Bild Formate", "*.jpg", "*.jpeg", "*.gif", "*.png"),
+                new FileChooser.ExtensionFilter("Video Formate", "*.avi", "*.mov", "*.mp4", "*.mpeg", "*.wmv", "*.ogg")
         );
         Stage stage = (Stage) anchorpane.getScene().getWindow();
         File selectedFile = fileChooser.showOpenDialog(stage);
@@ -256,8 +239,11 @@ public class ControllerMain {
 
     }
 
+    /**
+     * This method opens the FXML file fxAddHashtagListe in a new Window
+     */
     @FXML
-    void createNewHashList(ActionEvent event) {
+    void createNewHashList() {
         try {
             Stage MainStage = new Stage();
             FXMLLoader loader = new FXMLLoader();
@@ -274,8 +260,11 @@ public class ControllerMain {
         }
     }
 
+    /**
+     * This method enable or disable the automatic posting of Messages
+     */
     @FXML
-    void postAutomatic(ActionEvent event) {
+    void postAutomatic() {
 
         if (tbActivate.isSelected()) {
             System.out.println("Automatisierung ist aktiviert");
@@ -284,6 +273,10 @@ public class ControllerMain {
         }
     }
 
+    /**
+     * This method add generated Posts in the Database
+     * @param event
+     */
     @FXML
     void postMessage(ActionEvent event) {
         // Speichert einen neuen Post in die Datenbank
@@ -293,8 +286,11 @@ public class ControllerMain {
 
     }
 
+    /**
+     * This method counts the Content of the Hahshtag TextArea for the Label lbRestChar
+     */
     @FXML
-    void countHashtag(KeyEvent event) {
+    void countHashtag() {
         //While writing/entering the Tags, it counts the total character length of post and tags
         String post = taMessage.getText();
         String tag = taHashtags.getText();
@@ -325,8 +321,11 @@ public class ControllerMain {
         }
     }
 
+    /**
+     * This method counts the Content of the Message TextArea for the Label lbRestChar
+     */
     @FXML
-    void countPost(KeyEvent event) {
+    void countPost() {
         //While writing the Post, it counts the total character length of post and tags
         String post = taMessage.getText();
         String tag = taHashtags.getText();
@@ -368,6 +367,7 @@ public class ControllerMain {
         tfTime.setText(randomTime);
     }
 
+
     private Instant zwischen(Instant jetzt, Instant einWoche) {
         long anfang = jetzt.getEpochSecond();
         long ende = einWoche.getEpochSecond();
@@ -375,13 +375,15 @@ public class ControllerMain {
         return Instant.ofEpochSecond(randomSeconds);
     }
 
-
+    /**
+     * This method saves the Content of the TextArea 'taLog' in a txt File
+     */
     @FXML
-    void saveLog(ActionEvent event) {
+    void saveLog() {
         try {
             ObservableList<CharSequence> paragraph = taLog.getParagraphs();
             Iterator<CharSequence> iter = paragraph.iterator();
-            BufferedWriter bf = null;
+            BufferedWriter bf;
             bf = new BufferedWriter(new FileWriter(new File("SMT_Log_Report.txt")));
             while (iter.hasNext()) {
                 CharSequence seq = iter.next();
@@ -397,19 +399,23 @@ public class ControllerMain {
         resetText(lbLogSavedFeedback);
     }
 
+    /**
+     * This method save the Account Details from the tab 'Einstellungen' in the Database
+     * @param event
+     */
     @FXML
     void saveSettings(ActionEvent event) {
-        // Speichert die Accountdaten der Profile
+        // Speichert die Accountdaten der Profilen
     }
 
     @FXML
     void initialize() {
-        // DB starten?
 
     }
 
     /**
      * This method reset the content of a Label Component after 2,5 seconds
+     *
      * @param label Label in which the text should be reset
      */
     void resetText(Label label) {
@@ -419,6 +425,7 @@ public class ControllerMain {
                 try {
                     Thread.sleep(2500);
                 } catch (InterruptedException e) {
+                    e.getStackTrace();
                 }
                 return null;
             }

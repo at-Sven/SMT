@@ -1,6 +1,5 @@
 package datenbank.beans;
 
-import com.sun.source.tree.IfTree;
 import datenbank.Datenbank;
 import model.UserEintrag;
 
@@ -9,6 +8,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * Die Bean KLasse für die User Tabelle in der Datenbank
+ */
 public class UserBean {
 
     // PreparedStatements
@@ -28,11 +30,11 @@ public class UserBean {
     }
 
     /**
-     * Gibt ein Objekt mit den übergebenen Informationen zurück oder null, wenn
+     * Gibt ein Objekt mit den &uuml;bergebenen Informationen zur&uuml;ck oder null, wenn
      * es das Objekt nicht in der Datenbank gibt
      *
-     * @param email    Wert für Vorname
-     * @param passwort Wert für Nachname
+     * @param email    saved E-Mail Address of the User
+     * @param passwort saved Passwort of the User
      * @return Objekt mit den Informationen aus der Datenbank oder null
      */
     public static UserEintrag get(String email, String passwort) {
@@ -57,6 +59,13 @@ public class UserBean {
         return result;
     }
 
+    /**
+     * Pr&uuml;ft nach, ob ein User in der Datenbank vorhanden ist
+     *
+     * @param email    Erhaltene E-Mail Addresse
+     * @param passwort Erhaltenes Passwort
+     * @return Gibt true zur&uuml;ck, wenn ein User gefunden wurde
+     */
     public static Boolean isUser(String email, String passwort) {
 
         try {
