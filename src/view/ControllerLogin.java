@@ -13,6 +13,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import utils.Codify;
 
 import java.io.IOException;
 
@@ -45,7 +46,7 @@ public class ControllerLogin {
         if (tfEmail.getText().trim().equals("") || pwfPassword.getText().trim().equals("")) {
             lbStatusLogin.setText("Ihre E-Mail Addresse und Passwort eingegeben!");
             tfEmail.requestFocus();
-        } else if (user.isUser(this.tfEmail.getText(), this.pwfPassword.getText())) {
+        } else if (user.isUser(this.tfEmail.getText(), Codify.PwConverter(this.pwfPassword.getText()))) {
             showMain();
         } else {
             lbStatusLogin.setText("Account nicht vorhanden");

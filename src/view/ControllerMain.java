@@ -279,6 +279,7 @@ public class ControllerMain {
 
     /**
      * This method add generated Posts in the Database
+     *
      * @param event
      */
     @FXML
@@ -291,59 +292,36 @@ public class ControllerMain {
     }
 
     /**
-     * This method counts the Content of the Hahshtag TextArea for the Label lbRestChar
+     * Method to count the Content of the Hashtag TextArea + Message TextArea for the Label lbRestChar, while writing/entering Hashtags
      */
     @FXML
     void countHashtag() {
-        //While writing/entering the Tags, it counts the total character length of post and tags
-        String post = taMessage.getText();
-        String tag = taHashtags.getText();
-        String tlen = taMessage.getText() + taHashtags.getText();
-
-        int len = post.length() + tag.length();
-        String msg = len + " / 480 Zeichen";
-        lbRestChar.setText(msg);
-
-        //The text in post and hashtag must turn Red when the total characters limit exceeds
-        if (tlen.length() > 63206) {
-            taMessage.setStyle("-fx-text-inner-color: red;");
-            taHashtags.setStyle("-fx-text-inner-color: red;");
-
-            //The check box for twitter must be unchecked and disabled when the total characters limit exceeds 280 characters
-        } else if (tlen.length() > 480) {
-            taMessage.setStyle("-fx-text-inner-color: black;");
-            taHashtags.setStyle("-fx-text-inner-color: black;");
-            cbTwitter.setSelected(false);
-            cbTwitter.setDisable(true);
-
-            //The text must set to default color(black) when the total characters is reduced to the limit-
-        } else {
-            taMessage.setStyle("-fx-text-inner-color: black;");
-            taHashtags.setStyle("-fx-text-inner-color: black;");
-            cbTwitter.setDisable(false);
-            //Syamala
-        }
+        countTotalChar();
     }
 
     /**
-     * This method counts the Content of the Message TextArea for the Label lbRestChar
+     * Method to count the Content of the Message TextArea + Hashtag TextArea for the Label lbRestChar,while writing the post
      */
     @FXML
     void countPost() {
-        //While writing the Post, it counts the total character length of post and tags
+        countTotalChar();
+    }
+
+    /**
+     * This method counts the chars of the Hashtag TextArea + Message TextArea
+     */
+    private void countTotalChar() {
         String post = taMessage.getText();
         String tag = taHashtags.getText();
-        String tlen = taMessage.getText() + taHashtags.getText();
+        String tlen = post + tag;
 
-        int len = post.length() + tag.length();
-        String msg = len + " / 480 Zeichen";
+        String msg = (post.length() + tag.length()) + " / 480 Zeichen";
         lbRestChar.setText(msg);
 
         //The text in post and hashtag must turn Red when the total characters limit exceeds
         if (tlen.length() > 63206) {
             taMessage.setStyle("-fx-text-inner-color: red;");
             taHashtags.setStyle("-fx-text-inner-color: red;");
-
             //The check box for twitter must be unchecked and disabled when the total characters limit exceeds 280 characters
         } else if (tlen.length() > 480) {
             taMessage.setStyle("-fx-text-inner-color: black;");
@@ -359,6 +337,9 @@ public class ControllerMain {
     }
 
     @FXML
+    /**
+     *  This method generates and sets a random date in DatePicker and generate and sets a random time in TextField Time
+     */
     void randomDateTime(ActionEvent event) {
         //When clicked ,must generate Random Date and Time
         Instant jetzt = Instant.now();
@@ -371,7 +352,13 @@ public class ControllerMain {
         tfTime.setText(randomTime);
     }
 
-
+    /**
+     * Method to generate Instant of the random date time in next 7 days
+     *
+     * @param jetzt    Instant current date time.
+     * @param einWoche Instant date time after 7days
+     * @return Instant of random date time in next 7 days
+     */
     private Instant zwischen(Instant jetzt, Instant einWoche) {
         long anfang = jetzt.getEpochSecond();
         long ende = einWoche.getEpochSecond();
@@ -405,6 +392,7 @@ public class ControllerMain {
 
     /**
      * This method save the Account Details from the tab 'Einstellungen' in the Database
+     *
      * @param event description
      */
     @FXML

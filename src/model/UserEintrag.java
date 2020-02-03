@@ -8,6 +8,7 @@ import javafx.beans.property.StringProperty;
  */
 public class UserEintrag {
 
+    private Integer id;
     private final StringProperty email;
     private final StringProperty passwort;
 
@@ -17,7 +18,8 @@ public class UserEintrag {
      * @param email    The E-Mail Address of the User
      * @param passwort The Password of the User
      */
-    public UserEintrag(String email, String passwort) {
+    public UserEintrag(Integer id, String email, String passwort) {
+        this.id = null;
         this.email = new SimpleStringProperty(email);
         this.passwort = new SimpleStringProperty(passwort);
     }
@@ -26,6 +28,7 @@ public class UserEintrag {
      * Constructor to create a User in the Database
      */
     public UserEintrag() {
+        this.id = null;
         this.email = new SimpleStringProperty("");
         this.passwort = new SimpleStringProperty("");
     }
@@ -78,4 +81,18 @@ public class UserEintrag {
     public void setPasswort(String passwort) {
         this.passwort.set(passwort);
     }
+
+    /**
+     * Getter method for the user id in the database
+     * @return the uid in the database
+     */
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+
 }
