@@ -57,6 +57,7 @@ public class ControllerRegistration {
             userInsert.insert(newUser);
 
             showLogin(event);
+
         } else {
             lbStatusRegistration.setText("Es muss eine gültige E-Mail Addresse sein");
             tfEmail.requestFocus();

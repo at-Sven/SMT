@@ -86,6 +86,28 @@ public class UserBean {
         return false;
     }
 
+    /**
+     * This method check, if a E-mail Address is already in the database
+     *
+     * @param email The Email of a User
+     * @return true, if the E-Mail is used
+     */
+    public static Boolean isUsed(String email) {
+
+        try {
+            pstmtSelect.setString(1, email);
+            ResultSet rs = pstmtSelect.executeQuery();
+            if (rs.next()) {
+                return false;
+            }
+
+            rs.close();
+
+        } catch (SQLException ignored) {
+        }
+        return true;
+    }
+
 
     /**
      * Gibt eine Liste mit allen in der Datenbank vorhandennen Objekten zurück.

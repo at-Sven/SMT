@@ -120,12 +120,6 @@ public class ControllerMain {
     private TableColumn<?, ?> tcPostAction;
 
     @FXML
-    private Button btnPostPrev;
-
-    @FXML
-    private Button btnPostNext;
-
-    @FXML
     private TableView<?> tvHashtags;
 
     @FXML
@@ -136,12 +130,6 @@ public class ControllerMain {
 
     @FXML
     private TableColumn<?, ?> tcHashAction;
-
-    @FXML
-    private Button btnHashPrev;
-
-    @FXML
-    private Button btnHashNext;
 
     @FXML
     private Button btnNewList;
@@ -174,7 +162,10 @@ public class ControllerMain {
     private TextField AccessTokenSecret;
 
     @FXML
-    private Button btnSaveSettings;
+    private Button btnSaveSettingsTW;
+
+    @FXML
+    private Button btnSaveSettingsFB;
 
     @FXML
     private TextArea taLog;

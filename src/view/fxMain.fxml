@@ -106,7 +106,7 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="1200.0">
                      <children>
-                        <TableView fx:id="tvPosts" layoutX="60.0" layoutY="43.0" prefHeight="489.0" prefWidth="880.0" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="60.0">
+                        <TableView fx:id="tvPosts" layoutX="60.0" layoutY="43.0" prefHeight="535.0" prefWidth="880.0" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="60.0">
                            <columns>
                               <TableColumn fx:id="tcText" prefWidth="295.0" text="Text" />
                               <TableColumn fx:id="tcDate" prefWidth="199.0" text="Geplante Zeit" />
@@ -115,16 +115,6 @@
                               <TableColumn fx:id="tcPostAction" prefWidth="109.0" text="Aktion" />
                            </columns>
                         </TableView>
-                        <Button fx:id="btnPostPrev" layoutX="447.0" layoutY="557.0" mnemonicParsing="false" prefHeight="40.0" text="&lt;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="447.0">
-                           <font>
-                              <Font name="System Bold" size="20.0" />
-                           </font>
-                        </Button>
-                        <Button fx:id="btnPostNext" layoutX="508.0" layoutY="557.0" mnemonicParsing="false" prefHeight="40.0" text="&gt;" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="446.0">
-                           <font>
-                              <Font name="System Bold" size="20.0" />
-                           </font>
-                        </Button>
                         <Label alignment="CENTER" layoutX="344.0" layoutY="14.0" text="Übersicht der zu sendenen Nachrichten" AnchorPane.leftAnchor="344.0" AnchorPane.rightAnchor="343.0" AnchorPane.topAnchor="15.0">
                            <font>
                               <Font size="18.0" />
@@ -170,16 +160,6 @@
                               <TableColumn fx:id="tcHashAction" minWidth="166.0" prefWidth="166.0" text="Aktion" />
                            </columns>
                         </TableView>
-                        <Button fx:id="btnHashPrev" layoutX="347.0" layoutY="559.0" mnemonicParsing="false" prefHeight="40.0" text="&lt;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="347.0">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Button>
-                        <Button fx:id="btnHashNext" layoutX="575.0" layoutY="559.0" mnemonicParsing="false" prefHeight="40.0" text="&gt;" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="379.0">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Button>
                         <Button fx:id="btnNewList" layoutX="400.0" layoutY="559.0" mnemonicParsing="false" onAction="#createNewHashList" prefHeight="40.0" prefWidth="168.0" text="Neue Liste" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="432.0">
                            <font>
                               <Font size="20.0" />
@@ -238,7 +218,7 @@
                               <Font size="18.0" />
                            </font>
                         </TextField>
-                        <Button fx:id="btnSaveSettings" layoutX="380.0" layoutY="576.0" mnemonicParsing="false" onAction="#saveSettings" prefHeight="41.0" prefWidth="238.0" text="Einstellungen Speichern" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="380.0" AnchorPane.rightAnchor="382.0">
+                        <Button fx:id="btnSaveSettingsTW" layoutX="591.0" layoutY="438.0" mnemonicParsing="false" onAction="#saveSettings" prefHeight="41.0" prefWidth="238.0" text="Einstellungen Speichern" AnchorPane.bottomAnchor="152.0" AnchorPane.leftAnchor="591.0" AnchorPane.rightAnchor="171.0">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -260,6 +240,11 @@
                         </Label>
                         <Separator layoutX="334.0" layoutY="116.0" prefHeight="28.0" prefWidth="332.0" AnchorPane.leftAnchor="334.0" AnchorPane.rightAnchor="334.0" AnchorPane.topAnchor="30.0" />
                         <Separator layoutX="462.0" layoutY="71.0" orientation="VERTICAL" prefHeight="463.0" prefWidth="73.0" AnchorPane.leftAnchor="462.0" AnchorPane.rightAnchor="465.0" />
+                        <Button fx:id="btnSaveSettingsFB" layoutX="171.0" layoutY="438.0" mnemonicParsing="false" onAction="#saveSettings" prefHeight="41.0" prefWidth="238.0" text="Einstellungen Speichern">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Button>
                      </children></AnchorPane>
               </content>
             </Tab>
