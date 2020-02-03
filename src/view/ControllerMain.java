@@ -12,6 +12,8 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.concurrent.ThreadLocalRandom;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
@@ -35,6 +37,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import socialmedia.SocialMediaWorker;
 
 /**
  * Controller class for the FXML file 'fxMain'
@@ -180,6 +183,9 @@ public class ControllerMain {
     private Label lbLogSavedFeedback;
 
     File selectedFile;
+    Timeline socialMediaWorkerTimer; // controls the SocialMediaWorker object
+    SocialMediaWorker socialMediaWorker; // checks what/when to post to Social Media
+    int workerWaitSeconds = 3; // here use later 60 seconds, 3sec only for testing the loop
 
     /**
      * This method opens the FXML file fxTableHashtags in a small window
@@ -265,12 +271,19 @@ public class ControllerMain {
      */
     @FXML
     void postAutomatic() {
-
-        if (tbActivate.isSelected()) {
+        if (this.tbActivate.isSelected()) {
+            this.socialMediaWorker.init();// here we need to init() socialmediaworker with the posts from DB
+            this.socialMediaWorkerTimer.play();
+            this.tbActivate.setStyle("-fx-background-color:green");
+            //System.out.println("Selected: " + tbActivate.isSelected());
             System.out.println("Automatisierung ist aktiviert");
         } else {
+            this.socialMediaWorkerTimer.stop();
+            this.tbActivate.setStyle("-fx-background-color:lightgrey");
+            //System.out.println("Selected: " + tbActivate.isSelected());
             System.out.println("Automatisierung ist deaktiviert");
         }
+
     }
 
     /**
@@ -297,7 +310,7 @@ public class ControllerMain {
         String tlen = taMessage.getText() + taHashtags.getText();
 
         int len = post.length() + tag.length();
-        String msg = String.valueOf(len) + " / 480 Zeichen";
+        String msg = len + " / 480 Zeichen";
         lbRestChar.setText(msg);
 
         //The text in post and hashtag must turn Red when the total characters limit exceeds
@@ -332,7 +345,7 @@ public class ControllerMain {
         String tlen = taMessage.getText() + taHashtags.getText();
 
         int len = post.length() + tag.length();
-        String msg = String.valueOf(len) + " / 480 Zeichen";
+        String msg = len + " / 480 Zeichen";
         lbRestChar.setText(msg);
 
         //The text in post and hashtag must turn Red when the total characters limit exceeds
@@ -401,16 +414,23 @@ public class ControllerMain {
 
     /**
      * This method save the Account Details from the tab 'Einstellungen' in the Database
-     * @param event
+     * @param event description
      */
     @FXML
     void saveSettings(ActionEvent event) {
         // Speichert die Accountdaten der Profilen
     }
 
+    /**
+     * This method initialalizes the processes like the SocialMediaWorkerTimer etc.
+     */
     @FXML
     void initialize() {
-
+        this.tbActivate.setSelected(false);  // on start set automated posting to false.
+        this.tbActivate.setStyle("-fx-background-color:lightgrey");
+        this.socialMediaWorker = new SocialMediaWorker();
+        this.socialMediaWorkerTimer = new Timeline(new KeyFrame(javafx.util.Duration.seconds(workerWaitSeconds), this.socialMediaWorker));
+        this.socialMediaWorkerTimer.setCycleCount(Timeline.INDEFINITE);
     }
 
     /**

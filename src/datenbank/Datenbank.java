@@ -46,16 +46,48 @@ public class Datenbank extends SQLiteDatenbankverbindung {
                     "Passwort VARCHAR(100) NOT NULL" +
                     ");");
 
-            // execute("CREATE TABLE IF NOT EXISTS \"TwitterAccount\" ();");
+            execute("CREATE TABLE IF NOT EXISTS \"TwitterAccounts\" (" +
+                    "tid INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                    "uid INTEGER NOT NULL, " +
+                    "consumerKey VARCHAR(200) NOT NULL," +
+                    "consumerSecret VARCHAR(200) NOT NULL," +
+                    "accessToken VARCHAR(200) NOT NULL," +
+                    "accessTokenSecret VARCHAR(200) NOT NULL," +
+                    "FOREIGN KEY (uid) REFERENCES Users(uid)" +
+                    ");");
 
-            // execute("CREATE TABLE IF NOT EXISTS \"FacebookAccount\" ();");
+            execute("CREATE TABLE IF NOT EXISTS \"FacebookAccounts\" (" +
+                    "fid INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                    "uid INTEGER NOT NULL, " +
+                    "username VARCHAR(200) NOT NULL," +
+                    "passwort VARCHAR(200) NOT NULL," +
+                    "appID VARCHAR(200) NOT NULL," +
+                    "appSecret VARCHAR(200) NOT NULL," +
+                    "FOREIGN KEY (uid) REFERENCES Users(uid)" +
+                    ");");
 
-            // execute("CREATE TABLE IF NOT EXISTS \"SocialmediaAccounts\" ();");
+            execute("CREATE TABLE IF NOT EXISTS \"SocialmediaPosts\" (" +
+                    "pid INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                    "uid INTEGER NOT NULL, " +             // uid from Users
+                    "tid INTEGER DEFAULT NULL, " +         // tid from TwitterAccounts
+                    "fid INTEGER DEFAULT NULL, " +         // fid from FacebookAccounts
+                    "platform INTEGER NOT NULL, " +        // 1 = twitter, 2 = facebook (where to post helper var)
+                    "fbsite VARCHAR(300) DEFAULT NULL, " + // z.B.: me/feed, me/photos, pageId/feed, groupId/feed...
+                    "posttext VARCHAR(2000), " +           // posttag+hashtags
+                    "mediafile VARCHAR(500), " +           // image or video file
+                    "posttime DATETIME NOT NULL, " +       // datetime when post will be send
+                    "FOREIGN KEY (uid) REFERENCES Users(uid), " +
+                    "FOREIGN KEY (tid) REFERENCES TwitterAccounts(tid), " +
+                    "FOREIGN KEY (fid) REFERENCES FacebookAccounts(fid) " +
+                    ");");
 
-            // execute("CREATE TABLE IF NOT EXISTS \"SocialmediaPosts\" ();");
-
-            // execute("CREATE TABLE IF NOT EXISTS \"Hashtags\" ();");
-
+            execute("CREATE TABLE IF NOT EXISTS \"Hashtags\" (" +
+                    "hid INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                    "uid INTEGER NOT NULL, " +
+                    "theme VARCHAR(100) NOT NULL, " +
+                    "hashtags VARCHAR(500) NOT NULL, " +
+                    "FOREIGN KEY (uid) REFERENCES Users(uid)" +
+                    ");");
 
             this.commit();
         } catch (SQLException e) {
