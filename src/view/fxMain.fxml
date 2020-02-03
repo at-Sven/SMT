@@ -115,9 +115,9 @@
                               <TableColumn fx:id="tcPostAction" prefWidth="109.0" text="Aktion" />
                            </columns>
                         </TableView>
-                        <Label alignment="CENTER" layoutX="344.0" layoutY="14.0" text="Übersicht der zu sendenen Nachrichten" AnchorPane.leftAnchor="344.0" AnchorPane.rightAnchor="343.0" AnchorPane.topAnchor="15.0">
+                        <Label alignment="CENTER" layoutX="62.0" layoutY="14.0" prefHeight="27.0" prefWidth="876.0" text="Übersicht der zu sendenen Nachrichten" AnchorPane.leftAnchor="62.0" AnchorPane.rightAnchor="62.0" AnchorPane.topAnchor="15.0">
                            <font>
-                              <Font size="18.0" />
+                              <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
                         <Separator layoutX="334.0" layoutY="27.0" prefHeight="28.0" prefWidth="332.0" AnchorPane.leftAnchor="344.0" AnchorPane.rightAnchor="343.0" AnchorPane.topAnchor="30.0" />
@@ -131,7 +131,7 @@
                         <TextArea fx:id="taLog" editable="false" prefHeight="470.0" prefWidth="880.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="60.0" />
                         <Label alignment="CENTER" layoutX="391.0" layoutY="14.0" text="Statusmeldungen der Posts" AnchorPane.leftAnchor="376.0" AnchorPane.rightAnchor="376.0" AnchorPane.topAnchor="15.0">
                            <font>
-                              <Font size="18.0" />
+                              <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
                         <Button fx:id="btnLogSave" layoutX="60.0" layoutY="543.0" mnemonicParsing="false" onAction="#saveLog" prefHeight="35.0" prefWidth="170.0" text="Log Speichern ..." AnchorPane.bottomAnchor="49.0">
@@ -167,7 +167,7 @@
                         </Button>
                         <Label alignment="CENTER" layoutX="333.0" layoutY="17.0" text="Übersicht der gespeicherten Hashtags" AnchorPane.leftAnchor="318.0" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="15.0">
                            <font>
-                              <Font size="18.0" />
+                              <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
                         <Separator layoutX="318.0" layoutY="14.0" prefHeight="28.0" prefWidth="332.0" AnchorPane.leftAnchor="318.0" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="30.0" />
@@ -235,7 +235,7 @@
                         </Label>
                         <Label alignment="CENTER" layoutX="393.0" layoutY="33.0" text="Einstellungen für Accounts" AnchorPane.leftAnchor="334.0" AnchorPane.rightAnchor="334.0" AnchorPane.topAnchor="15.0">
                            <font>
-                              <Font size="18.0" />
+                              <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
                         <Separator layoutX="334.0" layoutY="116.0" prefHeight="28.0" prefWidth="332.0" AnchorPane.leftAnchor="334.0" AnchorPane.rightAnchor="334.0" AnchorPane.topAnchor="30.0" />

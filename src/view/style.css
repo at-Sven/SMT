@@ -2,6 +2,7 @@
 
 #btnResetFields {
 	-fx-background-color: rgb(0, 178, 201);
+	-fx-background-radius: 5em
 }
 
 #btnResetFields:hover {
@@ -28,15 +29,12 @@
 .button {
     -fx-text-fill: white;
 	-fx-background-color: rgb(0, 178, 201); 
-    -fx-border-color: white;
-    -fx-border-witdh: 3;
+    -fx-background-radius: 5em
 }
 
 .button:hover {
     -fx-text-fill: white;
 	-fx-background-color: rgb(0, 210, 237); 
-    -fx-border-color: white;
-    -fx-border-witdh: 3;
 }
 
 .button:pressed {
@@ -115,6 +113,7 @@
 }
 
 // Datepicker 
+
 .date-picker > .arrow-button {
 	-fx-background-color: rgb(0, 178, 201); 
 }
@@ -129,4 +128,38 @@
 
 .date-picker .arrow-button .arrow{
 -fx-background-color: white;
+}
+
+// Tabs
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-opacity: 0;
+}
+
+.tab-pane
+{
+    -fx-tab-min-width:184px;
+	-fx-tab-min-height:30px;
+}
+
+.tab-pane .tab
+{
+    -fx-background-color: rgb(0, 149, 168);
+
+}
+
+.tab-pane .tab:selected
+{
+    -fx-background-color: rgb(0, 192, 217);
+}
+
+.tab .tab-label { 
+    -fx-alignment: CENTER;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.tab:selected .tab-label { 
+    -fx-alignment: CENTER;
+    -fx-text-fill: white;
 }
