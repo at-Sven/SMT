@@ -14,10 +14,13 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.UserEintrag;
+import utils.Codify;
 
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static utils.Codify.PwConverter;
 
 /**
  * Controllerklasse für die FXML Datei fxRegistration
@@ -53,10 +56,10 @@ public class ControllerRegistration {
             tfEmail.requestFocus();
         } else if (matcher.matches()) { // If conditions are correct
 
-            if(UserBean.usedEmail(this.tfEmail.getText())) {
+            if (UserBean.usedEmail(this.tfEmail.getText())) {
                 lbStatusRegistration.setText("Die E-Mail wird schon verwendet");
             } else {
-                UserEintrag newUser = new UserEintrag(this.tfEmail.getText(), this.pwfPassword.getText());
+                UserEintrag newUser = new UserEintrag(this.tfEmail.getText(), PwConverter(this.pwfPassword.getText()));
                 userInsert.insert(newUser);
 
                 showLogin(event);
@@ -93,6 +96,7 @@ public class ControllerRegistration {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
 
     }
 }
