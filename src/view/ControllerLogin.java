@@ -13,6 +13,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import model.UserEintrag;
+import utils.Codify;
 
 import java.io.IOException;
 
@@ -36,7 +38,8 @@ public class ControllerLogin {
     @FXML
     private Button btnRegistration;
 
-    UserBean user = new UserBean();
+    private UserBean user = new UserBean();
+    private UserEintrag userObject = new UserEintrag();
 
 
     @FXML
@@ -45,7 +48,8 @@ public class ControllerLogin {
         if (tfEmail.getText().trim().equals("") || pwfPassword.getText().trim().equals("")) {
             lbStatusLogin.setText("Ihre E-Mail Addresse und Passwort eingegeben!");
             tfEmail.requestFocus();
-        } else if (user.isUser(this.tfEmail.getText(), this.pwfPassword.getText())) {
+        } else if (user.isUser(this.tfEmail.getText(), Codify.PwConverter(this.pwfPassword.getText()))) {
+            this.userObject = this.user.get(this.tfEmail.getText(), Codify.PwConverter(this.pwfPassword.getText())); // get the user uid,email,pw from db.
             showMain();
         } else {
             lbStatusLogin.setText("Account nicht vorhanden");
@@ -98,6 +102,10 @@ public class ControllerLogin {
             Stage MainStage = new Stage();
             FXMLLoader loader = new FXMLLoader();
             Pane root = loader.load(getClass().getResource("fxMain.fxml").openStream());
+
+            ControllerMain controllerMain = loader.getController();  // get the controller of fxMain
+            controllerMain.setUser(this.userObject); // sets the MainUser in ControllerMain Object for further usage
+
             Scene scene = new Scene(root);
             MainStage.setTitle("SMT - Social Media Tool");
             MainStage.setScene(scene);

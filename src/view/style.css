@@ -1,0 +1,165 @@
+// Buttons: Spezielle
+
+#btnResetFields {
+	-fx-background-color: rgb(0, 178, 201);
+	-fx-background-radius: 5em
+}
+
+#btnResetFields:hover {
+	-fx-background-color: rgb(250, 0, 26);
+}
+
+#btnResetFields:pressed {
+	-fx-background-color: rgb(217, 0, 22);
+}
+
+#savePost {
+	-fx-background-color: rgb(0, 178, 201);
+}
+
+#savePost:hover {
+	-fx-background-color: rgb(10, 214, 2);
+}
+
+#savePost:pressed {
+	-fx-background-color: rgb(6, 163, 0);
+}
+
+// Buttons: Allgemeine
+.button {
+    -fx-text-fill: white;
+	-fx-background-color: rgb(0, 178, 201); 
+    -fx-background-radius: 5em
+}
+
+.button:hover {
+    -fx-text-fill: white;
+	-fx-background-color: rgb(0, 210, 237); 
+}
+
+.button:pressed {
+    -fx-text-fill: white;
+	-fx-background-color: rgb(0, 149, 168); 
+}
+
+
+// Tooglebutton
+
+#tbActivate:selected {
+	-fx-text-fill: white;
+	-fx-background-color: rgb(0, 149, 168);
+}
+
+#tbActivate:selected:hover {
+	-fx-text-fill: white;
+	-fx-background-color: rgb(0, 210, 237);
+}
+
+// Checkboxes
+
+#cbFacebook {
+	-fx-text-fill: #3b5998;
+	
+}
+
+#cbFacebook .box {
+	-fx-background-color: #3b5998;
+	-fx-text-fill: white;
+    -fx-border-color: white;
+}
+
+#cbTwitter {
+	-fx-text-fill: #1da1f2;;
+}
+
+#cbTwitter .box {
+	-fx-background-color: #1da1f2;
+	-fx-text-fill: white;
+	-fx-border-color: white;
+}
+.check-box:selected .mark {
+    -fx-background-color: white;
+}
+
+// Tables
+.table-view .column-header {
+    -fx-background-color: rgb(0, 178, 201);
+	-fx-text-fill: white;
+}
+
+.table-view .column-header-background .label{
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+
+.text-field {
+    -fx-background-color: #a9a9a9 , white , white;
+    -fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -1 0 -1;
+	-fx-border-width: 5px;
+}
+
+.text-field:focused {
+    -fx-background-color: rgb(0, 178, 201) , white , white;
+    -fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -1 0 -1;
+}
+.text-area {
+    -fx-background-color: #a9a9a9 , white , white;
+    -fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -1 0 -1;
+}
+
+.text-area:focused {
+    -fx-background-color: rgb(0, 178, 201) , white , white;
+    -fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -1 0 -1;
+}
+
+// Datepicker 
+
+.date-picker > .arrow-button {
+	-fx-background-color: rgb(0, 178, 201); 
+}
+
+.date-picker > .arrow-button:hover {
+	-fx-background-color: rgb(0, 210, 237);
+}
+
+.date-picker > .arrow-button:selected {
+	-fx-background-color: rgb(6, 163, 0);
+}
+
+.date-picker .arrow-button .arrow{
+-fx-background-color: white;
+}
+
+// Tabs
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-opacity: 0;
+}
+
+.tab-pane
+{
+    -fx-tab-min-width:184px;
+	-fx-tab-min-height:30px;
+}
+
+.tab-pane .tab
+{
+    -fx-background-color: rgb(0, 149, 168);
+
+}
+
+.tab-pane .tab:selected
+{
+    -fx-background-color: rgb(0, 192, 217);
+}
+
+.tab .tab-label { 
+    -fx-alignment: CENTER;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.tab:selected .tab-label { 
+    -fx-alignment: CENTER;
+    -fx-text-fill: white;
+}

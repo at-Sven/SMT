@@ -15,6 +15,8 @@ public class UserBean {
 
     // PreparedStatements
     private static PreparedStatement pstmtSelect;
+    private static PreparedStatement pstmtSelectwithUid;
+    private static PreparedStatement pstmtSelectEmail;
     private static PreparedStatement pstmtSelectAll;
     private static PreparedStatement pstmtInsert;
     private static PreparedStatement pstmtUpdate;
@@ -23,6 +25,8 @@ public class UserBean {
 
     static {
         pstmtSelect = Datenbank.getInstance().prepareStatement("SELECT Email, Passwort FROM Users WHERE Email = ? AND Passwort = ?;");
+        pstmtSelectwithUid = Datenbank.getInstance().prepareStatement("SELECT uid, Email, Passwort FROM Users WHERE Email = ? AND Passwort = ?;");
+        pstmtSelectEmail = Datenbank.getInstance().prepareStatement("SELECT Email FROM Users WHERE Email = ?;");
         pstmtSelectAll = Datenbank.getInstance().prepareStatement("SELECT * FROM Users;");
         pstmtInsert = Datenbank.getInstance().prepareStatement("INSERT INTO Users (Email, Passwort) VALUES (?, ?);");
         pstmtUpdate = Datenbank.getInstance().prepareStatement("UPDATE Users SET Email = ?, Passwort = ? WHERE email = ? AND Passwort = ?;");
@@ -41,14 +45,16 @@ public class UserBean {
         UserEintrag result = null;
 
         try {
-            pstmtSelect.setString(1, email);
-            pstmtSelect.setString(2, passwort);
+            pstmtSelectwithUid.setString(1, email);
+            pstmtSelectwithUid.setString(2, passwort);
 
-            ResultSet rs = pstmtSelect.executeQuery();
+            ResultSet rs = pstmtSelectwithUid.executeQuery();
 
             if (rs.next()) {
-                result.setEmail(rs.getString(1));
-                result.setPasswort(rs.getString(2));
+                result = new UserEintrag();
+                result.setId(rs.getInt(1));
+                result.setEmail(rs.getString(2));
+                result.setPasswort(rs.getString(3));
             }
 
             rs.close();
@@ -83,6 +89,28 @@ public class UserBean {
         } catch (SQLException ignored) {
         }
 
+        return false;
+    }
+
+    /**
+     * This method check, if a E-mail Address is already in the database
+     *
+     * @param email The Email of a User
+     * @return true, if the E-Mail is used
+     */
+    public static Boolean usedEmail(String email) {
+
+        try {
+            pstmtSelectEmail.setString(1, email);
+            ResultSet rs = pstmtSelectEmail.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+
+            rs.close();
+
+        } catch (SQLException ignored) {
+        }
         return false;
     }
 

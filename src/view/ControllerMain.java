@@ -37,6 +37,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import model.UserEintrag;
 import socialmedia.SocialMediaWorker;
 
 /**
@@ -120,12 +121,6 @@ public class ControllerMain {
     private TableColumn<?, ?> tcPostAction;
 
     @FXML
-    private Button btnPostPrev;
-
-    @FXML
-    private Button btnPostNext;
-
-    @FXML
     private TableView<?> tvHashtags;
 
     @FXML
@@ -136,12 +131,6 @@ public class ControllerMain {
 
     @FXML
     private TableColumn<?, ?> tcHashAction;
-
-    @FXML
-    private Button btnHashPrev;
-
-    @FXML
-    private Button btnHashNext;
 
     @FXML
     private Button btnNewList;
@@ -174,7 +163,10 @@ public class ControllerMain {
     private TextField AccessTokenSecret;
 
     @FXML
-    private Button btnSaveSettings;
+    private Button btnSaveSettingsTW;
+
+    @FXML
+    private Button btnSaveSettingsFB;
 
     @FXML
     private TextArea taLog;
@@ -182,6 +174,7 @@ public class ControllerMain {
     @FXML
     private Label lbLogSavedFeedback;
 
+    private UserEintrag user;  // The Main Loggedin User (this is set during successfull Login Phase)
     File selectedFile;
     Timeline socialMediaWorkerTimer; // controls the SocialMediaWorker object
     SocialMediaWorker socialMediaWorker; // checks what/when to post to Social Media
@@ -288,6 +281,7 @@ public class ControllerMain {
 
     /**
      * This method add generated Posts in the Database
+     *
      * @param event
      */
     @FXML
@@ -300,59 +294,36 @@ public class ControllerMain {
     }
 
     /**
-     * This method counts the Content of the Hahshtag TextArea for the Label lbRestChar
+     * Method to count the Content of the Hashtag TextArea + Message TextArea for the Label lbRestChar, while writing/entering Hashtags
      */
     @FXML
     void countHashtag() {
-        //While writing/entering the Tags, it counts the total character length of post and tags
-        String post = taMessage.getText();
-        String tag = taHashtags.getText();
-        String tlen = taMessage.getText() + taHashtags.getText();
-
-        int len = post.length() + tag.length();
-        String msg = len + " / 480 Zeichen";
-        lbRestChar.setText(msg);
-
-        //The text in post and hashtag must turn Red when the total characters limit exceeds
-        if (tlen.length() > 63206) {
-            taMessage.setStyle("-fx-text-inner-color: red;");
-            taHashtags.setStyle("-fx-text-inner-color: red;");
-
-            //The check box for twitter must be unchecked and disabled when the total characters limit exceeds 280 characters
-        } else if (tlen.length() > 480) {
-            taMessage.setStyle("-fx-text-inner-color: black;");
-            taHashtags.setStyle("-fx-text-inner-color: black;");
-            cbTwitter.setSelected(false);
-            cbTwitter.setDisable(true);
-
-            //The text must set to default color(black) when the total characters is reduced to the limit-
-        } else {
-            taMessage.setStyle("-fx-text-inner-color: black;");
-            taHashtags.setStyle("-fx-text-inner-color: black;");
-            cbTwitter.setDisable(false);
-            //Syamala
-        }
+        countTotalChar();
     }
 
     /**
-     * This method counts the Content of the Message TextArea for the Label lbRestChar
+     * Method to count the Content of the Message TextArea + Hashtag TextArea for the Label lbRestChar,while writing the post
      */
     @FXML
     void countPost() {
-        //While writing the Post, it counts the total character length of post and tags
+        countTotalChar();
+    }
+
+    /**
+     * This method counts the chars of the Hashtag TextArea + Message TextArea
+     */
+    private void countTotalChar() {
         String post = taMessage.getText();
         String tag = taHashtags.getText();
-        String tlen = taMessage.getText() + taHashtags.getText();
+        String tlen = post + tag;
 
-        int len = post.length() + tag.length();
-        String msg = len + " / 480 Zeichen";
+        String msg = (post.length() + tag.length()) + " / 480 Zeichen";
         lbRestChar.setText(msg);
 
         //The text in post and hashtag must turn Red when the total characters limit exceeds
         if (tlen.length() > 63206) {
             taMessage.setStyle("-fx-text-inner-color: red;");
             taHashtags.setStyle("-fx-text-inner-color: red;");
-
             //The check box for twitter must be unchecked and disabled when the total characters limit exceeds 280 characters
         } else if (tlen.length() > 480) {
             taMessage.setStyle("-fx-text-inner-color: black;");
@@ -368,6 +339,9 @@ public class ControllerMain {
     }
 
     @FXML
+    /**
+     *  This method generates and sets a random date in DatePicker and generate and sets a random time in TextField Time
+     */
     void randomDateTime(ActionEvent event) {
         //When clicked ,must generate Random Date and Time
         Instant jetzt = Instant.now();
@@ -380,7 +354,13 @@ public class ControllerMain {
         tfTime.setText(randomTime);
     }
 
-
+    /**
+     * Method to generate Instant of the random date time in next 7 days
+     *
+     * @param jetzt    Instant current date time.
+     * @param einWoche Instant date time after 7days
+     * @return Instant of random date time in next 7 days
+     */
     private Instant zwischen(Instant jetzt, Instant einWoche) {
         long anfang = jetzt.getEpochSecond();
         long ende = einWoche.getEpochSecond();
@@ -414,6 +394,7 @@ public class ControllerMain {
 
     /**
      * This method save the Account Details from the tab 'Einstellungen' in the Database
+     *
      * @param event description
      */
     @FXML
@@ -457,6 +438,15 @@ public class ControllerMain {
             }
         });
         new Thread(sleeper).start();
+    }
+
+    /**
+     * This Method sets the UserEintag User Object
+     * @param userObject userObject with uid,email,pw
+     */
+    public void setUser(UserEintrag userObject){
+        this.user = userObject;
+        System.out.println(this.user.getId() + "");
     }
 
 }

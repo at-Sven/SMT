@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorpane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="1000.0" style="-fx-background-color: #e8ebed;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ControllerMain">
+<AnchorPane fx:id="anchorpane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="1000.0" style="-fx-background-color: #e8ebed;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ControllerMain">
    <children>
       <TabPane prefHeight="660.0" prefWidth="1200.0" style="-fx-background-color: #e8ebed;" tabClosingPolicy="UNAVAILABLE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <tabs>
@@ -33,27 +33,27 @@
                            <font>
                               <Font size="16.0" />
                            </font></CheckBox>
-                        <Button fx:id="btnChooseHashtag" layoutX="825.0" layoutY="290.0" mnemonicParsing="false" onAction="#ShowHashtags" prefHeight="30.0" prefWidth="110.0" text="Auswählen ..." AnchorPane.rightAnchor="70.0">
+                        <Button fx:id="btnChooseHashtag" layoutX="808.0" layoutY="289.0" mnemonicParsing="false" onAction="#ShowHashtags" prefHeight="33.0" prefWidth="118.0" text="Auswählen ..." AnchorPane.rightAnchor="74.0">
                            <font>
-                              <Font size="15.0" />
+                              <Font name="System Bold" size="15.0" />
                            </font></Button>
                         <Button fx:id="btnRandmDateTime" layoutX="457.0" layoutY="447.0" mnemonicParsing="false" onAction="#randomDateTime" prefHeight="30.0" prefWidth="110.0" text="Zufall" AnchorPane.rightAnchor="433.0">
                            <font>
-                              <Font size="15.0" />
+                              <Font name="System Bold" size="15.0" />
                            </font></Button>
-                        <Button fx:id="btnSavePost" layoutX="304.0" layoutY="502.0" mnemonicParsing="false" onAction="#postMessage" prefHeight="40.0" prefWidth="347.0" text="Post speichern" AnchorPane.bottomAnchor="70.0">
+                        <Button id="savePost" fx:id="btnSavePost" layoutX="304.0" layoutY="502.0" mnemonicParsing="false" onAction="#postMessage" prefHeight="40.0" prefWidth="347.0" text="Post Speichern" AnchorPane.bottomAnchor="50.0">
                            <font>
-                              <Font size="15.0" />
+                              <Font name="System Bold" size="15.0" />
                            </font></Button>
-                        <Button fx:id="btnResetFields" layoutX="678.0" layoutY="502.0" mnemonicParsing="false" onAction="#clearFields" prefHeight="40.0" prefWidth="260.0" text="Felder Zurücksetzen" AnchorPane.bottomAnchor="70.0" AnchorPane.rightAnchor="62.0">
+                        <Button fx:id="btnResetFields" layoutX="678.0" layoutY="502.0" mnemonicParsing="false" onAction="#clearFields" prefHeight="40.0" prefWidth="260.0" text="Felder Zurücksetzen" AnchorPane.bottomAnchor="50.0" AnchorPane.rightAnchor="62.0">
                            <font>
-                              <Font size="15.0" />
+                              <Font name="System Bold" size="15.0" />
                            </font></Button>
                         <TextArea fx:id="taMessage" layoutX="307.0" layoutY="22.0" onKeyPressed="#countPost" prefHeight="235.0" prefWidth="623.0" promptText="Ihre Nachricht ..." AnchorPane.leftAnchor="307.0" AnchorPane.rightAnchor="70.0">
                            <font>
                               <Font size="18.0" />
                            </font></TextArea>
-                        <TextArea fx:id="taHashtags" layoutX="306.0" layoutY="268.0" onKeyReleased="#countHashtag" prefHeight="75.0" prefWidth="503.0" promptText="Hashtags ..." AnchorPane.leftAnchor="306.0" AnchorPane.rightAnchor="191.0">
+                        <TextArea fx:id="taHashtags" layoutX="306.0" layoutY="268.0" onKeyReleased="#countHashtag" prefHeight="75.0" prefWidth="494.0" promptText="Hashtags ..." AnchorPane.leftAnchor="306.0" AnchorPane.rightAnchor="200.0">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -74,12 +74,12 @@
                         <ComboBox fx:id="cbFBGruppen" layoutX="49.0" layoutY="106.0" prefHeight="35.0" prefWidth="200.0" promptText="Profil / Gruppenadmin" AnchorPane.leftAnchor="50.0" />
                         <ToggleButton fx:id="tbActivate" layoutX="39.0" layoutY="482.0" mnemonicParsing="false" onAction="#postAutomatic" prefHeight="40.0" prefWidth="190.0" selected="true" text="Automatisches Posten" AnchorPane.leftAnchor="39.0">
                            <font>
-                              <Font size="15.0" />
+                              <Font name="System Bold" size="15.0" />
                            </font>
                         </ToggleButton>
-                        <Button fx:id="btnPicture" layoutX="651.0" layoutY="394.0" mnemonicParsing="false" onAction="#MediaChooser" prefHeight="35.0" prefWidth="148.0" text="Media anhängen ..." AnchorPane.rightAnchor="201.0">
+                        <Button fx:id="btnPicture" layoutX="651.0" layoutY="394.0" mnemonicParsing="false" onAction="#MediaChooser" prefHeight="35.0" prefWidth="167.0" text="Media anhängen ..." AnchorPane.rightAnchor="182.0">
                            <font>
-                              <Font size="15.0" />
+                              <Font name="System Bold" size="15.0" />
                            </font>
                         </Button>
                         <Label fx:id="lbMessageStatus" alignment="CENTER" layoutX="303.0" layoutY="577.0" prefHeight="21.0" prefWidth="635.0" AnchorPane.bottomAnchor="25.0">
@@ -106,7 +106,7 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="1200.0">
                      <children>
-                        <TableView fx:id="tvPosts" layoutX="60.0" layoutY="43.0" prefHeight="489.0" prefWidth="880.0" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="60.0">
+                        <TableView fx:id="tvPosts" layoutX="60.0" layoutY="43.0" prefHeight="535.0" prefWidth="880.0" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="60.0">
                            <columns>
                               <TableColumn fx:id="tcText" prefWidth="295.0" text="Text" />
                               <TableColumn fx:id="tcDate" prefWidth="199.0" text="Geplante Zeit" />
@@ -115,19 +115,9 @@
                               <TableColumn fx:id="tcPostAction" prefWidth="109.0" text="Aktion" />
                            </columns>
                         </TableView>
-                        <Button fx:id="btnPostPrev" layoutX="447.0" layoutY="557.0" mnemonicParsing="false" prefHeight="40.0" text="&lt;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="447.0">
+                        <Label alignment="CENTER" layoutX="62.0" layoutY="14.0" prefHeight="27.0" prefWidth="876.0" text="Übersicht der zu sendenen Nachrichten" AnchorPane.leftAnchor="62.0" AnchorPane.rightAnchor="62.0" AnchorPane.topAnchor="15.0">
                            <font>
-                              <Font name="System Bold" size="20.0" />
-                           </font>
-                        </Button>
-                        <Button fx:id="btnPostNext" layoutX="508.0" layoutY="557.0" mnemonicParsing="false" prefHeight="40.0" text="&gt;" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="446.0">
-                           <font>
-                              <Font name="System Bold" size="20.0" />
-                           </font>
-                        </Button>
-                        <Label alignment="CENTER" layoutX="344.0" layoutY="14.0" text="Übersicht der zu sendenen Nachrichten" AnchorPane.leftAnchor="344.0" AnchorPane.rightAnchor="343.0" AnchorPane.topAnchor="15.0">
-                           <font>
-                              <Font size="18.0" />
+                              <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
                         <Separator layoutX="334.0" layoutY="27.0" prefHeight="28.0" prefWidth="332.0" AnchorPane.leftAnchor="344.0" AnchorPane.rightAnchor="343.0" AnchorPane.topAnchor="30.0" />
@@ -141,12 +131,12 @@
                         <TextArea fx:id="taLog" editable="false" prefHeight="470.0" prefWidth="880.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="60.0" />
                         <Label alignment="CENTER" layoutX="391.0" layoutY="14.0" text="Statusmeldungen der Posts" AnchorPane.leftAnchor="376.0" AnchorPane.rightAnchor="376.0" AnchorPane.topAnchor="15.0">
                            <font>
-                              <Font size="18.0" />
+                              <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
                         <Button fx:id="btnLogSave" layoutX="60.0" layoutY="543.0" mnemonicParsing="false" onAction="#saveLog" prefHeight="35.0" prefWidth="170.0" text="Log Speichern ..." AnchorPane.bottomAnchor="49.0">
                            <font>
-                              <Font size="18.0" />
+                              <Font name="System Bold" size="18.0" />
                            </font>
                         </Button>
                         <Separator layoutX="376.0" layoutY="27.0" prefHeight="28.0" prefWidth="248.0" AnchorPane.leftAnchor="376.0" AnchorPane.rightAnchor="376.0" AnchorPane.topAnchor="30.0" />
@@ -170,24 +160,14 @@
                               <TableColumn fx:id="tcHashAction" minWidth="166.0" prefWidth="166.0" text="Aktion" />
                            </columns>
                         </TableView>
-                        <Button fx:id="btnHashPrev" layoutX="347.0" layoutY="559.0" mnemonicParsing="false" prefHeight="40.0" text="&lt;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="347.0">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Button>
-                        <Button fx:id="btnHashNext" layoutX="575.0" layoutY="559.0" mnemonicParsing="false" prefHeight="40.0" text="&gt;" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="379.0">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Button>
                         <Button fx:id="btnNewList" layoutX="400.0" layoutY="559.0" mnemonicParsing="false" onAction="#createNewHashList" prefHeight="40.0" prefWidth="168.0" text="Neue Liste" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="432.0">
                            <font>
-                              <Font size="20.0" />
+                              <Font name="System Bold" size="20.0" />
                            </font>
                         </Button>
                         <Label alignment="CENTER" layoutX="333.0" layoutY="17.0" text="Übersicht der gespeicherten Hashtags" AnchorPane.leftAnchor="318.0" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="15.0">
                            <font>
-                              <Font size="18.0" />
+                              <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
                         <Separator layoutX="318.0" layoutY="14.0" prefHeight="28.0" prefWidth="332.0" AnchorPane.leftAnchor="318.0" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="30.0" />
@@ -238,9 +218,9 @@
                               <Font size="18.0" />
                            </font>
                         </TextField>
-                        <Button fx:id="btnSaveSettings" layoutX="380.0" layoutY="576.0" mnemonicParsing="false" onAction="#saveSettings" prefHeight="41.0" prefWidth="238.0" text="Einstellungen Speichern" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="380.0" AnchorPane.rightAnchor="382.0">
+                        <Button fx:id="btnSaveSettingsTW" layoutX="591.0" layoutY="438.0" mnemonicParsing="false" onAction="#saveSettings" prefHeight="41.0" prefWidth="238.0" text="Einstellungen Speichern" AnchorPane.bottomAnchor="152.0" AnchorPane.leftAnchor="591.0" AnchorPane.rightAnchor="171.0">
                            <font>
-                              <Font size="18.0" />
+                              <Font name="System Bold" size="18.0" />
                            </font>
                         </Button>
                         <Label alignment="CENTER" layoutX="209.0" layoutY="162.0" prefHeight="38.0" prefWidth="162.0" text="Facebook" AnchorPane.leftAnchor="209.0">
@@ -255,11 +235,16 @@
                         </Label>
                         <Label alignment="CENTER" layoutX="393.0" layoutY="33.0" text="Einstellungen für Accounts" AnchorPane.leftAnchor="334.0" AnchorPane.rightAnchor="334.0" AnchorPane.topAnchor="15.0">
                            <font>
-                              <Font size="18.0" />
+                              <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
                         <Separator layoutX="334.0" layoutY="116.0" prefHeight="28.0" prefWidth="332.0" AnchorPane.leftAnchor="334.0" AnchorPane.rightAnchor="334.0" AnchorPane.topAnchor="30.0" />
                         <Separator layoutX="462.0" layoutY="71.0" orientation="VERTICAL" prefHeight="463.0" prefWidth="73.0" AnchorPane.leftAnchor="462.0" AnchorPane.rightAnchor="465.0" />
+                        <Button fx:id="btnSaveSettingsFB" layoutX="171.0" layoutY="438.0" mnemonicParsing="false" onAction="#saveSettings" prefHeight="41.0" prefWidth="238.0" text="Einstellungen Speichern">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Button>
                      </children></AnchorPane>
               </content>
             </Tab>

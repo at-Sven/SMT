@@ -19,6 +19,8 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static utils.Codify.PwConverter;
+
 /**
  * Controllerklasse für die FXML Datei fxRegistration
  */
@@ -39,7 +41,8 @@ public class ControllerRegistration {
     @FXML
     private Button btnAbortRegistration;
 
-    UserBean userInsert = new UserBean();
+    public UserBean userInsert = new UserBean();
+    public UserEintrag newUser;
 
     @FXML
     void createLoginAccount(ActionEvent event) {
@@ -53,10 +56,14 @@ public class ControllerRegistration {
             tfEmail.requestFocus();
         } else if (matcher.matches()) { // If conditions are correct
 
-            UserEintrag newUser = new UserEintrag(this.tfEmail.getText(), this.pwfPassword.getText());
-            userInsert.insert(newUser);
+            if (UserBean.usedEmail(this.tfEmail.getText())) {
+                lbStatusRegistration.setText("Die E-Mail wird schon verwendet");
+            } else {
+                newUser = new UserEintrag(null, this.tfEmail.getText(), PwConverter(this.pwfPassword.getText()));
+                userInsert.insert(newUser);
 
-            showLogin(event);
+                showLogin(event);
+            }
         } else {
             lbStatusRegistration.setText("Es muss eine gültige E-Mail Addresse sein");
             tfEmail.requestFocus();
@@ -65,14 +72,13 @@ public class ControllerRegistration {
     }
 
     @FXML
-    void cancelRegistration(ActionEvent event) throws IOException {
+    void cancelRegistration(ActionEvent event) {
         showLogin(event);
 
     }
 
     @FXML
     void initialize() {
-        // DB starten
     }
 
     void showLogin(ActionEvent event) {
@@ -87,6 +93,7 @@ public class ControllerRegistration {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
 
     }
 }
