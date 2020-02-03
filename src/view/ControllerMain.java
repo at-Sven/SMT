@@ -279,6 +279,7 @@ public class ControllerMain {
 
     /**
      * This method add generated Posts in the Database
+     *
      * @param event
      */
     @FXML
@@ -291,30 +292,29 @@ public class ControllerMain {
     }
 
     /**
-     * This method counts the Content of the Hashtag TextArea for the Label lbRestChar
+     * While writing/entering the Tags,this method counts the Content of the Hashtag TextArea + Message TextArea for the Label lbRestChar
      */
     @FXML
     void countHashtag() {
-        //While writing/entering the Tags, it counts the total character length of post and tags
-        String post = taMessage.getText();
-        String tag = taHashtags.getText();
-        countTotalChar(post,tag);
+        countTotalChar();
     }
+
     /**
-     * This method counts the Content of the Message TextArea for the Label lbRestChar
+     * While writing the Post, this method counts the Content of the Message TextArea + Hashtag TextArea for the Label lbRestChar
      */
     @FXML
     void countPost() {
-        //While writing the Post, it counts the total character length of post and tags
-        String post = taMessage.getText();
-        String tag = taHashtags.getText();
-        countTotalChar(post,tag);
+        countTotalChar();
     }
 
-    private void countTotalChar(String post, String tag) {
+    /**
+     * This method counts the Content of the Hashtag TextArea + Message TextArea
+     */
+    private void countTotalChar() {
+        String post = taMessage.getText();
+        String tag = taHashtags.getText();
         String tlen = post + tag;
 
-        //int len = post.length() + tag.length();
         String msg = (post.length() + tag.length()) + " / 480 Zeichen";
         lbRestChar.setText(msg);
 
@@ -322,7 +322,6 @@ public class ControllerMain {
         if (tlen.length() > 63206) {
             taMessage.setStyle("-fx-text-inner-color: red;");
             taHashtags.setStyle("-fx-text-inner-color: red;");
-
             //The check box for twitter must be unchecked and disabled when the total characters limit exceeds 280 characters
         } else if (tlen.length() > 480) {
             taMessage.setStyle("-fx-text-inner-color: black;");
@@ -335,7 +334,6 @@ public class ControllerMain {
             taHashtags.setStyle("-fx-text-inner-color: black;");
             cbTwitter.setDisable(false);
         }
-
     }
 
     @FXML
@@ -385,6 +383,7 @@ public class ControllerMain {
 
     /**
      * This method save the Account Details from the tab 'Einstellungen' in the Database
+     *
      * @param event description
      */
     @FXML
