@@ -291,40 +291,15 @@ public class ControllerMain {
     }
 
     /**
-     * This method counts the Content of the Hahshtag TextArea for the Label lbRestChar
+     * This method counts the Content of the Hashtag TextArea for the Label lbRestChar
      */
     @FXML
     void countHashtag() {
         //While writing/entering the Tags, it counts the total character length of post and tags
         String post = taMessage.getText();
         String tag = taHashtags.getText();
-        String tlen = taMessage.getText() + taHashtags.getText();
-
-        int len = post.length() + tag.length();
-        String msg = len + " / 480 Zeichen";
-        lbRestChar.setText(msg);
-
-        //The text in post and hashtag must turn Red when the total characters limit exceeds
-        if (tlen.length() > 63206) {
-            taMessage.setStyle("-fx-text-inner-color: red;");
-            taHashtags.setStyle("-fx-text-inner-color: red;");
-
-            //The check box for twitter must be unchecked and disabled when the total characters limit exceeds 280 characters
-        } else if (tlen.length() > 480) {
-            taMessage.setStyle("-fx-text-inner-color: black;");
-            taHashtags.setStyle("-fx-text-inner-color: black;");
-            cbTwitter.setSelected(false);
-            cbTwitter.setDisable(true);
-
-            //The text must set to default color(black) when the total characters is reduced to the limit-
-        } else {
-            taMessage.setStyle("-fx-text-inner-color: black;");
-            taHashtags.setStyle("-fx-text-inner-color: black;");
-            cbTwitter.setDisable(false);
-            //Syamala
-        }
+        countTotalChar(post,tag);
     }
-
     /**
      * This method counts the Content of the Message TextArea for the Label lbRestChar
      */
@@ -333,10 +308,14 @@ public class ControllerMain {
         //While writing the Post, it counts the total character length of post and tags
         String post = taMessage.getText();
         String tag = taHashtags.getText();
-        String tlen = taMessage.getText() + taHashtags.getText();
+        countTotalChar(post,tag);
+    }
 
-        int len = post.length() + tag.length();
-        String msg = len + " / 480 Zeichen";
+    private void countTotalChar(String post, String tag) {
+        String tlen = post + tag;
+
+        //int len = post.length() + tag.length();
+        String msg = (post.length() + tag.length()) + " / 480 Zeichen";
         lbRestChar.setText(msg);
 
         //The text in post and hashtag must turn Red when the total characters limit exceeds
@@ -356,6 +335,7 @@ public class ControllerMain {
             taHashtags.setStyle("-fx-text-inner-color: black;");
             cbTwitter.setDisable(false);
         }
+
     }
 
     @FXML
