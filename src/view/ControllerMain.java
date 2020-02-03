@@ -189,6 +189,8 @@ public class ControllerMain {
             Stage MainStage = new Stage();
             FXMLLoader loader = new FXMLLoader();
             Pane root = loader.load(getClass().getResource("fxTableHashtags.fxml").openStream());
+            root.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+
             Scene scene = new Scene(root);
             MainStage.setTitle("SMT - Social Media Tool: Hashtags");
             MainStage.setScene(scene);
@@ -247,6 +249,9 @@ public class ControllerMain {
             Stage MainStage = new Stage();
             FXMLLoader loader = new FXMLLoader();
             Pane root = loader.load(getClass().getResource("fxAddHashtagListe.fxml").openStream());
+
+            root.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+
             Scene scene = new Scene(root);
             MainStage.setTitle("SMT - Social Media Tool: Hashtags");
             MainStage.setScene(scene);
