@@ -37,6 +37,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import model.UserEintrag;
 import socialmedia.SocialMediaWorker;
 
 /**
@@ -173,6 +174,7 @@ public class ControllerMain {
     @FXML
     private Label lbLogSavedFeedback;
 
+    private UserEintrag user;  // The Main Loggedin User (this is set during successfull Login Phase)
     File selectedFile;
     Timeline socialMediaWorkerTimer; // controls the SocialMediaWorker object
     SocialMediaWorker socialMediaWorker; // checks what/when to post to Social Media
@@ -436,6 +438,15 @@ public class ControllerMain {
             }
         });
         new Thread(sleeper).start();
+    }
+
+    /**
+     * This Method sets the UserEintag User Object
+     * @param userObject userObject with uid,email,pw
+     */
+    public void setUser(UserEintrag userObject){
+        this.user = userObject;
+        System.out.println(this.user.getId() + "");
     }
 
 }

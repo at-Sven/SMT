@@ -51,6 +51,7 @@ public class UserBean {
             ResultSet rs = pstmtSelectwithUid.executeQuery();
 
             if (rs.next()) {
+                result = new UserEintrag();
                 result.setId(rs.getInt(1));
                 result.setEmail(rs.getString(2));
                 result.setPasswort(rs.getString(3));
