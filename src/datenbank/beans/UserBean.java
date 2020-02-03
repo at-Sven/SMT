@@ -15,6 +15,7 @@ public class UserBean {
 
     // PreparedStatements
     private static PreparedStatement pstmtSelect;
+    private static PreparedStatement pstmtSelectwithUid;
     private static PreparedStatement pstmtSelectEmail;
     private static PreparedStatement pstmtSelectAll;
     private static PreparedStatement pstmtInsert;
@@ -24,6 +25,7 @@ public class UserBean {
 
     static {
         pstmtSelect = Datenbank.getInstance().prepareStatement("SELECT Email, Passwort FROM Users WHERE Email = ? AND Passwort = ?;");
+        pstmtSelectwithUid = Datenbank.getInstance().prepareStatement("SELECT uid, Email, Passwort FROM Users WHERE Email = ? AND Passwort = ?;");
         pstmtSelectEmail = Datenbank.getInstance().prepareStatement("SELECT Email FROM Users WHERE Email = ?;");
         pstmtSelectAll = Datenbank.getInstance().prepareStatement("SELECT * FROM Users;");
         pstmtInsert = Datenbank.getInstance().prepareStatement("INSERT INTO Users (Email, Passwort) VALUES (?, ?);");
@@ -43,14 +45,15 @@ public class UserBean {
         UserEintrag result = null;
 
         try {
-            pstmtSelect.setString(1, email);
-            pstmtSelect.setString(2, passwort);
+            pstmtSelectwithUid.setString(1, email);
+            pstmtSelectwithUid.setString(2, passwort);
 
-            ResultSet rs = pstmtSelect.executeQuery();
+            ResultSet rs = pstmtSelectwithUid.executeQuery();
 
             if (rs.next()) {
-                result.setEmail(rs.getString(1));
-                result.setPasswort(rs.getString(2));
+                result.setId(rs.getInt(1));
+                result.setEmail(rs.getString(2));
+                result.setPasswort(rs.getString(3));
             }
 
             rs.close();

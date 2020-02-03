@@ -14,7 +14,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.UserEintrag;
-import utils.Codify;
 
 import java.io.IOException;
 import java.util.regex.Matcher;
@@ -42,7 +41,8 @@ public class ControllerRegistration {
     @FXML
     private Button btnAbortRegistration;
 
-    UserBean userInsert = new UserBean();
+    public UserBean userInsert = new UserBean();
+    public UserEintrag newUser;
 
     @FXML
     void createLoginAccount(ActionEvent event) {
@@ -59,13 +59,11 @@ public class ControllerRegistration {
             if (UserBean.usedEmail(this.tfEmail.getText())) {
                 lbStatusRegistration.setText("Die E-Mail wird schon verwendet");
             } else {
-                UserEintrag newUser = new UserEintrag(this.tfEmail.getText(), PwConverter(this.pwfPassword.getText()));
+                newUser = new UserEintrag(null, this.tfEmail.getText(), PwConverter(this.pwfPassword.getText()));
                 userInsert.insert(newUser);
 
                 showLogin(event);
             }
-
-
         } else {
             lbStatusRegistration.setText("Es muss eine gültige E-Mail Addresse sein");
             tfEmail.requestFocus();
@@ -74,14 +72,13 @@ public class ControllerRegistration {
     }
 
     @FXML
-    void cancelRegistration(ActionEvent event) throws IOException {
+    void cancelRegistration(ActionEvent event) {
         showLogin(event);
 
     }
 
     @FXML
     void initialize() {
-        // DB starten
     }
 
     void showLogin(ActionEvent event) {
