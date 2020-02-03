@@ -53,10 +53,15 @@ public class ControllerRegistration {
             tfEmail.requestFocus();
         } else if (matcher.matches()) { // If conditions are correct
 
-            UserEintrag newUser = new UserEintrag(this.tfEmail.getText(), this.pwfPassword.getText());
-            userInsert.insert(newUser);
+            if(UserBean.usedEmail(this.tfEmail.getText())) {
+                lbStatusRegistration.setText("Die E-Mail wird schon verwendet");
+            } else {
+                UserEintrag newUser = new UserEintrag(this.tfEmail.getText(), this.pwfPassword.getText());
+                userInsert.insert(newUser);
 
-            showLogin(event);
+                showLogin(event);
+            }
+
 
         } else {
             lbStatusRegistration.setText("Es muss eine gültige E-Mail Addresse sein");

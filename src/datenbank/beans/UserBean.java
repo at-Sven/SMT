@@ -15,6 +15,7 @@ public class UserBean {
 
     // PreparedStatements
     private static PreparedStatement pstmtSelect;
+    private static PreparedStatement pstmtSelectEmail;
     private static PreparedStatement pstmtSelectAll;
     private static PreparedStatement pstmtInsert;
     private static PreparedStatement pstmtUpdate;
@@ -23,6 +24,7 @@ public class UserBean {
 
     static {
         pstmtSelect = Datenbank.getInstance().prepareStatement("SELECT Email, Passwort FROM Users WHERE Email = ? AND Passwort = ?;");
+        pstmtSelectEmail = Datenbank.getInstance().prepareStatement("SELECT Email FROM Users WHERE Email = ?;");
         pstmtSelectAll = Datenbank.getInstance().prepareStatement("SELECT * FROM Users;");
         pstmtInsert = Datenbank.getInstance().prepareStatement("INSERT INTO Users (Email, Passwort) VALUES (?, ?);");
         pstmtUpdate = Datenbank.getInstance().prepareStatement("UPDATE Users SET Email = ?, Passwort = ? WHERE email = ? AND Passwort = ?;");
@@ -92,20 +94,20 @@ public class UserBean {
      * @param email The Email of a User
      * @return true, if the E-Mail is used
      */
-    public static Boolean isUsed(String email) {
+    public static Boolean usedEmail(String email) {
 
         try {
-            pstmtSelect.setString(1, email);
-            ResultSet rs = pstmtSelect.executeQuery();
+            pstmtSelectEmail.setString(1, email);
+            ResultSet rs = pstmtSelectEmail.executeQuery();
             if (rs.next()) {
-                return false;
+                return true;
             }
 
             rs.close();
 
         } catch (SQLException ignored) {
         }
-        return true;
+        return false;
     }
 
 
