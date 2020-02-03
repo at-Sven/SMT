@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
@@ -17,7 +21,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorpane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="1000.0" style="-fx-background-color: #e8ebed;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ControllerMain">
+<AnchorPane fx:id="anchorpane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="1000.0" style="-fx-background-color: #e8ebed;" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ControllerMain">
    <children>
       <TabPane prefHeight="660.0" prefWidth="1200.0" style="-fx-background-color: #e8ebed;" tabClosingPolicy="UNAVAILABLE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <tabs>
@@ -178,57 +182,57 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TextField fx:id="btnFBUsername" layoutX="70.0" layoutY="209.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="Benutername" AnchorPane.leftAnchor="150.0">
+                        <TextField fx:id="btnFBUsername" layoutX="149.0" layoutY="191.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="Benutername" AnchorPane.leftAnchor="149.0">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="btnFBPasswort" layoutX="132.0" layoutY="263.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="Passwort" AnchorPane.leftAnchor="150.0">
+                        <TextField fx:id="btnFBPasswort" layoutX="149.0" layoutY="245.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="Passwort" AnchorPane.leftAnchor="149.0">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="btnFBToken" layoutX="132.0" layoutY="314.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="Token" AnchorPane.leftAnchor="150.0">
+                        <TextField fx:id="btnFBToken" layoutX="149.0" layoutY="296.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="Token" AnchorPane.leftAnchor="149.0">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="btnFBKey" layoutX="132.0" layoutY="365.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="Key" AnchorPane.leftAnchor="150.0">
+                        <TextField fx:id="btnFBKey" layoutX="149.0" layoutY="347.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="Key" AnchorPane.leftAnchor="149.0">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="ConsumerKey" layoutX="583.0" layoutY="210.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="ConsumerKey" AnchorPane.rightAnchor="150.0">
+                        <TextField fx:id="ConsumerKey" layoutX="569.0" layoutY="192.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="ConsumerKey" AnchorPane.rightAnchor="151.0">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="ConsumerSecret" layoutX="583.0" layoutY="263.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="ConsumerSecret" AnchorPane.rightAnchor="150.0">
+                        <TextField fx:id="ConsumerSecret" layoutX="569.0" layoutY="245.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="ConsumerSecret" AnchorPane.rightAnchor="151.0">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="AccessToken" layoutX="583.0" layoutY="314.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="AccessToken" AnchorPane.rightAnchor="150.0">
+                        <TextField fx:id="AccessToken" layoutX="569.0" layoutY="296.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="AccessToken" AnchorPane.rightAnchor="151.0">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="AccessTokenSecret" layoutX="588.0" layoutY="365.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="AccessTokenSecret" AnchorPane.rightAnchor="150.0">
+                        <TextField fx:id="AccessTokenSecret" layoutX="569.0" layoutY="347.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="AccessTokenSecret" AnchorPane.rightAnchor="151.0">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </TextField>
-                        <Button fx:id="btnSaveSettingsTW" layoutX="591.0" layoutY="438.0" mnemonicParsing="false" onAction="#saveSettings" prefHeight="41.0" prefWidth="238.0" text="Einstellungen Speichern" AnchorPane.bottomAnchor="152.0" AnchorPane.leftAnchor="591.0" AnchorPane.rightAnchor="171.0">
+                        <Button fx:id="btnSaveSettingsTW" layoutX="590.0" layoutY="487.0" mnemonicParsing="false" onAction="#saveSettings" prefHeight="41.0" prefWidth="238.0" text="Einstellungen Speichern">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Button>
-                        <Label alignment="CENTER" layoutX="209.0" layoutY="162.0" prefHeight="38.0" prefWidth="162.0" text="Facebook" AnchorPane.leftAnchor="209.0">
+                        <Label alignment="CENTER" layoutX="208.0" layoutY="144.0" prefHeight="38.0" prefWidth="162.0" text="Facebook" AnchorPane.leftAnchor="208.0">
                            <font>
                               <Font name="System Bold" size="26.0" />
                            </font>
                         </Label>
-                        <Label alignment="CENTER" layoutX="654.0" layoutY="162.0" prefHeight="38.0" prefWidth="112.0" text="Twitter" AnchorPane.rightAnchor="234.0">
+                        <Label alignment="CENTER" layoutX="653.0" layoutY="144.0" prefHeight="38.0" prefWidth="112.0" text="Twitter" AnchorPane.rightAnchor="235.0">
                            <font>
                               <Font name="System Bold" size="26.0" />
                            </font>
@@ -239,8 +243,8 @@
                            </font>
                         </Label>
                         <Separator layoutX="334.0" layoutY="116.0" prefHeight="28.0" prefWidth="332.0" AnchorPane.leftAnchor="334.0" AnchorPane.rightAnchor="334.0" AnchorPane.topAnchor="30.0" />
-                        <Separator layoutX="462.0" layoutY="71.0" orientation="VERTICAL" prefHeight="463.0" prefWidth="73.0" AnchorPane.leftAnchor="462.0" AnchorPane.rightAnchor="465.0" />
-                        <Button fx:id="btnSaveSettingsFB" layoutX="171.0" layoutY="438.0" mnemonicParsing="false" onAction="#saveSettings" prefHeight="41.0" prefWidth="238.0" text="Einstellungen Speichern">
+                        <Separator layoutX="462.0" layoutY="71.0" orientation="VERTICAL" prefHeight="514.0" prefWidth="73.0" AnchorPane.leftAnchor="462.0" AnchorPane.rightAnchor="465.0" />
+                        <Button fx:id="btnSaveSettingsFB" layoutX="170.0" layoutY="487.0" mnemonicParsing="false" onAction="#saveSettings" prefHeight="41.0" prefWidth="238.0" text="Einstellungen Speichern">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
