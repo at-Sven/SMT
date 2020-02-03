@@ -292,7 +292,7 @@ public class ControllerMain {
     }
 
     /**
-     * While writing/entering the Tags,this method counts the Content of the Hashtag TextArea + Message TextArea for the Label lbRestChar
+     * Method to count the Content of the Hashtag TextArea + Message TextArea for the Label lbRestChar, while writing/entering Hashtags
      */
     @FXML
     void countHashtag() {
@@ -300,7 +300,7 @@ public class ControllerMain {
     }
 
     /**
-     * While writing the Post, this method counts the Content of the Message TextArea + Hashtag TextArea for the Label lbRestChar
+     * Method to count the Content of the Message TextArea + Hashtag TextArea for the Label lbRestChar,while writing the post
      */
     @FXML
     void countPost() {
@@ -308,7 +308,7 @@ public class ControllerMain {
     }
 
     /**
-     * This method counts the Content of the Hashtag TextArea + Message TextArea
+     * This method counts the chars of the Hashtag TextArea + Message TextArea
      */
     private void countTotalChar() {
         String post = taMessage.getText();
@@ -337,6 +337,9 @@ public class ControllerMain {
     }
 
     @FXML
+    /**
+     *  This method generates and sets a random date in DatePicker and generate and sets a random time in TextField Time
+     */
     void randomDateTime(ActionEvent event) {
         //When clicked ,must generate Random Date and Time
         Instant jetzt = Instant.now();
@@ -349,7 +352,13 @@ public class ControllerMain {
         tfTime.setText(randomTime);
     }
 
-
+    /**
+     * Method to generate Instant of the random date time in next 7 days
+     *
+     * @param jetzt    Instant current date time.
+     * @param einWoche Instant date time after 7days
+     * @return Instant of random date time in next 7 days
+     */
     private Instant zwischen(Instant jetzt, Instant einWoche) {
         long anfang = jetzt.getEpochSecond();
         long ende = einWoche.getEpochSecond();
