@@ -28,7 +28,7 @@ public class SocialMediaWorker implements EventHandler<ActionEvent> {
         this.twitterer = new Twitterer();
     }
 
-    /*
+    /* example for Timeline:
     Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.seconds(5), new EventHandler<ActionEvent>() {
 
         @Override

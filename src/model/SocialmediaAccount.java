@@ -1,5 +1,6 @@
 package model;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class SocialmediaAccount {
@@ -11,6 +12,18 @@ public class SocialmediaAccount {
     private StringProperty twAccessTokenSecret;
     private StringProperty fbAppID;
     private StringProperty fbAppSecret;
+
+    /*
+    public SocialmediaAccount(Integer uid, String twConsumerKey, String twConsumerSecret, String twAccessToken, String twAccessTokenSecret, String fbAppID, String fbAppSecret) {
+        this.uid = uid;
+        this.twConsumerKey = twConsumerKey;
+        this.twConsumerSecret = twConsumerSecret;
+        this.twAccessToken = twAccessToken;
+        this.twAccessTokenSecret = twAccessTokenSecret;
+        this.fbAppID = fbAppID;
+        this.fbAppSecret = fbAppSecret;
+    }
+    */
 
     /**
      * getter method for uid
@@ -42,7 +55,8 @@ public class SocialmediaAccount {
      * @param twConsumerKey String
      */
     public void setTwConsumerKey(String twConsumerKey) {
-        this.twConsumerKey.set(twConsumerKey);
+        // this.twConsumerKey.set(twConsumerKey);
+        this.twConsumerKey = new SimpleStringProperty(twConsumerKey);
     }
 
     /**
@@ -58,7 +72,7 @@ public class SocialmediaAccount {
      * @param twConsumerSecret String
      */
     public void setTwConsumerSecret(String twConsumerSecret) {
-        this.twConsumerSecret.set(twConsumerSecret);
+        this.twConsumerSecret = new SimpleStringProperty(twConsumerSecret);
     }
 
     /**
@@ -74,7 +88,7 @@ public class SocialmediaAccount {
      * @param twAccessToken String
      */
     public void setTwAccessToken(String twAccessToken) {
-        this.twAccessToken.set(twAccessToken);
+        this.twAccessToken = new SimpleStringProperty(twAccessToken);
     }
 
     /**
@@ -90,7 +104,7 @@ public class SocialmediaAccount {
      * @param twAccessTokenSecret String
      */
     public void setTwAccessTokenSecret(String twAccessTokenSecret) {
-        this.twAccessTokenSecret.set(twAccessTokenSecret);
+        this.twAccessTokenSecret = new SimpleStringProperty(twAccessTokenSecret);
     }
 
     /**
@@ -106,7 +120,7 @@ public class SocialmediaAccount {
      * @param fbAppID String
      */
     public void setFbAppID(String fbAppID) {
-        this.fbAppID.set(fbAppID);
+        this.fbAppID = new SimpleStringProperty(fbAppID);
     }
 
     /**
@@ -122,7 +136,7 @@ public class SocialmediaAccount {
      * @param fbAppSecret String
      */
     public void setFbAppSecret(String fbAppSecret) {
-        this.fbAppSecret.set(fbAppSecret);
+        this.fbAppSecret = new SimpleStringProperty(fbAppSecret);
     }
 
      /* // uncommented, no need, maybe for later use...

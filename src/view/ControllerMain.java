@@ -12,38 +12,42 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.concurrent.ThreadLocalRandom;
 
+
 import javafx.animation.KeyFrame;
+import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import model.SocialmediaAccount;
 import model.UserEintrag;
 import socialmedia.SocialMediaWorker;
+import datenbank.beans.SocialmediaAccountBean;
 
 /**
  * Controller class for the FXML file 'fxMain'
  */
 public class ControllerMain {
+
+    @FXML
+    public Label lblSaveTWAccountStatus;
+
+    @FXML
+    public Label lblSaveFBAccountStatus;
+
+    @FXML
+    public Tab tabEinstellungen; // Tab name id
 
     @FXML
     private AnchorPane anchorpane;
@@ -61,7 +65,7 @@ public class ControllerMain {
     private Button btnRandomHashtag;
 
     @FXML
-    private Button btnRandmDateTime;
+    private Button btnRandomDateTime;
 
     @FXML
     private Button btnSavePost;
@@ -139,16 +143,16 @@ public class ControllerMain {
     private Button btnLogSave;
 
     @FXML
-    private TextField btnFBUsername;
+    private TextField tfFBUsername;
 
     @FXML
-    private TextField btnFBPasswort;
+    private TextField tfFBPassword;
 
     @FXML
-    private TextField btnFBToken;
+    private TextField tfFBAppID;
 
     @FXML
-    private TextField btnFBKey;
+    private TextField tfFBAppSecret;
 
     @FXML
     private TextField ConsumerKey;
@@ -175,10 +179,21 @@ public class ControllerMain {
     private Label lbLogSavedFeedback;
 
     private UserEintrag user;  // The Main Loggedin User (this is set during successfull Login Phase)
+    private SocialmediaAccount socialmediaAccount; // the users socialmedia account data
     File selectedFile;
     Timeline socialMediaWorkerTimer; // controls the SocialMediaWorker object
     SocialMediaWorker socialMediaWorker; // checks what/when to post to Social Media
     int workerWaitSeconds = 3; // here use later 60 seconds, 3sec only for testing the loop
+
+    /**
+     * This Method sets the UserEintag User Object
+     * @param userObject userObject with uid,email,pw
+     */
+    public void setUser(UserEintrag userObject){
+        this.user = userObject;
+        System.out.println(this.user.getId() + "");
+    }
+
 
     /**
      * This method opens the FXML file fxTableHashtags in a small window
@@ -272,7 +287,7 @@ public class ControllerMain {
         if (this.tbActivate.isSelected()) {
             this.socialMediaWorker.init();// here we need to init() socialmediaworker with the posts from DB
             this.socialMediaWorkerTimer.play();
-            this.tbActivate.setStyle("-fx-background-color:green");
+            this.tbActivate.setStyle("-fx-background-color:lightgreen");
             //System.out.println("Selected: " + tbActivate.isSelected());
             System.out.println("Automatisierung ist aktiviert");
         } else {
@@ -352,9 +367,9 @@ public class ControllerMain {
         Instant jetzt = Instant.now();
         Instant einWoche = Instant.now().plus(Duration.ofDays(7));
         Instant randomInstant = zwischen(jetzt, einWoche);
-        Date randonDate = Date.from(randomInstant);
+        Date randomDate = Date.from(randomInstant);
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
-        String randomTime = timeFormat.format(randonDate);
+        String randomTime = timeFormat.format(randomDate);
         dpDate.setValue(randomInstant.atZone(ZoneId.systemDefault()).toLocalDate());
         tfTime.setText(randomTime);
     }
@@ -398,25 +413,100 @@ public class ControllerMain {
     }
 
     /**
-     * This method save the Account Details from the tab 'Einstellungen' in the Database
+     * This method save the Facebook Account Details from the tab 'Einstellungen' in the Database
      *
-     * @param event description
+     * @param event clickevent
      */
     @FXML
-    void saveSettings(ActionEvent event) {
-        // Speichert die Accountdaten der Profilen
+    void saveSettingsFB(ActionEvent event) {
+        // Speichert die Facebook Accountdaten der Profilen
     }
 
     /**
-     * This method initialalizes the processes like the SocialMediaWorkerTimer etc.
+     * This method inserts or updates the Twitter Account Details from the tab 'Einstellungen' in the Database and to socialmediaAccount object
+     *
+     * @param event clickevent
      */
     @FXML
-    void initialize() {
-        this.tbActivate.setSelected(false);  // on start set automated posting to false.
-        this.tbActivate.setStyle("-fx-background-color:lightgrey");
-        this.socialMediaWorker = new SocialMediaWorker();
-        this.socialMediaWorkerTimer = new Timeline(new KeyFrame(javafx.util.Duration.seconds(workerWaitSeconds), this.socialMediaWorker));
-        this.socialMediaWorkerTimer.setCycleCount(Timeline.INDEFINITE);
+    void saveSettingsTW(ActionEvent event) {
+        // Speichert die Twitter Accountdaten des users, abhaengig von seiner uid
+        Integer uid = this.user.getId();
+        String ck = this.ConsumerKey.getText();
+        String cs = this.ConsumerSecret.getText();
+        String at = this.AccessToken.getText();
+        String ats = this.AccessTokenSecret.getText();
+
+        if( uid != null && !ck.trim().equals("") && !cs.trim().equals("") && !at.trim().equals("") && !at.trim().equals("") ){
+
+            //SocialmediaAccountBean socialmediaAccountBean = new SocialmediaAccountBean();  // used static
+            if(SocialmediaAccountBean.insertOrUpdateTwitterAccount(uid,ck,cs,at,ats)){  // insertOrUpdate db true
+
+                this.socialmediaAccount.setUid(uid);
+                this.socialmediaAccount.setTwConsumerKey(ck);
+                this.socialmediaAccount.setTwConsumerSecret(cs);
+                this.socialmediaAccount.setTwAccessToken(at);
+                this.socialmediaAccount.setTwAccessTokenSecret(ats);
+                this.lblSaveTWAccountStatus.setText("Twitter Accountdaten gespeichert/aktualisiert.");
+
+            }else{
+
+                System.out.println("An Error occured while insert or update into SocialMediaAccounts Table!");
+                this.lblSaveTWAccountStatus.setText("Konnte nicht gespeichert werden, Eingaben ueberpruefen!");
+
+            }
+        }else{
+            this.lblSaveTWAccountStatus.setText("Konnte nicht gespeichert werden, Felder duerfen nicht leer sein!");
+        }
+        resetText(this.lblSaveTWAccountStatus);
+    }
+
+    /** Fired when Einstellungen Tab is clicked
+     * no need for now: (maybe later, if we reload when clicked on the Einstellungen Tab)
+     * @param event tabclicked
+     */
+    public void tabEinstellungenClicked(Event event) {
+        //this.preloadSocialMediaAccountDataIntoTwitterAndFacebookFields();
+    }
+
+    /**
+     * loads the SocialmediaAccount Data of the active user with uid from user object (=UserEintrag object)
+     */
+    private void preloadSocialMediaAccountDataIntoTwitterAndFacebookFields(){
+
+            if (this.user.getId() != null) {
+
+                this.socialmediaAccount = SocialmediaAccountBean.getSocialMediaAccountsByUid(this.user.getId());
+                if (this.socialmediaAccount == null) {
+                    // user has not yet set any Socialmedia Account informations , no row in table
+                    // only set the available uid from loggedin userobject in new socialmediaAccount Object
+                    this.socialmediaAccount = new SocialmediaAccount();
+                    this.socialmediaAccount.setUid(this.user.getId());
+
+                } else {
+                    // show socialmedia account data  in Einstellungs textfields, so user can update and see what is actually set
+                    String fbAppID = this.socialmediaAccount.getFbAppID();
+                    String fbAppSecret = this.socialmediaAccount.getFbAppSecret();
+
+                    if( fbAppID != null && fbAppSecret != null ) {
+                        this.tfFBAppID.setText(fbAppID);
+                        this.tfFBAppSecret.setText(fbAppSecret);
+                    }
+
+                    String twck = this.socialmediaAccount.getTwConsumerKey();
+                    String twcs = this.socialmediaAccount.getTwConsumerSecret();
+                    String twat = this.socialmediaAccount.getTwAccessToken();
+                    String twats = this.socialmediaAccount.getTwAccessTokenSecret();
+
+                    if ( twck != null && twcs != null && twat != null && twats != null ){
+                        this.ConsumerKey.setText(twck);
+                        this.ConsumerSecret.setText(twcs);
+                        this.AccessToken.setText(twat);
+                        this.AccessTokenSecret.setText(twats);
+                    }
+               }
+            }else{
+                System.out.println("nixzuladen");
+            }
     }
 
     /**
@@ -446,12 +536,32 @@ public class ControllerMain {
     }
 
     /**
-     * This Method sets the UserEintag User Object
-     * @param userObject userObject with uid,email,pw
+     * This method initialalizes the processes like the SocialMediaWorkerTimer etc.
      */
-    public void setUser(UserEintrag userObject){
-        this.user = userObject;
-        System.out.println(this.user.getId() + "");
+    @FXML
+    void initialize() {
+
+        /* -------- Automate Posts Section ------------------------------- */
+        this.tbActivate.setSelected(false);  // on start set automated posting to false.
+        this.tbActivate.setStyle("-fx-background-color:lightgrey");
+        this.socialMediaWorker = new SocialMediaWorker();
+        this.socialMediaWorkerTimer = new Timeline(new KeyFrame(javafx.util.Duration.seconds(workerWaitSeconds), this.socialMediaWorker));
+        this.socialMediaWorkerTimer.setCycleCount(Timeline.INDEFINITE);
+
+        /* --------- Twitter and Facebook Account Einstellungen ----------- */
+        this.socialmediaAccount = new SocialmediaAccount();
+
+        // wait 3 sec till uid etc. loaded and set by ContollerLogin, put everything in here, if it needs to start short time after fxinits
+        PauseTransition pause = new PauseTransition(javafx.util.Duration.seconds(3));
+        pause.setOnFinished(event ->
+              this.preloadSocialMediaAccountDataIntoTwitterAndFacebookFields()
+        );
+        pause.play();
+
+        // if not need , set not needed FB Account Fields to invisible:
+        // this.tfFBUsername.setVisible(false);
+        // this.tfFBPassword.setVisible(false);
     }
+
 
 }

@@ -48,8 +48,7 @@ public class Datenbank extends SQLiteDatenbankverbindung {
 
             execute("CREATE TABLE IF NOT EXISTS \"SocialmediaAccounts\" (" +
                     "sid INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-                    "uid INTEGER NOT NULL, " +
-                    "platform INTEGER NOT NULL, " +        // 1 = twitter, 2 = facebook (where to post helper var)
+                    "uid INTEGER UNIQUE NOT NULL, " +
                     "twConsumerKey VARCHAR(200), " +
                     "twConsumerSecret VARCHAR(200), " +
                     "twAccessToken VARCHAR(200), " +

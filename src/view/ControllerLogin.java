@@ -46,7 +46,7 @@ public class ControllerLogin {
     void login(ActionEvent event) {
 
         if (tfEmail.getText().trim().equals("") || pwfPassword.getText().trim().equals("")) {
-            lbStatusLogin.setText("Ihre E-Mail Addresse und Passwort eingegeben!");
+            lbStatusLogin.setText("Ihre E-Mail Addresse und Passwort eingeben!");
             tfEmail.requestFocus();
         } else if (user.isUser(this.tfEmail.getText(), Codify.PwConverter(this.pwfPassword.getText()))) {
             this.userObject = this.user.get(this.tfEmail.getText(), Codify.PwConverter(this.pwfPassword.getText())); // get the user uid,email,pw from db.

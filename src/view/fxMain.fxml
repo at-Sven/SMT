@@ -174,26 +174,26 @@
                      </children></AnchorPane>
               </content>
             </Tab>
-            <Tab text="Einstellungen">
+            <Tab fx:id="tabEinstellungen" onSelectionChanged="#tabEinstellungenClicked" text="Einstellungen">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TextField fx:id="btnFBUsername" layoutX="70.0" layoutY="209.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="Benutername" AnchorPane.leftAnchor="150.0">
+                        <TextField fx:id="tfFBUsername" layoutX="70.0" layoutY="209.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="Benutername" AnchorPane.leftAnchor="150.0">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="btnFBPasswort" layoutX="132.0" layoutY="263.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="Passwort" AnchorPane.leftAnchor="150.0">
+                        <TextField fx:id="tfFBPassword" layoutX="132.0" layoutY="263.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="Passwort" AnchorPane.leftAnchor="150.0">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="btnFBToken" layoutX="132.0" layoutY="314.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="Token" AnchorPane.leftAnchor="150.0">
+                        <TextField fx:id="tfFBAppID" layoutX="132.0" layoutY="314.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="AppID" AnchorPane.leftAnchor="150.0">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="btnFBKey" layoutX="132.0" layoutY="365.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="Key" AnchorPane.leftAnchor="150.0">
+                        <TextField fx:id="tfFBAppSecret" layoutX="132.0" layoutY="365.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="AppSecret" AnchorPane.leftAnchor="150.0">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -218,7 +218,7 @@
                               <Font size="18.0" />
                            </font>
                         </TextField>
-                        <Button fx:id="btnSaveSettingsTW" layoutX="591.0" layoutY="438.0" mnemonicParsing="false" onAction="#saveSettings" prefHeight="41.0" prefWidth="238.0" text="Einstellungen Speichern" AnchorPane.bottomAnchor="152.0" AnchorPane.leftAnchor="591.0" AnchorPane.rightAnchor="171.0">
+                        <Button fx:id="btnSaveSettingsTW" layoutX="591.0" layoutY="438.0" mnemonicParsing="false" onAction="#saveSettingsTW" prefHeight="41.0" prefWidth="238.0" text="Einstellungen Speichern" AnchorPane.bottomAnchor="152.0" AnchorPane.leftAnchor="591.0" AnchorPane.rightAnchor="171.0">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -240,11 +240,21 @@
                         </Label>
                         <Separator layoutX="334.0" layoutY="116.0" prefHeight="28.0" prefWidth="332.0" AnchorPane.leftAnchor="334.0" AnchorPane.rightAnchor="334.0" AnchorPane.topAnchor="30.0" />
                         <Separator layoutX="462.0" layoutY="71.0" orientation="VERTICAL" prefHeight="463.0" prefWidth="73.0" AnchorPane.leftAnchor="462.0" AnchorPane.rightAnchor="465.0" />
-                        <Button fx:id="btnSaveSettingsFB" layoutX="171.0" layoutY="438.0" mnemonicParsing="false" onAction="#saveSettings" prefHeight="41.0" prefWidth="238.0" text="Einstellungen Speichern">
+                        <Button fx:id="btnSaveSettingsFB" layoutX="171.0" layoutY="438.0" mnemonicParsing="false" onAction="#saveSettingsFB" prefHeight="41.0" prefWidth="238.0" text="Einstellungen Speichern">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Button>
+                        <Label fx:id="lblSaveTWAccountStatus" alignment="CENTER" layoutX="498.0" layoutY="492.0" prefHeight="28.0" prefWidth="424.0" textAlignment="JUSTIFY">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblSaveFBAccountStatus" alignment="CENTER" layoutX="74.0" layoutY="492.0" prefHeight="28.0" prefWidth="424.0">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Label>
                      </children></AnchorPane>
               </content>
             </Tab>
