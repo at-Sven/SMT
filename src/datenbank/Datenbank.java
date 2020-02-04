@@ -53,12 +53,17 @@ public class Datenbank extends SQLiteDatenbankverbindung {
                     "twConsumerSecret VARCHAR(200), " +
                     "twAccessToken VARCHAR(200), " +
                     "twAccessTokenSecret VARCHAR(200)," +
-                    "fbAppID VARCHAR(200), " +            // facebook AppID
-                    "fbAppSecret VARCHAR(200), " +        // facebook AppSecret
-                    "soc0 VARCHAR(200), " +               // temp feld, falls andere noch benoetigt werden sollten
-                    "soc1 VARCHAR(200), " +               // temp feld, falls andere noch benoetigt werden sollten
-                    "soc2 VARCHAR(200), " +               // temp feld, falls andere noch benoetigt werden sollten
-                    "soc3 VARCHAR(200), " +               // temp feld, falls andere noch benoetigt werden sollten
+                    "fbAppID VARCHAR(500), " +            // facebook AppID
+                    "fbAppSecret VARCHAR(500), " +        // facebook AppSecret
+                    "fbAccessToken VARCHAR(500), " +      // fb accesstoken field, if needed
+                    "fbUserdata VARCHAR(500), " +         // fbuserdata extra field , if needed
+                    "fbAccesTokenExpireDate INTEGER, " +  // temp feld, falls andere noch benoetigt werden sollten
+                    "soc1 VARCHAR(300), " +               // temp feld, falls andere noch benoetigt werden sollten
+                    "soc2 VARCHAR(300), " +               // temp feld, falls andere noch benoetigt werden sollten
+                    "soc3 VARCHAR(300), " +               // temp feld, falls andere noch benoetigt werden sollten
+                    "soc4 VARCHAR(300), " +               // temp feld, falls andere noch benoetigt werden sollten
+                    "soc5 VARCHAR(300), " +               // temp feld, falls andere noch benoetigt werden sollten
+                    "soc6 VARCHAR(300), " +               // temp feld, falls andere noch benoetigt werden sollten
                     "FOREIGN KEY (uid) REFERENCES Users(uid)" +
                     ");");
 
