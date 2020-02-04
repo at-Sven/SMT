@@ -85,6 +85,7 @@ public class ControllerRegistration {
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("fxLogin.fxml"));
+            root.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
             Node node = (Node) event.getSource();
             Stage stage = (Stage) node.getScene().getWindow();
 

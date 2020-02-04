@@ -76,18 +76,8 @@ public class ControllerLogin {
      */
     @FXML
     void showRegistration(ActionEvent event) throws IOException {
-        showPanel(event, "fxRegistration.fxml");
-    }
-
-    /**
-     * Diese Methode öffnet eine FXML Datei im gleichen Fenster, wo der Auslöser ist.
-     *
-     * @param event Actionevent
-     * @param route Pfad von der FXML Datei
-     * @throws IOException Wenn die FXML Datei nicht geöffnet werden kann
-     */
-    private void showPanel(ActionEvent event, String route) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource(route));
+        Parent root = FXMLLoader.load(getClass().getResource("fxRegistration.fxml"));
+        root.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         Node node = (Node) event.getSource();
         Stage stage = (Stage) node.getScene().getWindow();
         stage.setScene(new Scene(root));
@@ -102,7 +92,7 @@ public class ControllerLogin {
             Stage MainStage = new Stage();
             FXMLLoader loader = new FXMLLoader();
             Pane root = loader.load(getClass().getResource("fxMain.fxml").openStream());
-
+            root.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
             ControllerMain controllerMain = loader.getController();  // get the controller of fxMain
             controllerMain.setUser(this.userObject); // sets the MainUser in ControllerMain Object for further usage
 
@@ -121,7 +111,6 @@ public class ControllerLogin {
 
     @FXML
     void initialize() {
-        // DB starten?
 
     }
 }
