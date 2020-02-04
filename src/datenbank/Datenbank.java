@@ -77,6 +77,7 @@ public class Datenbank extends SQLiteDatenbankverbindung {
                     "posttext VARCHAR(2000), " +           // posttag+hashtags
                     "mediafile VARCHAR(500), " +           // image or video file
                     "posttime DATETIME NOT NULL, " +       // datetime when post will be send
+                    "poststatus INTEGER DEFAULT 0, " +       // 0 noch nicht versendet, 1 versendet, 2 fehler etc.
                     "FOREIGN KEY (uid) REFERENCES Users(uid), " +
                     "FOREIGN KEY (sid) REFERENCES SocialmediaAccounts(sid) " +
                     ");");
