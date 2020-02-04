@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
- * Die Bean KLasse für die User Tabelle in der Datenbank
+ * Die Bean Klasse für die User Tabelle in der Datenbank
  */
 public class UserBean {
 

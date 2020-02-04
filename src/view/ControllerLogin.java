@@ -40,6 +40,7 @@ public class ControllerLogin {
 
     private UserBean user = new UserBean();
     private UserEintrag userObject = new UserEintrag();
+    private String userEmail;
 
 
     @FXML
@@ -49,11 +50,13 @@ public class ControllerLogin {
             lbStatusLogin.setText("Ihre E-Mail Addresse und Passwort eingeben!");
             tfEmail.requestFocus();
         } else if (user.isUser(this.tfEmail.getText(), Codify.PwConverter(this.pwfPassword.getText()))) {
-            this.userObject = this.user.get(this.tfEmail.getText(), Codify.PwConverter(this.pwfPassword.getText())); // get the user uid,email,pw from db.
+            this.userObject = this.user.get(this.tfEmail.getText(), Codify.PwConverter(this.pwfPassword.getText())); // get the user uid,email,pw from db.#
+            userEmail = this.tfEmail.getText();
             showMain();
         } else {
             lbStatusLogin.setText("Account nicht vorhanden");
         }
+
 
     }
 
@@ -97,7 +100,7 @@ public class ControllerLogin {
             controllerMain.setUser(this.userObject); // sets the MainUser in ControllerMain Object for further usage
 
             Scene scene = new Scene(root);
-            MainStage.setTitle("SMT - Social Media Tool");
+            MainStage.setTitle("SMT - Social Media Tool - User: " + userEmail);
             MainStage.setScene(scene);
             MainStage.setX(300);
             MainStage.setY(150);
