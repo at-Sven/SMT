@@ -38,8 +38,11 @@ public class SocialmediaAccountBean {
         pstmtInsertFacebookAccount = Datenbank.getInstance().prepareStatement("INSERT INTO SocialmediaAccounts ( " +
                 "uid, " +
                 "fbAppID, " +
-                "fbAppSecret) " +
-                "VALUES (?, ?, ?);");
+                "fbAppSecret," +
+                "fbAccessToken, " +
+                "fbUserdata, " +
+                "fbAccessTokenExpireDate) " +
+                "VALUES (?, ?, ?, ?, ?, ? );");
 
         pstmtUpdateTwitterAccount = Datenbank.getInstance().prepareStatement("UPDATE SocialmediaAccounts SET " +
                 "twConsumerKey = ?, " +
@@ -50,7 +53,10 @@ public class SocialmediaAccountBean {
 
         pstmtUpdateFacebookAccount = Datenbank.getInstance().prepareStatement("UPDATE SocialmediaAccounts SET " +
                 "fbAppID = ?, " +
-                "fbAppSecret = ? " +
+                "fbAppSecret = ?, " +
+                "fbAccessToken = ?, " +
+                "fbUserdata = ?, " +
+                "fbAccessTokenExpireDate = ? " +
                 "WHERE uid = ?;");
 
         pstmtSelectWithUid = Datenbank.getInstance().prepareStatement("SELECT * FROM SocialmediaAccounts WHERE uid = ?;");
@@ -132,13 +138,16 @@ public class SocialmediaAccountBean {
 
             if (rs.next()) {
                 result = new SocialmediaAccount();
-                result.setUid(rs.getInt(2));  // 2. field is uid! 1.field is sid.
+                result.setUid(rs.getInt(2));  // 2. field is uid!
                 result.setTwConsumerKey(rs.getString(3));
                 result.setTwConsumerSecret(rs.getString(4));
                 result.setTwAccessToken(rs.getString(5));
                 result.setTwAccessTokenSecret(rs.getString(6));
                 result.setFbAppID(rs.getString(7));
                 result.setFbAppSecret(rs.getString(8));
+                result.setFbAccessToken(rs.getString(9));
+                result.setFbUserdata(rs.getString(10));
+                result.setFbAccessTokenExpireDate(rs.getInt(11));
             }
 
             rs.close();
@@ -153,18 +162,26 @@ public class SocialmediaAccountBean {
 
 
 
-/* table Structur zur Info, später hier rauslöschen:
-"sid INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-        "uid INTEGER NOT NULL, " +
-        "twConsumerKey VARCHAR(200), " +
-        "twConsumerSecret VARCHAR(200), " +
-        "twAccessToken VARCHAR(200), " +
-        "twAccessTokenSecret VARCHAR(200)," +
-        "fbAppID VARCHAR(200), " +            // facebook AppID
-        "fbAppSecret VARCHAR(200), " +        // facebook AppSecret
-        "soc0 VARCHAR(200), " +               // temp feld, falls andere noch benoetigt werden sollten
-        "soc1 VARCHAR(200), " +               // temp feld, falls andere noch benoetigt werden sollten
-        "soc2 VARCHAR(200), " +               // temp feld, falls andere noch benoetigt werden sollten
-        "soc3 VARCHAR(200), " +               // temp feld, falls andere noch benoetigt werden sollten
+/* socialmediaaccoutns table Structur zur Info, später hier rauslöschen:
+execute("CREATE TABLE IF NOT EXISTS \"SocialmediaAccounts\" (" +
+                    "sid INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                    "uid INTEGER UNIQUE NOT NULL, " +
+                    "twConsumerKey VARCHAR(200), " +
+                    "twConsumerSecret VARCHAR(200), " +
+                    "twAccessToken VARCHAR(200), " +
+                    "twAccessTokenSecret VARCHAR(200)," +
+                    "fbAppID VARCHAR(500), " +            // facebook AppID
+                    "fbAppSecret VARCHAR(500), " +        // facebook AppSecret
+                    "fbAccessToken VARCHAR(500), " +      // fb accesstoken field, if needed
+                    "fbUserdata VARCHAR(500), " +         // fbuserdata extra field , if needed
+                    "fbAccessTokenExpireDate INTEGER, " +  // temp feld, falls andere noch benoetigt werden sollten
+                    "soc1 VARCHAR(300), " +               // temp feld, falls andere noch benoetigt werden sollten
+                    "soc2 VARCHAR(300), " +               // temp feld, falls andere noch benoetigt werden sollten
+                    "soc3 VARCHAR(300), " +               // temp feld, falls andere noch benoetigt werden sollten
+                    "soc4 VARCHAR(300), " +               // temp feld, falls andere noch benoetigt werden sollten
+                    "soc5 VARCHAR(300), " +               // temp feld, falls andere noch benoetigt werden sollten
+                    "soc6 VARCHAR(300), " +               // temp feld, falls andere noch benoetigt werden sollten
+                    "FOREIGN KEY (uid) REFERENCES Users(uid)" +
+                    ");");
 
  */

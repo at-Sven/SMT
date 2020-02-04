@@ -12,6 +12,9 @@ public class SocialmediaAccount {
     private StringProperty twAccessTokenSecret;
     private StringProperty fbAppID;
     private StringProperty fbAppSecret;
+    private StringProperty fbAccessToken;
+    private StringProperty fbUserdata;
+    private Integer fbAccessTokenExpireDate;
 
     /*
     public SocialmediaAccount(Integer uid, String twConsumerKey, String twConsumerSecret, String twAccessToken, String twAccessTokenSecret, String fbAppID, String fbAppSecret) {
@@ -138,6 +141,55 @@ public class SocialmediaAccount {
     public void setFbAppSecret(String fbAppSecret) {
         this.fbAppSecret = new SimpleStringProperty(fbAppSecret);
     }
+
+    /**
+     * getter for facebook AccessToken
+     * @return fbAccessToken String
+     */
+    public String getFbAccessToken() {
+        return fbAccessToken.get();
+    }
+
+    /**
+     * setter for facebook AccessToken
+     * @param fbAccessToken String
+     */
+    public void setFbAccessToken(String fbAccessToken) {
+        this.fbAccessToken = new SimpleStringProperty(fbAccessToken);
+    }
+
+    /**
+     * getter for facebook fbUserdata
+     * @return fbUserdata String
+     */
+    public String getFbUserdata() {
+        return fbUserdata.get();
+    }
+
+    /**
+     * setter for facebook fbUserdata
+     * @param fbUserdata String
+     */
+    public void setFbUserdata(String fbUserdata) {
+        this.fbUserdata = new SimpleStringProperty(fbUserdata);
+    }
+
+    /**
+     * getter method for FB AccessTokenExpireDate
+     * @return fbAccessTokenExpireDate
+     */
+    public Integer getFbAccessTokenExpireDate() {
+        return fbAccessTokenExpireDate;
+    }
+
+    /**
+     * setter method for FB AccesTokenExpireDate
+     * @param fbAccessTokenExpireDate integer
+     */
+    public void setFbAccessTokenExpireDate(Integer fbAccessTokenExpireDate) {
+        this.fbAccessTokenExpireDate = fbAccessTokenExpireDate;
+    }
+
 
      /* // uncommented, no need, maybe for later use...
     public StringProperty twConsumerKeyProperty() {

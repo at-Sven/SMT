@@ -174,26 +174,26 @@
                      </children></AnchorPane>
               </content>
             </Tab>
-            <Tab fx:id="tabEinstellungen" onSelectionChanged="#tabEinstellungenClicked" text="Einstellungen">
+            <Tab fx:id="tabEinstellungen" text="Einstellungen">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TextField fx:id="tfFBUsername" layoutX="70.0" layoutY="209.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="Benutername" AnchorPane.leftAnchor="150.0">
+                        <TextField fx:id="tfFBUserData" layoutX="150.0" layoutY="373.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="optional field" AnchorPane.leftAnchor="150.0">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="tfFBPassword" layoutX="132.0" layoutY="263.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="Passwort" AnchorPane.leftAnchor="150.0">
+                        <TextField fx:id="tfFBAccessToken" layoutX="150.0" layoutY="316.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="AccessToken" AnchorPane.leftAnchor="150.0">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="tfFBAppID" layoutX="132.0" layoutY="314.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="AppID" AnchorPane.leftAnchor="150.0">
+                        <TextField fx:id="tfFBAppID" layoutX="150.0" layoutY="210.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="AppID" AnchorPane.leftAnchor="150.0">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="tfFBAppSecret" layoutX="132.0" layoutY="365.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="AppSecret" AnchorPane.leftAnchor="150.0">
+                        <TextField fx:id="tfFBAppSecret" layoutX="150.0" layoutY="263.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="AppSecret" AnchorPane.leftAnchor="150.0">
                            <font>
                               <Font size="18.0" />
                            </font>

@@ -197,7 +197,7 @@ public class ControllerMain {
      */
     public void setUser(UserEintrag userObject){
         this.user = userObject;
-        System.out.println(this.user.getId() + "");
+        System.out.println("Uid: " + this.user.getId());
     }
 
 
@@ -466,18 +466,10 @@ public class ControllerMain {
         resetText(this.lblSaveTWAccountStatus);
     }
 
-    /** Fired when Einstellungen Tab is clicked
-     * no need for now: (maybe later, if we reload when clicked on the Einstellungen Tab)
-     * @param event tabclicked
-     */
-    public void tabEinstellungenClicked(Event event) {
-        //this.preloadSocialMediaAccountDataIntoTwitterAndFacebookFields();
-    }
-
     /**
      * loads the SocialmediaAccount Data of the active user with uid from user object (=UserEintrag object)
      */
-    private void preloadSocialMediaAccountDataIntoTwitterAndFacebookFields(){
+    private void loadSocialMediaAccountDataIntoTwitterAndFacebookFields(){
 
             if (this.user.getId() != null) {
 
@@ -492,6 +484,7 @@ public class ControllerMain {
                     // show socialmedia account data  in Einstellungs textfields, so user can update and see what is actually set
                     String fbAppID = this.socialmediaAccount.getFbAppID();
                     String fbAppSecret = this.socialmediaAccount.getFbAppSecret();
+
 
                     if( fbAppID != null && fbAppSecret != null ) {
                         this.tfFBAppID.setText(fbAppID);
@@ -557,12 +550,24 @@ public class ControllerMain {
         /* --------- Twitter and Facebook Account Einstellungen ----------- */
         this.socialmediaAccount = new SocialmediaAccount();
 
+        // if we select the Einstellungen tab, it loads newest SocialMediaAccounts Data from DB
+        tabEinstellungen.setOnSelectionChanged(new EventHandler<Event>() {
+            @Override
+            public void handle(Event t) {
+                if (tabEinstellungen.isSelected()) {
+                    loadSocialMediaAccountDataIntoTwitterAndFacebookFields();
+                    System.out.println("Einstellungen Tab clicked.");
+                }
+            }
+        });
+
         // wait 3 sec till uid etc. loaded and set by ContollerLogin, put everything in here, if it needs to start short time after fxinits
         PauseTransition pause = new PauseTransition(javafx.util.Duration.seconds(3));
         pause.setOnFinished(event ->
-              this.preloadSocialMediaAccountDataIntoTwitterAndFacebookFields()
+              loadSocialMediaAccountDataIntoTwitterAndFacebookFields()
         );
         pause.play();
+
 
         // if not need , set not needed FB Account Fields to invisible:
         // this.tfFBUsername.setVisible(false);
