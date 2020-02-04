@@ -11,6 +11,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import model.UserEintrag;
@@ -42,6 +44,13 @@ public class ControllerLogin {
     private UserEintrag userObject = new UserEintrag();
     private String userEmail;
 
+
+    @FXML
+    void enter(KeyEvent event) {
+        if (event.getCode().equals(KeyCode.ENTER)) {
+            btnLogin.fire();
+        }
+    }
 
     @FXML
     void login(ActionEvent event) {

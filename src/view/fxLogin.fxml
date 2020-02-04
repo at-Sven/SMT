@@ -19,7 +19,7 @@
             <Font size="16.0" />
          </font>
       </TextField>
-      <PasswordField fx:id="pwfPassword" layoutX="112.0" layoutY="139.0" prefHeight="37.0" prefWidth="240.0" promptText="Passwort">
+      <PasswordField fx:id="pwfPassword" layoutX="112.0" layoutY="139.0" onKeyPressed="#enter" prefHeight="37.0" prefWidth="240.0" promptText="Passwort">
          <font>
             <Font size="16.0" />
          </font>
