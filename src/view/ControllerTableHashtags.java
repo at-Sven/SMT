@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
+import model.HashtagsEintrag;
 
 /**
  * Controllerklasse für die FXML Datei fxTableHashtags
@@ -13,16 +14,16 @@ import javafx.stage.Stage;
 public class ControllerTableHashtags {
 
     @FXML
-    private TableView<?> tvHashtags;
+    private TableView<HashtagsEintrag> tvHashtags;
 
     @FXML
-    private TableColumn<?, ?> tcTheme;
+    private TableColumn<HashtagsEintrag, String> tcTheme;
 
     @FXML
-    private TableColumn<?, ?> tcList;
+    private TableColumn<HashtagsEintrag, String> tcList;
 
     @FXML
-    private TableColumn<?, ?> tcChoise;
+    private TableColumn<HashtagsEintrag, String> tcChoise;
 
     @FXML
     private Button btnChoose;

@@ -1,5 +1,3 @@
-package view;
-
 import datenbank.Datenbank;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -14,7 +12,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("fxLogin.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("view/fxLogin.fxml"));
+        root.getStylesheets().add(getClass().getResource("view/style.css").toExternalForm());
         primaryStage.setTitle("SMT - Social Media Tool: Login");
         primaryStage.setScene(new Scene(root));
         primaryStage.setResizable(false);

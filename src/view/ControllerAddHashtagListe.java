@@ -12,12 +12,6 @@ import javafx.stage.Stage;
 public class ControllerAddHashtagListe {
 
     @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
-
-    @FXML
     private TextField tfNewList;
 
     @FXML

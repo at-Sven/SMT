@@ -30,6 +30,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import model.HashtagsEintrag;
+import model.PostEintrag;
 import model.SocialmediaAccount;
 import model.UserEintrag;
 import socialmedia.SocialMediaWorker;
@@ -111,34 +113,34 @@ public class ControllerMain {
     private Label lbFilename;
 
     @FXML
-    private TableView<?> tvPosts;
+    private TableView<PostEintrag> tvPosts;
 
     @FXML
-    private TableColumn<?, ?> tcText;
+    private TableColumn<PostEintrag, String> tcText;
 
     @FXML
-    private TableColumn<?, ?> tcDate1;
+    private TableColumn<PostEintrag, String> tcDate1;
 
     @FXML
-    private TableColumn<?, ?> tcPlatform;
+    private TableColumn<PostEintrag, String> tcPlatform;
 
     @FXML
-    private TableColumn<?, ?> tcReaction;
+    private TableColumn<PostEintrag, String> tcReaction;
 
     @FXML
-    private TableColumn<?, ?> tcPostAction;
+    private TableColumn<PostEintrag, String> tcPostAction;
 
     @FXML
-    private TableView<?> tvHashtags;
+    private TableView<HashtagsEintrag> tvHashtags;
 
     @FXML
-    private TableColumn<?, ?> tcTheme;
+    private TableColumn<HashtagsEintrag, String> tcTheme;
 
     @FXML
-    private TableColumn<?, ?> tcList;
+    private TableColumn<HashtagsEintrag, String> tcList;
 
     @FXML
-    private TableColumn<?, ?> tcHashAction;
+    private TableColumn<HashtagsEintrag, String> tcHashAction;
 
     @FXML
     private Button btnNewList;
