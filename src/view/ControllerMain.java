@@ -48,6 +48,10 @@ public class ControllerMain {
 
     @FXML
     public Tab tabEinstellungen; // Tab name id
+    @FXML
+    public TableColumn tcDate;
+    @FXML
+    public Button btnRandmDateTime;
 
     @FXML
     private AnchorPane anchorpane;
@@ -287,7 +291,7 @@ public class ControllerMain {
         if (this.tbActivate.isSelected()) {
             this.socialMediaWorker.init();// here we need to init() socialmediaworker with the posts from DB
             this.socialMediaWorkerTimer.play();
-            this.tbActivate.setStyle("-fx-background-color:lightgreen");
+            this.tbActivate.setStyle("-fx-background-color:cyan");
             //System.out.println("Selected: " + tbActivate.isSelected());
             System.out.println("Automatisierung ist aktiviert");
         } else {
