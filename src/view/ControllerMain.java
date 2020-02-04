@@ -11,8 +11,6 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.concurrent.ThreadLocalRandom;
-
-
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
@@ -26,6 +24,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
@@ -50,8 +49,7 @@ public class ControllerMain {
 
     @FXML
     public Tab tabEinstellungen; // Tab name id
-    @FXML
-    public TableColumn tcDate;
+
     @FXML
     public Button btnRandmDateTime;
 
@@ -119,7 +117,7 @@ public class ControllerMain {
     private TableColumn<PostEintrag, String> tcText;
 
     @FXML
-    private TableColumn<PostEintrag, String> tcDate1;
+    private TableColumn<PostEintrag, String> tcDate;
 
     @FXML
     private TableColumn<PostEintrag, String> tcPlatform;
@@ -250,7 +248,7 @@ public class ControllerMain {
                 new FileChooser.ExtensionFilter("Video Formate", "*.avi", "*.mov", "*.mp4", "*.mpeg", "*.wmv", "*.ogg")
         );
         Stage stage = (Stage) anchorpane.getScene().getWindow();
-        File selectedFile = fileChooser.showOpenDialog(stage);
+        selectedFile = fileChooser.showOpenDialog(stage);
 
         if (selectedFile != null) {
 
@@ -568,6 +566,5 @@ public class ControllerMain {
         // this.tfFBUsername.setVisible(false);
         // this.tfFBPassword.setVisible(false);
     }
-
 
 }
