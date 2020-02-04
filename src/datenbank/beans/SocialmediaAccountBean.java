@@ -40,9 +40,8 @@ public class SocialmediaAccountBean {
                 "fbAppID, " +
                 "fbAppSecret," +
                 "fbAccessToken, " +
-                "fbUserdata, " +
-                "fbAccessTokenExpireDate) " +
-                "VALUES (?, ?, ?, ?, ?, ? );");
+                "fbUserdata ) " +
+                "VALUES (?, ?, ?, ?, ? );");
 
         pstmtUpdateTwitterAccount = Datenbank.getInstance().prepareStatement("UPDATE SocialmediaAccounts SET " +
                 "twConsumerKey = ?, " +
@@ -55,8 +54,7 @@ public class SocialmediaAccountBean {
                 "fbAppID = ?, " +
                 "fbAppSecret = ?, " +
                 "fbAccessToken = ?, " +
-                "fbUserdata = ?, " +
-                "fbAccessTokenExpireDate = ? " +
+                "fbUserdata = ? " +
                 "WHERE uid = ?;");
 
         pstmtSelectWithUid = Datenbank.getInstance().prepareStatement("SELECT * FROM SocialmediaAccounts WHERE uid = ?;");
@@ -75,7 +73,6 @@ public class SocialmediaAccountBean {
      * @param ats  twitter accesstokensecret
      * @return true im Erfolgsfall, false andernfalls
      */
-
     public static boolean insertOrUpdateTwitterAccount(int uid, String ck, String cs, String at, String ats ) {
     // public static boolean insertOrUpdateTwitterAccount(int uid, SocialmediaAccount zuSpeichern) {
         boolean result = false;
@@ -158,7 +155,67 @@ public class SocialmediaAccountBean {
         return result;
     }
 
+
+
+    /**
+     * Fügt das übergebene Objekt in die Datenbank ein und gibt zurück, ob der Vorgang erfolgreich war.
+     *
+     * @param uid userid
+     * @param ai facebook appid
+     * @param as facebook appsecret
+     * @param at facebook accesstoken
+     * @param ud facebook additional fb user data if needed
+     * @return true im Erfolgsfall, false andernfalls
+     */
+    public static boolean insertOrUpdateFacebookAccount(int uid, String ai, String as, String at, String ud) {
+        boolean result = false;
+        int rows;
+        try {
+
+            // check if a row for uid already exists:
+            if (getSocialMediaAccountsByUid(uid) == null) {  // insert if no row found in table
+
+                pstmtInsertFacebookAccount.setInt(1, uid);
+                pstmtInsertFacebookAccount.setString(2, ai);
+                pstmtInsertFacebookAccount.setString(3, as);
+                pstmtInsertFacebookAccount.setString(4, at);
+                pstmtInsertFacebookAccount.setString(5, ud);
+
+                rows = pstmtInsertFacebookAccount.executeUpdate();
+
+            }else{ // update if row with uid already exists
+
+                pstmtUpdateFacebookAccount.setString(1, ai);
+                pstmtUpdateFacebookAccount.setString(2, as);
+                pstmtUpdateFacebookAccount.setString(3, at);
+                pstmtUpdateFacebookAccount.setString(4, ud);
+                pstmtUpdateFacebookAccount.setInt(5, uid);
+
+                rows = pstmtUpdateFacebookAccount.executeUpdate();
+            }
+            // Prüfen ob der Eintrag erfolgreich war. Wenn ja, dann werden die Informationen in die Datenbank
+            // übertragen (commit). Wenn nicht, werden sie verworfen (rollback)
+            if (rows == 1) {
+                Datenbank.getInstance().commit();
+                result = true;
+            } else {
+                Datenbank.getInstance().rollback();
+            }
+
+
+        } catch(SQLException ignored){
+        }
+
+        return result;
+
+    }
 }
+
+
+
+
+
+
 
 
 

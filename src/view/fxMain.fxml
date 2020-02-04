@@ -178,7 +178,7 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TextField fx:id="tfFBUserData" layoutX="150.0" layoutY="373.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="optional field" AnchorPane.leftAnchor="150.0">
+                        <TextField fx:id="tfFBUserData" layoutX="150.0" layoutY="373.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="fb userdata extras infos" AnchorPane.leftAnchor="150.0">
                            <font>
                               <Font size="18.0" />
                            </font>

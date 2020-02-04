@@ -147,10 +147,10 @@ public class ControllerMain {
     private Button btnLogSave;
 
     @FXML
-    private TextField tfFBUsername;
+    private TextField tfFBAccessToken;
 
     @FXML
-    private TextField tfFBPassword;
+    private TextField tfFBUserData;
 
     @FXML
     private TextField tfFBAppID;
@@ -190,7 +190,7 @@ public class ControllerMain {
     int workerWaitSeconds = 3; // here use later 60 seconds, 3sec only for testing the loop
 
     /**
-     * This Method sets the UserEintag User Object
+     * This Method sets the userObject here, after login of the main user
      * @param userObject userObject with uid,email,pw
      */
     public void setUser(UserEintrag userObject){
@@ -362,10 +362,11 @@ public class ControllerMain {
         }
     }
 
-    @FXML
+
     /**
      *  This method generates and sets a random date in DatePicker and generate and sets a random time in TextField Time
      */
+    @FXML
     void randomDateTime(ActionEvent event) {
         //When clicked ,must generate Random Date and Time
         Instant jetzt = Instant.now();
@@ -417,13 +418,34 @@ public class ControllerMain {
     }
 
     /**
-     * This method save the Facebook Account Details from the tab 'Einstellungen' in the Database
+     * This method save the Facebook Account Details from the tab 'Einstellungen' in the Database and to socialmediaAccount object
      *
      * @param event clickevent
      */
     @FXML
     void saveSettingsFB(ActionEvent event) {
-        // Speichert die Facebook Accountdaten der Profilen
+        // Speichert die Facebook Accountdaten des users, abhaengig von seiner uid
+        Integer uid = this.user.getId();
+        String ai = this.tfFBAppID.getText();
+        String as = this.tfFBAppSecret.getText();
+        String at = this.tfFBAccessToken.getText();
+        String ud = this.tfFBUserData.getText();
+        if( uid != null && !ai.trim().equals("") && !as.trim().equals("") && !at.trim().equals("") && !ud.trim().equals("") ){
+            if(SocialmediaAccountBean.insertOrUpdateFacebookAccount(uid,ai,as,at,ud)) {  // insertOrUpdate db true
+                this.socialmediaAccount.setUid(uid);
+                this.socialmediaAccount.setFbAppID(ai);
+                this.socialmediaAccount.setFbAppSecret(as);
+                this.socialmediaAccount.setFbAccessToken(at);
+                this.socialmediaAccount.setFbUserdata(ud);
+                this.lblSaveFBAccountStatus.setText("Facebook Accountdaten gespeichert/aktualisiert.");
+            }else{
+                System.out.println("An Error occured while insert or update FBAccountdata into SocialMediaAccounts Table!");
+                this.lblSaveFBAccountStatus.setText("Konnte nicht gespeichert werden, Eingaben ueberpruefen!");
+            }
+        }else{
+            this.lblSaveFBAccountStatus.setText("Konnte nicht gespeichert werden, Felder duerfen nicht leer sein!");
+        }
+        resetText(this.lblSaveFBAccountStatus);
     }
 
     /**
@@ -439,24 +461,18 @@ public class ControllerMain {
         String cs = this.ConsumerSecret.getText();
         String at = this.AccessToken.getText();
         String ats = this.AccessTokenSecret.getText();
-
         if( uid != null && !ck.trim().equals("") && !cs.trim().equals("") && !at.trim().equals("") && !at.trim().equals("") ){
-
             //SocialmediaAccountBean socialmediaAccountBean = new SocialmediaAccountBean();  // used static
             if(SocialmediaAccountBean.insertOrUpdateTwitterAccount(uid,ck,cs,at,ats)){  // insertOrUpdate db true
-
                 this.socialmediaAccount.setUid(uid);
                 this.socialmediaAccount.setTwConsumerKey(ck);
                 this.socialmediaAccount.setTwConsumerSecret(cs);
                 this.socialmediaAccount.setTwAccessToken(at);
                 this.socialmediaAccount.setTwAccessTokenSecret(ats);
                 this.lblSaveTWAccountStatus.setText("Twitter Accountdaten gespeichert/aktualisiert.");
-
             }else{
-
-                System.out.println("An Error occured while insert or update into SocialMediaAccounts Table!");
+                System.out.println("An Error occured while insert or update TwitterAccountdata into SocialMediaAccounts Table!");
                 this.lblSaveTWAccountStatus.setText("Konnte nicht gespeichert werden, Eingaben ueberpruefen!");
-
             }
         }else{
             this.lblSaveTWAccountStatus.setText("Konnte nicht gespeichert werden, Felder duerfen nicht leer sein!");
@@ -482,11 +498,15 @@ public class ControllerMain {
                     // show socialmedia account data  in Einstellungs textfields, so user can update and see what is actually set
                     String fbAppID = this.socialmediaAccount.getFbAppID();
                     String fbAppSecret = this.socialmediaAccount.getFbAppSecret();
+                    String fbAccessToken = this.socialmediaAccount.getFbAccessToken();
+                    String fbUserExtraData = this.socialmediaAccount.getFbUserdata();
 
 
-                    if( fbAppID != null && fbAppSecret != null ) {
+                    if( fbAppID != null && fbAppSecret != null && fbAccessToken != null && fbUserExtraData != null ) {
                         this.tfFBAppID.setText(fbAppID);
                         this.tfFBAppSecret.setText(fbAppSecret);
+                        this.tfFBAccessToken.setText(fbAccessToken);
+                        this.tfFBUserData.setText(fbUserExtraData);
                     }
 
                     String twck = this.socialmediaAccount.getTwConsumerKey();
