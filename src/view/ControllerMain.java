@@ -11,9 +11,12 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.concurrent.ThreadLocalRandom;
+
+import datenbank.beans.HashtagsBean;
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
@@ -135,7 +138,7 @@ public class ControllerMain {
     private TableColumn<HashtagsEintrag, String> tcTheme;
 
     @FXML
-    private TableColumn<HashtagsEintrag, String> tcList;
+    private TableColumn<HashtagsEintrag, String> tcHashtags;
 
     @FXML
     private TableColumn<HashtagsEintrag, String> tcHashAction;
@@ -185,6 +188,7 @@ public class ControllerMain {
     private UserEintrag user;  // The Main Loggedin User (this is set during successfull Login Phase)
     private SocialmediaAccount socialmediaAccount; // the users socialmedia account data
     File selectedFile;
+    String hashtags = "";
     Timeline socialMediaWorkerTimer; // controls the SocialMediaWorker object
     SocialMediaWorker socialMediaWorker; // checks what/when to post to Social Media
     int workerWaitSeconds = 3; // here use later 60 seconds, 3sec only for testing the loop
@@ -205,20 +209,37 @@ public class ControllerMain {
     @FXML
     void ShowHashtags() {
         try {
+
             Stage MainStage = new Stage();
             FXMLLoader loader = new FXMLLoader();
             Pane root = loader.load(getClass().getResource("fxTableHashtags.fxml").openStream());
             root.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 
+            //Get controller of fxTableHashtags
+            ControllerTableHashtags hashCon = loader.getController();
+
             Scene scene = new Scene(root);
+
             MainStage.setTitle("SMT - Social Media Tool: Hashtags");
             MainStage.setScene(scene);
-            MainStage.setX(400);
-            MainStage.setY(300);
-            MainStage.show();
+            MainStage.showAndWait();
 
+            hashtags = hashtags + hashCon.getData();
         } catch (IOException ex) {
             ex.getStackTrace();
+        }
+
+        System.out.println(hashtags);
+        if(hashtags.isEmpty()) {
+            hashtags = "";
+        } else if(taHashtags.getText().isEmpty()) {
+            taHashtags.appendText(hashtags);
+            countHashtag();
+            hashtags = "";
+        } else {
+            taHashtags.appendText(" " + hashtags);
+            countHashtag();
+            hashtags = "";
         }
     }
 
@@ -231,7 +252,7 @@ public class ControllerMain {
         this.taHashtags.setText("");
         this.dpDate.getEditor().clear();
         this.tfTime.setText("");
-
+        countHashtag();
         selectedFile = null;
         lbFilename.setText("Keine Bild oder Film ausgewählt");
     }
@@ -590,6 +611,19 @@ public class ControllerMain {
         // if not need , set not needed FB Account Fields to invisible:
         // this.tfFBUsername.setVisible(false);
         // this.tfFBPassword.setVisible(false);
+        getHashTable();
+    }
+
+    void getHashTable() {
+        ObservableList<HashtagsEintrag> entries = FXCollections.observableArrayList(HashtagsBean.getThemes());
+        this.tcTheme.setCellValueFactory(new PropertyValueFactory<HashtagsEintrag, String>("theme"));
+        this.tcHashtags.setCellValueFactory(new PropertyValueFactory<HashtagsEintrag, String>("hashtags"));
+
+        this.tvHashtags.setItems(entries);
+    }
+
+    String getHashtags(String content) {
+        return hashtags = content;
     }
 
 }
