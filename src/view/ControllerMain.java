@@ -664,13 +664,12 @@ public class ControllerMain {
 
 
         // wait 3 sec till uid etc. loaded and set by ContollerLogin, put everything in here, if it needs to start short time after fxinits
-        /*
         PauseTransition pause = new PauseTransition(javafx.util.Duration.seconds(3));
         pause.setOnFinished(event ->
               loadSocialMediaAccountDataIntoTwitterAndFacebookFields()
         );
         pause.play();
-        */
+
 
         // if not need , set not needed FB Account Fields to invisible:
         // this.tfFBUsername.setVisible(false);
