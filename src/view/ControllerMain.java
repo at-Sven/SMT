@@ -777,14 +777,44 @@ public class ControllerMain {
 
     }
 
+    /**
+     * This method update a Hashtag list entry in the database
+     */
     @FXML
     void updateHashEntry() {
         System.out.println("Liste aktualisiert");
         //TODO
 
+        HashtagsEintrag oldEntry = tvHashtags.getSelectionModel().getSelectedItem();
+
+        try {
+            Stage MainStage = new Stage();
+            FXMLLoader loader = new FXMLLoader();
+            Pane root = loader.load(getClass().getResource("fxUpdateHashtagListe.fxml").openStream());
+            root.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+
+            //Get controller of fxAddHashtagListe
+            ControllerUpdateHashtagListe updateList = loader.getController();
+
+            updateList.setOldEntry(oldEntry);
+
+            Scene scene = new Scene(root);
+
+            MainStage.setTitle("SMT - Social Media Tool: Hashtagliste Hinzufügen");
+            MainStage.setScene(scene);
+            MainStage.showAndWait();
+
+        } catch (IOException ex) {
+            ex.getStackTrace();
+        }
+        getHashTable();
+
         getHashTable();
     }
 
+    /**
+     * This method delete a Hashtag list in the database
+     */
     @FXML
     void deleteHashList() {
 
@@ -792,7 +822,6 @@ public class ControllerMain {
 
         HashtagsBean.delete(selectedEntry);
         System.out.println("Liste entfernt");
-        //TODO
 
         getHashTable();
     }

@@ -108,6 +108,39 @@ public class HashtagsBean {
         return result;
     }
 
+    /**
+     * Ersetz das zweite übergebene Objekt mit dem ersten übergebenen Objekt in der Datenbank
+     * und gibt zurück, ob der Vorgang erfolgreich war.
+     *
+     * @param neu Das in die Datenbank zu schreibende Objekt
+     * @param alt Das in die Datenbank zu ersetzende Objekt
+     * @return true im Erfolgsfall, false andernfalls
+     */
+    public static boolean update(HashtagsEintrag neu, HashtagsEintrag alt) {
+        boolean result = false;
+
+        try {
+            pstmtUpdate.setString(1, neu.getTheme());
+            pstmtUpdate.setString(2, neu.getHashtags());
+            pstmtUpdate.setString(3, alt.getTheme());
+            pstmtUpdate.setString(4, alt.getHashtags());
+
+            int rows = pstmtUpdate.executeUpdate();
+
+            // Prüfen ob der Eintrag erfolgreich war. Wenn ja, dann werden die Informationen in die Datenbank
+            // übertragen (commit). Wenn nicht, werden sie verworfen (rollback)
+            if (rows == 1) {
+                Datenbank.getInstance().commit();
+                result = true;
+            } else {
+                Datenbank.getInstance().rollback();
+            }
+
+        } catch (SQLException ignored) {}
+
+        return result;
+    }
+
     // TODO: Restliche Methoden einfügen
 
 }
