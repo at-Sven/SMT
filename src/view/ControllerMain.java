@@ -770,8 +770,10 @@ public class ControllerMain {
     @FXML
     void deletePost() {
 
-            System.out.println("Post gelöscht");
-            // TODO:
+        PostEintrag selectedEntry = tvPosts.getSelectionModel().getSelectedItem();
+
+        PostEintragBean.delete(selectedEntry);
+        System.out.println("Post entfernt");
 
             getPostTable();
 
