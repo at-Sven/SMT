@@ -102,7 +102,7 @@
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab text="Alle Posts">
+          <Tab fx:id="tabAllePosts" text="Alle Posts">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="1200.0">
                      <children>

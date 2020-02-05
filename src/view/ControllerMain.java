@@ -7,10 +7,13 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.concurrent.ThreadLocalRandom;
+
+import datenbank.beans.PostEintragBean;
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
@@ -35,6 +38,7 @@ import model.SocialmediaAccount;
 import model.UserEintrag;
 import socialmedia.SocialMediaWorker;
 import datenbank.beans.SocialmediaAccountBean;
+import utils.Helper;
 
 /**
  * Controller class for the FXML file 'fxMain'
@@ -52,6 +56,8 @@ public class ControllerMain {
 
     @FXML
     public Button btnRandmDateTime;
+    @FXML
+    public Tab tabAllePosts;
 
     @FXML
     private AnchorPane anchorpane;
@@ -183,6 +189,7 @@ public class ControllerMain {
     private Label lbLogSavedFeedback;
 
     private UserEintrag user;  // The Main Loggedin User (this is set during successfull Login Phase)
+    Helper helper = new Helper();  // Helper object with functions
     private SocialmediaAccount socialmediaAccount; // the users socialmedia account data
     File selectedFile;
     Timeline socialMediaWorkerTimer; // controls the SocialMediaWorker object
@@ -251,7 +258,7 @@ public class ControllerMain {
         selectedFile = fileChooser.showOpenDialog(stage);
 
         if (selectedFile != null) {
-
+            //System.out.println(selectedFile.getAbsolutePath());
             lbFilename.setText("Datei: " + selectedFile.getName());
         } else {
             lbFilename.setText("Keine Bild oder Film ausgewählt");
@@ -304,17 +311,52 @@ public class ControllerMain {
     }
 
     /**
-     * This method add generated Posts in the Database
+     * This method add generated Social Media Posts in the Database
      *
      * @param event
      */
     @FXML
     void postMessage(ActionEvent event) {
-        // Speichert einen neuen Post in die Datenbank
+        // Speichert einen neuen Social Media Post in die Datenbank
+        // check ob Postzeit ausgewählt und in der Zukunft liegt:
+        String postTime = this.helper.checkIfLocalDateTimeIsNotNullAndInFuture(dpDate.getValue(),tfTime.getText());
+        if( postTime != null && !postTime.isEmpty()){
+            // message,hashtags und selectedfile können nicht alle empty sein, da sonst kein Post content:
+           if( !(taMessage.getText().isEmpty() && taHashtags.getText().isEmpty() && selectedFile == null)){
+               // check if any socialmedia platform is selected:
+               if((cbFacebook.isSelected() && cbFBGruppen.getValue() != null) || cbTwitter.isSelected()){
+                   // Speichere Post hier in die SocialmediaPosts table
+                   String posttext = taMessage.getText() + " " + taHashtags.getText();
+                   String mediafile = "";
+                   if(selectedFile != null) {  // check if a mediafile like image or video is selected
+                       mediafile = selectedFile.getAbsolutePath();
+                   }
 
-        lbMessageStatus.setText("Nachricht wurde gespeichert!");
+                   /*
+                    * ToDo: here count and check platforms, where to post and set new PostEinträge with for Schleife and platform / fbsite info:
+                    */
+                   PostEintrag newPostEintrag = new PostEintrag(this.user.getId(), 1, "fbsite" , posttext, mediafile, postTime, 0 );  // 0  bedeutet neuer post
+
+                   boolean postInsertOK= PostEintragBean.insertNewPost(newPostEintrag);
+                   if(postInsertOK) {
+                       lbMessageStatus.setText("Post wurde in DB gespeichert!");
+                   }else{
+                       lbMessageStatus.setText("DB Insert Fehler, Post konnte nicht gespeichert werden!");
+                   }
+               }else{
+                   lbMessageStatus.setText("Es ist keine Social Media Platform ausgewählt! Min. 1 auswählen!");
+               }
+           }else{
+                lbMessageStatus.setText("Kein Text/Content zum Posten eingegeben oder ausgewählt!");
+           }
+        }else{
+            lbMessageStatus.setText("Datum und Zeit muss in der Zukunft liegen!");
+        }
+        /*
+        System.out.println(dpDate.getValue());
+        System.out.println(tfTime.getText());
+        */
         resetText(lbMessageStatus);
-
     }
 
     /**
@@ -364,7 +406,8 @@ public class ControllerMain {
 
 
     /**
-     *  This method generates and sets a random date in DatePicker and generate and sets a random time in TextField Time
+     * This method generates and sets a random date in DatePicker and generate and sets a random time in TextField Time
+     * @param event fired from btnRandmDateTime button
      */
     @FXML
     void randomDateTime(ActionEvent event) {
@@ -552,6 +595,12 @@ public class ControllerMain {
         new Thread(sleeper).start();
     }
 
+    public void loadAllPostsFromUserWithUid(int uid){
+        PostEintragBean.selectAllPostsWithUid(uid);
+
+    }
+
+
     /**
      * This method initialalizes the processes like the SocialMediaWorkerTimer etc.
      */
@@ -579,13 +628,28 @@ public class ControllerMain {
             }
         });
 
+
+        /* --------- Tab AllePosts Section loaders ----------- */
+        tabAllePosts.setOnSelectionChanged(new EventHandler<Event>() {
+            @Override
+            public void handle(Event t) {
+                if (tabAllePosts.isSelected()) {
+                    loadAllPostsFromUserWithUid(user.getId());
+                    System.out.println("Tab AllePosts clicked.");
+                }
+            }
+        });
+
+
+
         // wait 3 sec till uid etc. loaded and set by ContollerLogin, put everything in here, if it needs to start short time after fxinits
+        /*
         PauseTransition pause = new PauseTransition(javafx.util.Duration.seconds(3));
         pause.setOnFinished(event ->
               loadSocialMediaAccountDataIntoTwitterAndFacebookFields()
         );
         pause.play();
-
+        */
 
         // if not need , set not needed FB Account Fields to invisible:
         // this.tfFBUsername.setVisible(false);
