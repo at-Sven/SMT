@@ -72,6 +72,8 @@ public class ControllerMain {
 
     @FXML
     public Tab tabHashtags;
+    @FXML
+    public Tab tabNeuerPost;
 
     @FXML
     private AnchorPane anchorpane;
@@ -693,12 +695,23 @@ public class ControllerMain {
             }
         });
 
+        /* --------- Tab Neue Post Section loaders ----------- */
+        tabNeuerPost.setOnSelectionChanged(new EventHandler<Event>() {
+            @Override
+            public void handle(Event t) {
+                if (tabNeuerPost.isSelected()) {
+                    checkIfSocMediaAccountsAvailableAndEnableNewPostButton();
+                }
+            }
+        });
+
 
 
         // wait 3 sec till uid etc. loaded and set by ContollerLogin, put everything in here, if it needs to start short time after fxinits
         PauseTransition pause = new PauseTransition(javafx.util.Duration.seconds(3));
-        pause.setOnFinished(event ->
-              loadSocialMediaAccountDataIntoTwitterAndFacebookFields()
+        pause.setOnFinished(event -> {
+                checkIfSocMediaAccountsAvailableAndEnableNewPostButton();
+            }
         );
         pause.play();
 
@@ -708,6 +721,21 @@ public class ControllerMain {
         // this.tfFBPassword.setVisible(false);
 
         getHashTable();
+    }
+
+    /**
+     * This Method loads SocialMediaAccount informations, and sets the New Post Button to enabled if user has
+     * Accounts in the Einstellungen and DB
+     */
+    public void checkIfSocMediaAccountsAvailableAndEnableNewPostButton(){
+        loadSocialMediaAccountDataIntoTwitterAndFacebookFields();
+        if(tfFBAppID.getText().isEmpty() && ConsumerKey.getText().isEmpty()) { // socialmediaAccount
+            btnSavePost.setDisable(true); // disable the save post button, bceause user has not set TW or FB account.
+            lbMessageStatus.setText("Bitte zuerst in den Einstellungen Twitter oder Facebook Informationen eingeben!");
+        }else{
+            btnSavePost.setDisable(false);
+            lbMessageStatus.setText("");
+        }
     }
 
     void getHashTable() {

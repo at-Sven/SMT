@@ -23,7 +23,7 @@
    <children>
       <TabPane prefHeight="660.0" prefWidth="1200.0" style="-fx-background-color: #e8ebed;" tabClosingPolicy="UNAVAILABLE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <tabs>
-          <Tab text="Neuer Post">
+          <Tab fx:id="tabNeuerPost" text="Neuer Post">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="167.0" prefWidth="214.0">
                      <children>
