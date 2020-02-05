@@ -59,8 +59,15 @@ public class ControllerMain {
 
     @FXML
     public Button btnRandmDateTime;
+    
     @FXML
     public Tab tabAllePosts;
+
+    @FXML
+    public TableColumn<PostEintrag, String> tcPid;
+
+    @FXML
+    public TableColumn<PostEintrag, String> tcMedia;
 
     @FXML
     private AnchorPane anchorpane;
@@ -631,12 +638,6 @@ public class ControllerMain {
         new Thread(sleeper).start();
     }
 
-    public void loadAllPostsFromUserWithUid(int uid){
-        PostEintragBean.selectAllPostsWithUid(uid);
-
-    }
-
-
     /**
      * This method initialalizes the processes like the SocialMediaWorkerTimer etc.
      */
@@ -670,7 +671,7 @@ public class ControllerMain {
             @Override
             public void handle(Event t) {
                 if (tabAllePosts.isSelected()) {
-                    loadAllPostsFromUserWithUid(user.getId());
+                    getPostTable();
                     System.out.println("Tab AllePosts clicked.");
                 }
             }
@@ -689,7 +690,7 @@ public class ControllerMain {
         // if not need , set not needed FB Account Fields to invisible:
         // this.tfFBUsername.setVisible(false);
         // this.tfFBPassword.setVisible(false);
-        getPostTable();
+
         getHashTable();
     }
 
@@ -705,11 +706,13 @@ public class ControllerMain {
      * This method load the saved post entries from the Database in the Post Tableview
      */
     void getPostTable() {
-        ObservableList<PostEintrag> entries = FXCollections.observableArrayList(PostEintragBean.getPosts());
+        ObservableList<PostEintrag> entries = FXCollections.observableArrayList(PostEintragBean.selectAllPostsWithUid(this.user.getId()));
+        this.tcPid.setCellValueFactory(new PropertyValueFactory<PostEintrag, String>("pid"));
         this.tcText.setCellValueFactory(new PropertyValueFactory<PostEintrag, String>("posttext"));
+        this.tcMedia.setCellValueFactory(new PropertyValueFactory<PostEintrag, String>("dateiname"));  // letzter teil nach mediafile link, der dateiname ist.
         this.tcDate.setCellValueFactory(new PropertyValueFactory<PostEintrag, String>("posttime"));
         this.tcPlatform.setCellValueFactory(new PropertyValueFactory<PostEintrag, String>("platform"));
-
+        this.tcReaction.setCellValueFactory(new PropertyValueFactory<PostEintrag, String>("poststatus"));
         this.tvPosts.setItems(entries);
     }
 

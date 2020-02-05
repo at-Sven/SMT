@@ -108,12 +108,14 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="1200.0">
                      <children>
-                        <TableView fx:id="tvPosts" layoutX="60.0" layoutY="43.0" prefHeight="535.0" prefWidth="880.0" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="60.0">
+                        <TableView fx:id="tvPosts" layoutX="18.0" layoutY="43.0" prefHeight="535.0" prefWidth="965.0" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="60.0">
                            <columns>
-                              <TableColumn fx:id="tcText" prefWidth="490.0" text="Text" />
-                              <TableColumn fx:id="tcDate" prefWidth="142.0" text="Geplante Zeit" />
-                              <TableColumn fx:id="tcPlatform" prefWidth="121.0" text="Platform" />
-                              <TableColumn fx:id="tcReaction" prefWidth="126.0" text="Reaktionen" />
+                              <TableColumn fx:id="tcPid" prefWidth="44.0" text="Pid" visible="false" />
+                              <TableColumn fx:id="tcText" prefWidth="472.0" text="Text" />
+                              <TableColumn fx:id="tcMedia" prefWidth="179.0" text="Media" />
+                              <TableColumn fx:id="tcDate" prefWidth="122.0" text="Geplante Zeit" />
+                              <TableColumn fx:id="tcPlatform" minWidth="0.0" prefWidth="96.0" text="Platform" />
+                              <TableColumn fx:id="tcReaction" prefWidth="95.0" text="Infos" />
                            </columns>
                            <contextMenu>
                               <ContextMenu fx:id="cmPosts">

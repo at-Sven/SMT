@@ -175,7 +175,7 @@ public class PostEintragBean {
                         rs.getString("posttext"),
                         rs.getString("mediafile"),
                         rs.getString("posttime"),
-                        rs.getInt("posttime")
+                        rs.getInt("poststatus")
                 );
                 result.add(eintrag);
 

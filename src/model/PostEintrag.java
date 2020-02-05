@@ -35,6 +35,11 @@ public class PostEintrag {
     private String fbUserdata;
     private int fbAccessTokenExpireDate;
 
+
+
+    // wird nur in der fxMainfxml Tab AllePosts benötigt, und hier über setMediafile() mitgesetzt:
+    private String dateiname; // das ist nicht der Absolute Pfad, für posts mediafile String benutzen!!!
+
     /**
      * constructor für Posteintrag volles init
      * @param pid postid
@@ -65,7 +70,7 @@ public class PostEintrag {
         this.platform = platform;
         this.fbsite = fbsite;
         this.posttext = posttext;
-        this.mediafile = mediafile;
+        setMediafile(mediafile); // hier mit setter da, dateiname part mitgesetzt wird
         this.posttime = posttime;
         this.poststatus = poststatus; // check if the post was a success or not // 0 is new, 1 is sent , > 1 is error
 
@@ -111,13 +116,14 @@ public class PostEintrag {
         this.fbsite = fbsite;
         this.posttext = posttext;
         this.mediafile = mediafile;
+        this.dateiname = mediafile.substring(mediafile.lastIndexOf('\\') + 1);
         this.posttime = posttime;
         this.poststatus = poststatus; // check if the post was a success or not // 0 is new, 1 is sent , > 1 is error
     }
 
     public PostEintrag() {
-
-        this.pid = pid;
+        /*
+        this.pid = pid; // ???
         this.uid = uid;
         this.sid = sid;
         this.platform = platform;
@@ -126,7 +132,7 @@ public class PostEintrag {
         this.mediafile = new String("");
         this.posttime = new String("");
         this.poststatus = poststatus; // check if the post was a success or not // 0 is new, 1 is sent , > 1 is error
-
+        */
     }
 
     public Integer getPid() {
@@ -174,7 +180,9 @@ public class PostEintrag {
     }
 
     public void setMediafile(String mediafile) {
-        this.mediafile = mediafile;
+        //if (mediafile != null && !mediafile.isEmpty()) {
+         this.mediafile = mediafile;
+        //}
     }
 
     public String getPosttime() {
@@ -274,6 +282,10 @@ public class PostEintrag {
     }
 
 
+
+    public String getDateiname() {
+        return dateiname;
+    }
 }
 
 /*
