@@ -27,7 +27,6 @@ public class ControllerAddHashtagListe {
     @FXML
     private Button btnAddNewList;
 
-    UserBean user;
     public HashtagsBean hashListInsert = new HashtagsBean();
     public HashtagsEintrag newList;
 

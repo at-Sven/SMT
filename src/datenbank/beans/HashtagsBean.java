@@ -70,7 +70,7 @@ public class HashtagsBean {
 
         try {
             pstmtInsert.setInt(1, zuSpeichern.getUid());
-            pstmtInsert.setString(2, zuSpeichern.getHashtags());
+            pstmtInsert.setString(2, zuSpeichern.getTheme());
             pstmtInsert.setString(3, zuSpeichern.getHashtags());
 
             int rows = pstmtInsert.executeUpdate();

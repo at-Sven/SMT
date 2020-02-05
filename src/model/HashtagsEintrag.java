@@ -14,7 +14,7 @@ public class HashtagsEintrag {
 
     public HashtagsEintrag(Integer hid, Integer uid, String theme, String hashtags) {
         this.hid = null;
-        this.uid = new SimpleIntegerProperty(uid);;
+        this.uid = new SimpleIntegerProperty(uid);
         this.theme = new SimpleStringProperty(theme);
         this.hashtags = new SimpleStringProperty(hashtags);
     }
