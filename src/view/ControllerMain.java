@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 
 import datenbank.beans.HashtagsBean;
@@ -61,6 +62,9 @@ public class ControllerMain {
     public Button btnRandmDateTime;
     @FXML
     public Tab tabAllePosts;
+
+    @FXML
+    public Tab tabHashtags;
 
     @FXML
     private AnchorPane anchorpane;
@@ -231,7 +235,6 @@ public class ControllerMain {
     @FXML
     void ShowHashtags() {
         try {
-
             Stage MainStage = new Stage();
             FXMLLoader loader = new FXMLLoader();
             Pane root = loader.load(getClass().getResource("fxTableHashtags.fxml").openStream());
@@ -311,19 +314,21 @@ public class ControllerMain {
             Stage MainStage = new Stage();
             FXMLLoader loader = new FXMLLoader();
             Pane root = loader.load(getClass().getResource("fxAddHashtagListe.fxml").openStream());
-
             root.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 
+            //Get controller of fxAddHashtagListe
+            ControllerAddHashtagListe newListCon = loader.getController();
+
             Scene scene = new Scene(root);
-            MainStage.setTitle("SMT - Social Media Tool: Hashtags");
+
+            MainStage.setTitle("SMT - Social Media Tool: Hashtagliste Hinzufügen");
             MainStage.setScene(scene);
-            MainStage.setX(400);
-            MainStage.setY(300);
-            MainStage.show();
+            MainStage.showAndWait();
 
         } catch (IOException ex) {
             ex.getStackTrace();
         }
+        getHashTable();
     }
 
     /**
@@ -672,6 +677,17 @@ public class ControllerMain {
                 if (tabAllePosts.isSelected()) {
                     loadAllPostsFromUserWithUid(user.getId());
                     System.out.println("Tab AllePosts clicked.");
+                    getPostTable();
+                }
+            }
+        });
+
+        /* --------- Tab Hashtags Section loaders ----------- */
+        tabHashtags.setOnSelectionChanged(new EventHandler<Event>() {
+            @Override
+            public void handle(Event t) {
+                if (tabHashtags.isSelected()) {
+                    getHashTable();
                 }
             }
         });
@@ -689,8 +705,6 @@ public class ControllerMain {
         // if not need , set not needed FB Account Fields to invisible:
         // this.tfFBUsername.setVisible(false);
         // this.tfFBPassword.setVisible(false);
-        getPostTable();
-        getHashTable();
     }
 
     void getHashTable() {
@@ -722,20 +736,28 @@ public class ControllerMain {
      */
     @FXML
     void deletePost() {
-        System.out.println("Post gelöscht");
-        // TODO:
+
+            System.out.println("Post gelöscht");
+            // TODO:
+
+            getPostTable();
+
     }
 
     @FXML
     void updateHashEntry() {
         System.out.println("Liste aktualisiert");
         //TODO
+
+        getHashTable();
     }
 
     @FXML
     void deleteHashList() {
         System.out.println("Liste entfernt");
         //TODO
+
+        getPostTable();
     }
 
 }
