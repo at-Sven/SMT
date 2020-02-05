@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
@@ -17,7 +21,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorpane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="1000.0" style="-fx-background-color: #e8ebed;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ControllerMain">
+<AnchorPane fx:id="anchorpane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="1000.0" style="-fx-background-color: #e8ebed;" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ControllerMain">
    <children>
       <TabPane prefHeight="660.0" prefWidth="1200.0" style="-fx-background-color: #e8ebed;" tabClosingPolicy="UNAVAILABLE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <tabs>
@@ -149,15 +153,15 @@
                   </AnchorPane>
               </content>
             </Tab>
-            <Tab text="Hashtags">
+            <Tab fx:id="tabHashtags" text="Hashtags">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <TableView fx:id="tvHashtags" layoutX="60.0" layoutY="14.0" prefHeight="500.0" prefWidth="1081.0" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="59.0" AnchorPane.topAnchor="60.0">
                            <columns>
-                              <TableColumn fx:id="tcTheme" minWidth="25.0" prefWidth="301.0" text="Thema" />
-                              <TableColumn fx:id="tcList" prefWidth="413.0" text="Liste" />
-                              <TableColumn fx:id="tcHashAction" minWidth="166.0" prefWidth="166.0" text="Aktion" />
+                              <TableColumn fx:id="tcTheme" minWidth="25.0" prefWidth="168.0" text="Thema" />
+                              <TableColumn fx:id="tcHashtags" prefWidth="601.0" text="Liste" />
+                              <TableColumn fx:id="tcHashAction" minWidth="111.0" prefWidth="111.0" text="Aktion" />
                            </columns>
                         </TableView>
                         <Button fx:id="btnNewList" layoutX="400.0" layoutY="559.0" mnemonicParsing="false" onAction="#createNewHashList" prefHeight="40.0" prefWidth="168.0" text="Neue Liste" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="432.0">
@@ -178,7 +182,7 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TextField fx:id="tfFBUserData" layoutX="150.0" layoutY="373.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="fb userdata extras infos" AnchorPane.leftAnchor="150.0">
+                        <TextField fx:id="tfFBUserData" layoutX="150.0" layoutY="373.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="optional field" AnchorPane.leftAnchor="150.0">
                            <font>
                               <Font size="18.0" />
                            </font>
