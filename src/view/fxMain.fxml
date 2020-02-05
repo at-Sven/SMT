@@ -165,8 +165,9 @@
                      <children>
                         <TableView fx:id="tvHashtags" layoutX="60.0" layoutY="14.0" prefHeight="500.0" prefWidth="1081.0" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="59.0" AnchorPane.topAnchor="60.0">
                            <columns>
-                              <TableColumn fx:id="tcTheme" minWidth="25.0" prefWidth="202.0" text="Thema" />
-                              <TableColumn fx:id="tcHashtags" prefWidth="678.0" text="Liste" />
+                              <TableColumn fx:id="tcHID" minWidth="25.0" prefWidth="202.0" text="HID" visible="false" />
+                              <TableColumn fx:id="tcTheme" minWidth="25.0" prefWidth="210.0" text="Thema" />
+                              <TableColumn fx:id="tcHashtags" prefWidth="670.0" text="Liste" />
                            </columns>
                            <contextMenu>
                               <ContextMenu fx:id="cmHashtags">

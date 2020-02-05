@@ -20,7 +20,7 @@ public class HashtagsEintrag {
     }
 
     public HashtagsEintrag() {
-        this.hid = null;
+        this.hid = new SimpleIntegerProperty();
         this.uid = new SimpleIntegerProperty();
         this.theme = new SimpleStringProperty("");
         this.hashtags = new SimpleStringProperty("");

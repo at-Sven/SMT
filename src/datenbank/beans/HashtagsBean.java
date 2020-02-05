@@ -24,10 +24,10 @@ public class HashtagsBean {
     static {
         pstmtSelect = Datenbank.getInstance().prepareStatement("SELECT theme, hashtags FROM Hashtags WHERE theme = ? AND hashtags = ?;");
         pstmtSelectAll = Datenbank.getInstance().prepareStatement("SELECT * FROM Hashtags;");
-        pstmtSelectThemes = Datenbank.getInstance().prepareStatement("SELECT theme, hashtags FROM Hashtags;");
+        pstmtSelectThemes = Datenbank.getInstance().prepareStatement("SELECT hid, theme, hashtags FROM Hashtags;");
         pstmtInsert = Datenbank.getInstance().prepareStatement("INSERT INTO Hashtags (uid, theme, hashtags) VALUES (?, ?, ?);");
         pstmtUpdate = Datenbank.getInstance().prepareStatement("UPDATE Hashtags SET theme = ?, hashtags = ? WHERE theme = ? AND hashtags = ?;");
-        pstmtDelete = Datenbank.getInstance().prepareStatement("DELETE FROM Hashtags WHERE theme = ? AND hashtags = ?;");
+        pstmtDelete = Datenbank.getInstance().prepareStatement("DELETE FROM Hashtags WHERE hid = ?;");
     }
 
     /**
@@ -44,8 +44,9 @@ public class HashtagsBean {
 
             while (rs.next()) {
                 HashtagsEintrag eintrag = new HashtagsEintrag();
-                eintrag.setTheme(rs.getString(1));
-                eintrag.setHashtags(rs.getString(2));
+                eintrag.setHid(rs.getInt(1));
+                eintrag.setTheme(rs.getString(2));
+                eintrag.setHashtags(rs.getString(3));
 
                 result.add(eintrag);
             }
@@ -85,6 +86,23 @@ public class HashtagsBean {
             }
 
         } catch (SQLException ignored) {
+        }
+
+        return result;
+    }
+
+    public static boolean delete(HashtagsEintrag selectedHashList) {
+        boolean result = false;
+
+        try {
+            pstmtDelete.setInt(1, selectedHashList.getHid());
+            pstmtDelete.executeUpdate();
+            result = true;
+
+            Datenbank.getInstance().commit();
+
+        } catch (SQLException e) {
+            System.err.println("Fehler beim Löschen des TelefonbuchEintrags aus der Datenbank: " + e.getLocalizedMessage());
         }
 
         return result;

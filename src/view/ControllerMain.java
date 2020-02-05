@@ -759,10 +759,14 @@ public class ControllerMain {
 
     @FXML
     void deleteHashList() {
+
+        HashtagsEintrag selectedEntry = tvHashtags.getSelectionModel().getSelectedItem();
+
+        HashtagsBean.delete(selectedEntry);
         System.out.println("Liste entfernt");
         //TODO
 
-        getPostTable();
+        getHashTable();
     }
 
 }
