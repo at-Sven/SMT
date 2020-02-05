@@ -1,5 +1,7 @@
 package model;
 
+import javafx.beans.property.SimpleStringProperty;
+
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -111,6 +113,20 @@ public class PostEintrag {
         this.mediafile = mediafile;
         this.posttime = posttime;
         this.poststatus = poststatus; // check if the post was a success or not // 0 is new, 1 is sent , > 1 is error
+    }
+
+    public PostEintrag() {
+
+        this.pid = pid;
+        this.uid = uid;
+        this.sid = sid;
+        this.platform = platform;
+        this.fbsite = new String("");
+        this.posttext = new String("");
+        this.mediafile = new String("");
+        this.posttime = new String("");
+        this.poststatus = poststatus; // check if the post was a success or not // 0 is new, 1 is sent , > 1 is error
+
     }
 
     public Integer getPid() {

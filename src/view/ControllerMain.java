@@ -191,6 +191,21 @@ public class ControllerMain {
     @FXML
     private Label lbLogSavedFeedback;
 
+    @FXML
+    private ContextMenu cmPosts;
+
+    @FXML
+    private MenuItem miDeletePost;
+
+    @FXML
+    private ContextMenu cmHashtags;
+
+    @FXML
+    private MenuItem miUpdateHashList;
+
+    @FXML
+    private MenuItem miDeleteHashList;
+
     private UserEintrag user;  // The Main Loggedin User (this is set during successfull Login Phase)
     Helper helper = new Helper();  // Helper object with functions
     private SocialmediaAccount socialmediaAccount; // the users socialmedia account data
@@ -674,6 +689,7 @@ public class ControllerMain {
         // if not need , set not needed FB Account Fields to invisible:
         // this.tfFBUsername.setVisible(false);
         // this.tfFBPassword.setVisible(false);
+        getPostTable();
         getHashTable();
     }
 
@@ -685,8 +701,41 @@ public class ControllerMain {
         this.tvHashtags.setItems(entries);
     }
 
+    /**
+     * This method load the saved post entries from the Database in the Post Tableview
+     */
+    void getPostTable() {
+        ObservableList<PostEintrag> entries = FXCollections.observableArrayList(PostEintragBean.getPosts());
+        this.tcText.setCellValueFactory(new PropertyValueFactory<PostEintrag, String>("posttext"));
+        this.tcDate.setCellValueFactory(new PropertyValueFactory<PostEintrag, String>("posttime"));
+        this.tcPlatform.setCellValueFactory(new PropertyValueFactory<PostEintrag, String>("platform"));
+
+        this.tvPosts.setItems(entries);
+    }
+
     String getHashtags(String content) {
         return hashtags = content;
+    }
+
+    /**
+     * This method delete a Post entry in the database
+     */
+    @FXML
+    void deletePost() {
+        System.out.println("Post gelöscht");
+        // TODO:
+    }
+
+    @FXML
+    void updateHashEntry() {
+        System.out.println("Liste aktualisiert");
+        //TODO
+    }
+
+    @FXML
+    void deleteHashList() {
+        System.out.println("Liste entfernt");
+        //TODO
     }
 
 }

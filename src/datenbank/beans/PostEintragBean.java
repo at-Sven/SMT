@@ -1,5 +1,6 @@
 package datenbank.beans;
 
+import model.HashtagsEintrag;
 import model.PostEintrag;
 import datenbank.Datenbank;
 import model.PostEintrag;
@@ -15,6 +16,7 @@ public class PostEintragBean {
 
     private static PreparedStatement pstmtInsertPost;
     private static PreparedStatement pstmtSelectScheduledPostsWithUid;
+    private static PreparedStatement pstmtGetPosts;
 
     private static HashMap<PostEintrag, Integer> idListe;
 
@@ -31,6 +33,8 @@ public class PostEintragBean {
                 " VALUES ( ?, (SELECT sid FROM SocialmediaAccounts WHERE uid = ?), ?, ?, ?, ?, ?, ?)");
 
         pstmtSelectScheduledPostsWithUid = Datenbank.getInstance().prepareStatement("SELECT * FROM SocialmediaPosts WHERE uid = ?;");
+
+        pstmtGetPosts = Datenbank.getInstance().prepareStatement("SELECT posttext, posttime, platform FROM SocialmediaPosts;");
 
         idListe = new HashMap<>();
 
@@ -196,13 +200,31 @@ public class PostEintragBean {
 
 
     /**
-     * Lädt das gesamte Telefonbuch aus der Datenbank und gibt es alls Liste von TelefonbuchEinträgen zurück
+     * This method take all saved Posts from the Database
      *
-     * @return Liste mit allen TelefonbuchEinträgen
-     * @throws IllegalArgumentException wird geworfen, wenn intern eine SQL- oder ClassNotFoundException aufgetreten ist.
+     * @return List of Posts
      */
     public static ArrayList<PostEintrag> getPosts() {
-        return null;
+        ArrayList<PostEintrag> result = null;
+
+        try {
+            ResultSet rs = pstmtGetPosts.executeQuery();
+            result = new ArrayList<>();
+
+            while (rs.next()) {
+                PostEintrag eintrag = new PostEintrag();
+                eintrag.setPosttext(rs.getString(1));
+                eintrag.setPosttime(rs.getString(2));
+                eintrag.setPlatform(rs.getInt(3));
+
+                result.add(eintrag);
+            }
+
+            rs.close();
+
+        } catch (SQLException ignored) {}
+
+        return result;
     }
 
     /**
