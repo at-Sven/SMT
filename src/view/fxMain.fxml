@@ -23,7 +23,7 @@
    <children>
       <TabPane prefHeight="660.0" prefWidth="1200.0" style="-fx-background-color: #e8ebed;" tabClosingPolicy="UNAVAILABLE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <tabs>
-          <Tab text="Neuer Post">
+          <Tab fx:id="tabNeuerPost" text="Neuer Post">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="167.0" prefWidth="214.0">
                      <children>
@@ -66,8 +66,8 @@
                               <Font size="13.0" />
                            </font>
                         </Label>
-                        <DatePicker fx:id="dpDate" layoutX="306.0" layoutY="391.0" onAction="#randomDateTime" prefHeight="40.0" prefWidth="140.0" promptText="Datum festlegen ..." AnchorPane.rightAnchor="554.0" />
-                        <TextField fx:id="tfTime" layoutX="306.0" layoutY="442.0" onAction="#randomDateTime" prefHeight="40.0" prefWidth="140.0" promptText="Uhrzeit festlegen ..." AnchorPane.rightAnchor="554.0" />
+                        <DatePicker fx:id="dpDate" layoutX="306.0" layoutY="391.0" prefHeight="40.0" prefWidth="140.0" promptText="Datum festlegen ..." AnchorPane.rightAnchor="554.0" />
+                        <TextField fx:id="tfTime" layoutX="306.0" layoutY="442.0" prefHeight="40.0" prefWidth="140.0" promptText="Uhrzeit festlegen ..." AnchorPane.rightAnchor="554.0" />
                         <Label layoutX="80.0" layoutY="22.0" text="Posten auf:" AnchorPane.leftAnchor="80.0">
                            <font>
                               <Font name="System Bold" size="20.0" />
