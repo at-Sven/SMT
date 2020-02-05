@@ -1,6 +1,7 @@
 package model;
 
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -13,14 +14,14 @@ public class HashtagsEintrag {
 
     public HashtagsEintrag(Integer hid, Integer uid, String theme, String hashtags) {
         this.hid = null;
-        this.uid = null;
+        this.uid = new SimpleIntegerProperty(uid);
         this.theme = new SimpleStringProperty(theme);
         this.hashtags = new SimpleStringProperty(hashtags);
     }
 
     public HashtagsEintrag() {
         this.hid = null;
-        this.uid = null;
+        this.uid = new SimpleIntegerProperty();
         this.theme = new SimpleStringProperty("");
         this.hashtags = new SimpleStringProperty("");
     }
