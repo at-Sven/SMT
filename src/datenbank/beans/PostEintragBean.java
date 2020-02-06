@@ -12,6 +12,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * The Bean Class for the Posts in the database
+ */
 public class PostEintragBean {
 
     private static PreparedStatement pstmtInsertPost;
