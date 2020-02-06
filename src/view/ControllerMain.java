@@ -168,10 +168,10 @@ public class ControllerMain {
     private Button btnLogSave;
 
     @FXML
-    private TextField tfFBAccessToken;
+    private TextField tfFBUserAccessToken;
 
     @FXML
-    private TextField tfFBUserData;
+    private TextField tfFBPageAccessToken;
 
     @FXML
     private TextField tfFBAppID;
@@ -356,7 +356,7 @@ public class ControllerMain {
 
             // socialMediaWorker mit uid und kanalinfos füttern:
             this.socialMediaWorker.init(this.user.getId(),
-                                        tfFBAppID.getText(), tfFBAppSecret.getText(), tfFBAccessToken.getText(), tfFBUserData.getText(),
+                                        tfFBAppID.getText(), tfFBAppSecret.getText(), tfFBUserAccessToken.getText(), tfFBPageAccessToken.getText(),
                                         ConsumerKey.getText(), ConsumerSecret.getText(), AccessToken.getText(), AccessTokenSecret.getText());
 
             // worker starten:
@@ -563,15 +563,15 @@ public class ControllerMain {
         Integer uid = this.user.getId();
         String ai = this.tfFBAppID.getText();
         String as = this.tfFBAppSecret.getText();
-        String at = this.tfFBAccessToken.getText();
-        String ud = this.tfFBUserData.getText();
+        String at = this.tfFBUserAccessToken.getText();
+        String ud = this.tfFBPageAccessToken.getText();
         if( uid != null && !ai.trim().equals("") && !as.trim().equals("") && !at.trim().equals("") && !ud.trim().equals("") ){
             if(SocialmediaAccountBean.insertOrUpdateFacebookAccount(uid,ai,as,at,ud)) {  // insertOrUpdate db true
                 this.socialmediaAccount.setUid(uid);
                 this.socialmediaAccount.setFbAppID(ai);
                 this.socialmediaAccount.setFbAppSecret(as);
-                this.socialmediaAccount.setFbAccessToken(at);
-                this.socialmediaAccount.setFbUserdata(ud);
+                this.socialmediaAccount.setFbUserAccessToken(at);
+                this.socialmediaAccount.setFbPageAccessToken(ud);
                 this.lblSaveFBAccountStatus.setText("Facebook Accountdaten gespeichert/aktualisiert.");
             }else{
                 System.out.println("An Error occured while insert or update FBAccountdata into SocialMediaAccounts Table!");
@@ -633,15 +633,15 @@ public class ControllerMain {
                     // show socialmedia account data  in Einstellungs textfields, so user can update and see what is actually set
                     String fbAppID = this.socialmediaAccount.getFbAppID();
                     String fbAppSecret = this.socialmediaAccount.getFbAppSecret();
-                    String fbAccessToken = this.socialmediaAccount.getFbAccessToken();
-                    String fbUserExtraData = this.socialmediaAccount.getFbUserdata();
+                    String fFBUserAccessToken = this.socialmediaAccount.getFbUserAccessToken();
+                    String fFBPageAccessToken = this.socialmediaAccount.getFbPageAccessToken();
 
 
-                    if( fbAppID != null && fbAppSecret != null && fbAccessToken != null && fbUserExtraData != null ) {
+                    if( fbAppID != null && fbAppSecret != null && fFBUserAccessToken != null && fFBPageAccessToken != null ) {
                         this.tfFBAppID.setText(fbAppID);
                         this.tfFBAppSecret.setText(fbAppSecret);
-                        this.tfFBAccessToken.setText(fbAccessToken);
-                        this.tfFBUserData.setText(fbUserExtraData);
+                        this.tfFBUserAccessToken.setText(fFBUserAccessToken);
+                        this.tfFBPageAccessToken.setText(fFBPageAccessToken);
                     }
 
                     String twck = this.socialmediaAccount.getTwConsumerKey();

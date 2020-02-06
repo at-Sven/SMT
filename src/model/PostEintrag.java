@@ -29,8 +29,8 @@ public class PostEintrag {
 
     private String fbAppID;
     private String fbAppSecret;
-    private String fbAccessToken;
-    private String fbUserdata;
+    private String fbUserAccessToken;
+    private String fbPageAccessToken;
     private int fbAccessTokenExpireDate;
 
     // variable wird nur in der fxMainfxml Tab AllePosts benötigt, und über einen constructor mitgesetzt:
@@ -53,14 +53,14 @@ public class PostEintrag {
      * @param twAccessTokenSecret twAccessTokenSecret
      * @param fbAppID fbAppID
      * @param fbAppSecret fbAppSecret
-     * @param fbAccessToken fbAccessToken
-     * @param fbUserdata some additional data if needed
+     * @param fbUserAccessToken fbAccessToken
+     * @param fbPageAccessToken some additional data if needed
      * @param fbAccessTokenExpireDate fbAccessTokenExpireDate
      */
     public PostEintrag(int pid , int uid, int platform, String fbsite, String posttext,
                        String mediafile, String posttime, int poststatus, int sid, String twConsumerKey ,
                        String twConsumerSecret,String twAccessToken, String twAccessTokenSecret, String fbAppID, String fbAppSecret,
-                       String fbAccessToken, String fbUserdata, Integer fbAccessTokenExpireDate) {
+                       String fbUserAccessToken, String fbPageAccessToken, Integer fbAccessTokenExpireDate) {
         this.pid = pid;
         this.uid = uid;
         this.platform = platform;
@@ -78,8 +78,8 @@ public class PostEintrag {
 
         this.fbAppID = fbAppID;
         this.fbAppSecret = fbAppSecret;
-        this.fbAccessToken = fbAccessToken;
-        this.fbUserdata = fbUserdata;
+        this.fbUserAccessToken = fbUserAccessToken;
+        this.fbPageAccessToken = fbPageAccessToken;
         this.fbAccessTokenExpireDate = fbAccessTokenExpireDate;
 
     }
@@ -349,31 +349,31 @@ public class PostEintrag {
     }
     /**
      * Getter for fbAccessToken
-     * @return fbAccessToken
+     * @return fbUserAccessToken
      */
-    public String getFbAccessToken() {
-        return fbAccessToken;
+    public String getFbUserAccessToken() {
+        return fbUserAccessToken;
     }
     /**
      * Setter for fbAccessToken
-     * @param fbAccessToken
+     * @param fbUserAccessToken
      */
-    public void setFbAccessToken(String fbAccessToken) {
-        this.fbAccessToken = fbAccessToken;
+    public void setFbUserAccessToken(String fbUserAccessToken) {
+        this.fbUserAccessToken = fbUserAccessToken;
     }
     /**
      * Getter for fbUserdata
      * @return fbUserdata
      */
-    public String getFbUserdata() {
-        return fbUserdata;
+    public String getFbPageAccessToken() {
+        return fbPageAccessToken;
     }
     /**
      * Setter for fbUserdata
-     * @param fbUserdata
+     * @param fbPageAccessToken
      */
-    public void setFbUserdata(String fbUserdata) {
-        this.fbUserdata = fbUserdata;
+    public void setFbPageAccessToken(String fbPageAccessToken) {
+        this.fbPageAccessToken = fbPageAccessToken;
     }
     /**
      * Getter for fbAccessTokenExpireDate
