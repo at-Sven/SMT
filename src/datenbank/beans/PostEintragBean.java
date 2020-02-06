@@ -81,7 +81,8 @@ public class PostEintragBean {
     /**
      * Setzt den poststatus eines postes zu entweder Erfolgreich mit 1 oder Error mit 2
      * damit es keine duplizierten posts gibt bzw. fehlerhafte posts nicht erneut Fehler über die APIs verursachen.
-     * @param pid int ist postid des bearbeiteteten / geposteten Posts
+     *
+     * @param pid    int ist postid des bearbeiteteten / geposteten Posts
      * @param status wenn Erfolgreich = 1, Fehler = 2 oder grösser 2
      * @return true im Erfolgsfall, false andernfalls
      */
@@ -100,7 +101,8 @@ public class PostEintragBean {
             Datenbank.getInstance().commit();
             result = true;
 
-        } catch (SQLException ignored) {}
+        } catch (SQLException ignored) {
+        }
 
         return result;
     }
@@ -108,7 +110,7 @@ public class PostEintragBean {
     /**
      * Fügt das übergebene Objekt in die Datenbank ein und gibt zurück, ob der Vorgang erfolgreich war.
      *
-     * @param uid userid
+     * @param uid        userid
      * @param platform
      * @param fbsite
      * @param posttext
@@ -117,18 +119,18 @@ public class PostEintragBean {
      * @param poststatus
      * @return true im Erfolgsfall, false andernfalls
      */
-    public static boolean insertNewPost(int uid, int platform, String fbsite, String posttext, String mediafile, String posttime, int poststatus ) {
+    public static boolean insertNewPost(int uid, int platform, String fbsite, String posttext, String mediafile, String posttime, int poststatus) {
         boolean result = false;
         int rows;
         try {
 
-            pstmtInsertPost.setInt(1,uid);
-            pstmtInsertPost.setInt(2,platform);
-            pstmtInsertPost.setString(3,fbsite);
-            pstmtInsertPost.setString(4,posttext);
-            pstmtInsertPost.setString(5,mediafile);
-            pstmtInsertPost.setString(6,posttime);
-            pstmtInsertPost.setInt(7,poststatus); // send 0 for new post, not send yet
+            pstmtInsertPost.setInt(1, uid);
+            pstmtInsertPost.setInt(2, platform);
+            pstmtInsertPost.setString(3, fbsite);
+            pstmtInsertPost.setString(4, posttext);
+            pstmtInsertPost.setString(5, mediafile);
+            pstmtInsertPost.setString(6, posttime);
+            pstmtInsertPost.setInt(7, poststatus); // send 0 for new post, not send yet
 
             rows = pstmtInsertPost.executeUpdate();
 
@@ -141,7 +143,7 @@ public class PostEintragBean {
                 Datenbank.getInstance().rollback();
             }
 
-        } catch(SQLException ignored){
+        } catch (SQLException ignored) {
         }
 
         return result;
@@ -151,6 +153,7 @@ public class PostEintragBean {
 
     /**
      * Fügt das übergebene Objekt in die Datenbank ein und gibt zurück, ob der Vorgang erfolgreich war.
+     *
      * @param pe new PostEintrag
      * @return result true if insert ok
      */
@@ -159,14 +162,14 @@ public class PostEintragBean {
         int rows;
         try {
 
-            pstmtInsertPost.setInt(1,pe.getUid());
-            pstmtInsertPost.setInt(2,pe.getUid());
-            pstmtInsertPost.setInt(3,pe.getPlatform());
-            pstmtInsertPost.setString(4,pe.getFbsite());
-            pstmtInsertPost.setString(5,pe.getPosttext());
-            pstmtInsertPost.setString(6,pe.getMediafile());
-            pstmtInsertPost.setString(7,pe.getPosttime());
-            pstmtInsertPost.setInt(8,pe.getPoststatus()); // send 0 for new post, not send yet
+            pstmtInsertPost.setInt(1, pe.getUid());
+            pstmtInsertPost.setInt(2, pe.getUid());
+            pstmtInsertPost.setInt(3, pe.getPlatform());
+            pstmtInsertPost.setString(4, pe.getFbsite());
+            pstmtInsertPost.setString(5, pe.getPosttext());
+            pstmtInsertPost.setString(6, pe.getMediafile());
+            pstmtInsertPost.setString(7, pe.getPosttime());
+            pstmtInsertPost.setInt(8, pe.getPoststatus()); // send 0 for new post, not send yet
 
             rows = pstmtInsertPost.executeUpdate();
 
@@ -179,7 +182,7 @@ public class PostEintragBean {
                 Datenbank.getInstance().rollback();
             }
 
-        } catch(SQLException ignored){
+        } catch (SQLException ignored) {
         }
 
         return result;
@@ -187,12 +190,13 @@ public class PostEintragBean {
 
     }
 
+    //TODO: kommentieren
     public static ArrayList<PostEintrag> selectScheduledPostsWithUidAndPoststatus(int uid) {
         ArrayList<PostEintrag> result = null;
 
         try {
             // Datenbankabfrage ausführen
-            pstmtSelectScheduledPostsWithUidAndPoststatus.setInt(1,uid);
+            pstmtSelectScheduledPostsWithUidAndPoststatus.setInt(1, uid);
 
             ResultSet rs = pstmtSelectScheduledPostsWithUidAndPoststatus.executeQuery();
 
@@ -221,17 +225,19 @@ public class PostEintragBean {
                 idListe.put(eintrag, eintrag.getPid());
             }
 
-        } catch (SQLException ignored) {}
+        } catch (SQLException ignored) {
+        }
 
         return result;
     }
 
+    // TODO: Kommentieren
     public static ArrayList<PostEintrag> selectAllPostsWithUid(int uid) {
         ArrayList<PostEintrag> result = null;
 
         try {
             // Datenbankabfrage ausführen
-            pstmtSelectScheduledPostsWithUid.setInt(1,uid);
+            pstmtSelectScheduledPostsWithUid.setInt(1, uid);
 
             ResultSet rs = pstmtSelectScheduledPostsWithUid.executeQuery();
 
@@ -260,12 +266,11 @@ public class PostEintragBean {
                 idListe.put(eintrag, eintrag.getPid());
             }
 
-        } catch (SQLException ignored) {}
+        } catch (SQLException ignored) {
+        }
 
         return result;
     }
-
-
 
     /**
      * This method take all saved Posts from the Database
@@ -290,7 +295,8 @@ public class PostEintragBean {
 
             rs.close();
 
-        } catch (SQLException ignored) {}
+        } catch (SQLException ignored) {
+        }
 
         return result;
     }

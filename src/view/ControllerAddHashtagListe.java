@@ -38,11 +38,9 @@ public class ControllerAddHashtagListe {
         stage.close();
     }
 
-
     @FXML
     void initialize() {
 
     }
-
 
 }

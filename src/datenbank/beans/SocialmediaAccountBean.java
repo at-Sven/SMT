@@ -67,14 +67,14 @@ public class SocialmediaAccountBean {
      * Fügt das übergebene Objekt in die Datenbank ein und gibt zurück, ob der Vorgang erfolgreich war.
      *
      * @param uid userid
-     * @param ck twitter consumerkey
-     * @param cs twitter consumersecret
-     * @param at twitter accesstoken
-     * @param ats  twitter accesstokensecret
+     * @param ck  twitter consumerkey
+     * @param cs  twitter consumersecret
+     * @param at  twitter accesstoken
+     * @param ats twitter accesstokensecret
      * @return true im Erfolgsfall, false andernfalls
      */
-    public static boolean insertOrUpdateTwitterAccount(int uid, String ck, String cs, String at, String ats ) {
-    // public static boolean insertOrUpdateTwitterAccount(int uid, SocialmediaAccount zuSpeichern) {
+    public static boolean insertOrUpdateTwitterAccount(int uid, String ck, String cs, String at, String ats) {
+        // public static boolean insertOrUpdateTwitterAccount(int uid, SocialmediaAccount zuSpeichern) {
         boolean result = false;
         int rows;
         try {
@@ -90,7 +90,7 @@ public class SocialmediaAccountBean {
 
                 rows = pstmtInsertTwitterAccount.executeUpdate();
 
-            }else{ // update if row with uid already exists
+            } else { // update if row with uid already exists
 
                 pstmtUpdateTwitterAccount.setString(1, ck);
                 pstmtUpdateTwitterAccount.setString(2, cs);
@@ -106,11 +106,11 @@ public class SocialmediaAccountBean {
                 Datenbank.getInstance().commit();
                 result = true;
             } else {
-                 Datenbank.getInstance().rollback();
+                Datenbank.getInstance().rollback();
             }
 
 
-        } catch(SQLException ignored){
+        } catch (SQLException ignored) {
         }
 
         return result;
@@ -122,7 +122,7 @@ public class SocialmediaAccountBean {
      * Gibt ein Objekt mit den &uuml;bergebenen Informationen zur&uuml;ck oder null, wenn
      * es das Objekt nicht in der Datenbank gibt
      *
-     * @param uid    userid from logged in user
+     * @param uid userid from logged in user
      * @return Objekt mit den Informationen aus der Datenbank oder null
      */
     public static SocialmediaAccount getSocialMediaAccountsByUid(int uid) {
@@ -155,16 +155,14 @@ public class SocialmediaAccountBean {
         return result;
     }
 
-
-
     /**
      * Fügt das übergebene Objekt in die Datenbank ein und gibt zurück, ob der Vorgang erfolgreich war.
      *
      * @param uid userid
-     * @param ai facebook appid
-     * @param as facebook appsecret
-     * @param at facebook accesstoken
-     * @param ud facebook additional fb user data if needed
+     * @param ai  facebook appid
+     * @param as  facebook appsecret
+     * @param at  facebook accesstoken
+     * @param ud  facebook additional fb user data if needed
      * @return true im Erfolgsfall, false andernfalls
      */
     public static boolean insertOrUpdateFacebookAccount(int uid, String ai, String as, String at, String ud) {
@@ -183,7 +181,7 @@ public class SocialmediaAccountBean {
 
                 rows = pstmtInsertFacebookAccount.executeUpdate();
 
-            }else{ // update if row with uid already exists
+            } else { // update if row with uid already exists
 
                 pstmtUpdateFacebookAccount.setString(1, ai);
                 pstmtUpdateFacebookAccount.setString(2, as);
@@ -203,7 +201,7 @@ public class SocialmediaAccountBean {
             }
 
 
-        } catch(SQLException ignored){
+        } catch (SQLException ignored) {
         }
 
         return result;

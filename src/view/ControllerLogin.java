@@ -21,7 +21,7 @@ import utils.Codify;
 import java.io.IOException;
 
 /**
- * Controllerklasse für die FXML Datei fxLogin
+ * The Controller Class for the FXML file fxLogin
  */
 public class ControllerLogin {
 
@@ -45,6 +45,11 @@ public class ControllerLogin {
     private String userEmail;
 
 
+    /**
+     * Key event, if the enter key get pressed
+     *
+     * @param event pressed enter key
+     */
     @FXML
     void enter(KeyEvent event) {
         if (event.getCode().equals(KeyCode.ENTER)) {
@@ -52,6 +57,12 @@ public class ControllerLogin {
         }
     }
 
+    /**
+     * This method check get the login information and check, if a user exist.
+     * If the entered information match with the database, it opens the Dashboard
+     *
+     * @param event click on the "Anmelden" Button
+     */
     @FXML
     void login(ActionEvent event) {
 
@@ -82,8 +93,9 @@ public class ControllerLogin {
 
     /**
      * Diese Methode öffnet das Registerfenster
+     * This method opens the registration Window
      *
-     * @param event Blick des Buttons "Registieren"
+     * @param event click on the  "Registieren" Button
      * @throws IOException Falls die FXML Datei nicht geöffnet werden kann
      */
     @FXML
@@ -97,7 +109,7 @@ public class ControllerLogin {
     }
 
     /**
-     * Diese Methode öffnet eine FXML Datei als komplett neues Fenster
+     * This method open a FXML file as new Window
      */
     private void showNewPanel() {
         try {

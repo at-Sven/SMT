@@ -14,7 +14,7 @@ public class UserEintrag {
     private final StringProperty passwort;
 
     /**
-     * Constructor to create a empty new User
+     * default Constructor for user entries
      *
      * @param email    The E-Mail Address of the User
      * @param passwort The Password of the User

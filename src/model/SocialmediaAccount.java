@@ -1,5 +1,9 @@
 package model;
 
+/**
+ * The Model Class for the Social Media Accounts
+ */
+
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -16,6 +20,7 @@ public class SocialmediaAccount {
     private StringProperty fbPageAccessToken;
     private Integer fbAccessTokenExpireDate;
 
+    // TODO: Kann das weg?
     /*
     public SocialmediaAccount(Integer uid, String twConsumerKey, String twConsumerSecret, String twAccessToken, String twAccessTokenSecret, String fbAppID, String fbAppSecret) {
         this.uid = uid;
@@ -30,6 +35,7 @@ public class SocialmediaAccount {
 
     /**
      * getter method for uid
+     *
      * @return uid loggedin user id
      */
     public Integer getUid() {
@@ -38,6 +44,7 @@ public class SocialmediaAccount {
 
     /**
      * setter method for uid
+     *
      * @param uid sets the userid of loggedin user
      */
     public void setUid(Integer uid) {
@@ -46,6 +53,7 @@ public class SocialmediaAccount {
 
     /**
      * getter for twitter ConsumerKey
+     *
      * @return twConsumerKey String
      */
     public String getTwConsumerKey() {
@@ -55,6 +63,7 @@ public class SocialmediaAccount {
 
     /**
      * setter for twitter ConsumerKey
+     *
      * @param twConsumerKey String
      */
     public void setTwConsumerKey(String twConsumerKey) {
@@ -64,6 +73,7 @@ public class SocialmediaAccount {
 
     /**
      * getter for twitter ConsumerSecret
+     *
      * @return twConsumerSecret String
      */
     public String getTwConsumerSecret() {
@@ -72,6 +82,7 @@ public class SocialmediaAccount {
 
     /**
      * setter for twitter ConsumerSecret
+     *
      * @param twConsumerSecret String
      */
     public void setTwConsumerSecret(String twConsumerSecret) {
@@ -80,6 +91,7 @@ public class SocialmediaAccount {
 
     /**
      * getter for twitter AccessToken
+     *
      * @return twAccessToken String
      */
     public String getTwAccessToken() {
@@ -88,6 +100,7 @@ public class SocialmediaAccount {
 
     /**
      * setter for twitter AccessToken
+     *
      * @param twAccessToken String
      */
     public void setTwAccessToken(String twAccessToken) {
@@ -96,6 +109,7 @@ public class SocialmediaAccount {
 
     /**
      * getter for twitter AccessTokenSecret
+     *
      * @return twAccessTokenSecret String
      */
     public String getTwAccessTokenSecret() {
@@ -104,6 +118,7 @@ public class SocialmediaAccount {
 
     /**
      * setter for twitter AccessTokenSecret
+     *
      * @param twAccessTokenSecret String
      */
     public void setTwAccessTokenSecret(String twAccessTokenSecret) {
@@ -112,6 +127,7 @@ public class SocialmediaAccount {
 
     /**
      * getter for facebook AppID
+     *
      * @return fbAppID String
      */
     public String getFbAppID() {
@@ -120,6 +136,7 @@ public class SocialmediaAccount {
 
     /**
      * setter for facebook AppID
+     *
      * @param fbAppID String
      */
     public void setFbAppID(String fbAppID) {
@@ -128,6 +145,7 @@ public class SocialmediaAccount {
 
     /**
      * getter for facebook AppSecret
+     *
      * @return fbAppSecret String
      */
     public String getFbAppSecret() {
@@ -136,6 +154,7 @@ public class SocialmediaAccount {
 
     /**
      * setter for facebook AppSecret
+     *
      * @param fbAppSecret String
      */
     public void setFbAppSecret(String fbAppSecret) {
@@ -144,6 +163,7 @@ public class SocialmediaAccount {
 
     /**
      * getter for facebook AccessToken
+     *
      * @return fbAccessToken String
      */
     public String getFbUserAccessToken() {
@@ -152,6 +172,7 @@ public class SocialmediaAccount {
 
     /**
      * setter for facebook AccessToken
+     *
      * @param fbUserAccessToken String
      */
     public void setFbUserAccessToken(String fbUserAccessToken) {
@@ -160,6 +181,7 @@ public class SocialmediaAccount {
 
     /**
      * getter for facebook fbUserdata
+     *
      * @return fbUserdata String
      */
     public String getFbPageAccessToken() {
@@ -168,6 +190,7 @@ public class SocialmediaAccount {
 
     /**
      * setter for facebook fbUserdata
+     *
      * @param fbPageAccessToken String
      */
     public void setFbPageAccessToken(String fbPageAccessToken) {
@@ -176,6 +199,7 @@ public class SocialmediaAccount {
 
     /**
      * getter method for FB AccessTokenExpireDate
+     *
      * @return fbAccessTokenExpireDate
      */
     public Integer getFbAccessTokenExpireDate() {
@@ -184,6 +208,7 @@ public class SocialmediaAccount {
 
     /**
      * setter method for FB AccesTokenExpireDate
+     *
      * @param fbAccessTokenExpireDate integer
      */
     public void setFbAccessTokenExpireDate(Integer fbAccessTokenExpireDate) {
@@ -191,6 +216,7 @@ public class SocialmediaAccount {
     }
 
 
+    // TODO: Kann das weg?
      /* // uncommented, no need, maybe for later use...
     public StringProperty twConsumerKeyProperty() {
         return twConsumerKey;

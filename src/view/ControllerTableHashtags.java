@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 import model.HashtagsEintrag;
 
 /**
- * Controllerklasse für die FXML Datei fxTableHashtags
+ * The Controller Class for the FXML file "fxTableHashtags"
  */
 public class ControllerTableHashtags {
 
@@ -52,7 +52,6 @@ public class ControllerTableHashtags {
         // this gives the value in the selected cell:
         data = col.getCellObservableValue(item).getValue().toString();
 
-        //System.out.println("Hashtags ausgewählt");
         stage.close();
 
     }

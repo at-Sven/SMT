@@ -6,7 +6,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 /**
- * The Class for the Hashtag Lists of the Program
+ * The Model Class for the Hashtag Lists of the Program
  */
 public class HashtagsEintrag {
 

@@ -45,7 +45,7 @@ public class ControllerUpdateHashtagListe {
     }
 
     /**
-     * This method rece the Hashtag list, which geht a update
+     * This method recieve a Hashtag list, which get a update
      *
      * @param oldEntry old Hashtag List from ControllerMain class
      */

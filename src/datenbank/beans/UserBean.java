@@ -66,11 +66,11 @@ public class UserBean {
     }
 
     /**
-     * Pr&uuml;ft nach, ob ein User in der Datenbank vorhanden ist
+     * This method check, if a user account exists in the database
      *
-     * @param email    Erhaltene E-Mail Addresse
-     * @param passwort Erhaltenes Passwort
-     * @return Gibt true zur&uuml;ck, wenn ein User gefunden wurde
+     * @param email    entered E-Mail address
+     * @param passwort entered Password
+     * @return true, if a account database entry exist
      */
     public static Boolean isUser(String email, String passwort) {
 

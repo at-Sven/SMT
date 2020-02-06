@@ -44,7 +44,7 @@ import datenbank.beans.SocialmediaAccountBean;
 import utils.Helper;
 
 /**
- * Controller class for the FXML file 'fxMain'
+ * The Controller Class for the FXML file 'fxMain'
  */
 public class ControllerMain {
     @FXML
@@ -200,16 +200,17 @@ public class ControllerMain {
 
     /**
      * This Method sets the userObject here, after login of the main user
+     *
      * @param userObject userObject with uid,email,pw
      */
-    public void setUser(UserEintrag userObject){
+    public void setUser(UserEintrag userObject) {
         this.user = userObject;
         System.out.println("Uid: " + this.user.getId());
     }
 
 
     /**
-     * This method opens the FXML file fxTableHashtags in a small window
+     * This method opens the FXML file "fxTableHashtags" in a small window
      */
     @FXML
     void ShowHashtags() {
@@ -234,9 +235,9 @@ public class ControllerMain {
         }
 
         System.out.println(hashtags);
-        if(hashtags.isEmpty()) {
+        if (hashtags.isEmpty()) {
             hashtags = "";
-        } else if(taHashtags.getText().isEmpty()) {
+        } else if (taHashtags.getText().isEmpty()) {
             taHashtags.appendText(hashtags);
             countHashtag();
             hashtags = "";
@@ -322,8 +323,8 @@ public class ControllerMain {
 
             // socialMediaWorker mit uid und kanalinfos füttern:
             this.socialMediaWorker.init(this.user.getId(),
-                                        tfFBAppID.getText(), tfFBAppSecret.getText(), tfFBUserAccessToken.getText(), tfFBPageAccessToken.getText(),
-                                        ConsumerKey.getText(), ConsumerSecret.getText(), AccessToken.getText(), AccessTokenSecret.getText(), taLog);
+                    tfFBAppID.getText(), tfFBAppSecret.getText(), tfFBUserAccessToken.getText(), tfFBPageAccessToken.getText(),
+                    ConsumerKey.getText(), ConsumerSecret.getText(), AccessToken.getText(), AccessTokenSecret.getText(), taLog);
 
             // worker starten:
             this.socialMediaWorkerTimer.play();
@@ -349,57 +350,57 @@ public class ControllerMain {
     void postMessage(ActionEvent event) {
         // Speichert einen neuen Social Media Post in die Datenbank
         // check ob Postzeit ausgewählt und in der Zukunft liegt:
-        String postTime = this.helper.checkIfLocalDateTimeIsNotNullAndInFuture(dpDate.getValue(),tfTime.getText());
-        if( postTime != null && !postTime.isEmpty()){
+        String postTime = this.helper.checkIfLocalDateTimeIsNotNullAndInFuture(dpDate.getValue(), tfTime.getText());
+        if (postTime != null && !postTime.isEmpty()) {
             // message,hashtags und selectedfile können nicht alle empty sein, da sonst kein Post content:
-           if( !(taMessage.getText().isEmpty() && taHashtags.getText().isEmpty() && selectedFile == null)){
-               // check if any socialmedia platform is selected:
-               if((cbFacebook.isSelected() && cbFBPage.getValue() != null) || cbTwitter.isSelected()){
-                   // Speichere Post hier in die SocialmediaPosts table
-                   String posttext = taMessage.getText() + " " + taHashtags.getText();
-                   String mediafile = "";
-                   if(selectedFile != null) {  // check if a mediafile like image or video is selected
-                       mediafile = selectedFile.getAbsolutePath();
-                   }
+            if (!(taMessage.getText().isEmpty() && taHashtags.getText().isEmpty() && selectedFile == null)) {
+                // check if any socialmedia platform is selected:
+                if ((cbFacebook.isSelected() && cbFBPage.getValue() != null) || cbTwitter.isSelected()) {
+                    // Speichere Post hier in die SocialmediaPosts table
+                    String posttext = taMessage.getText() + " " + taHashtags.getText();
+                    String mediafile = "";
+                    if (selectedFile != null) {  // check if a mediafile like image or video is selected
+                        mediafile = selectedFile.getAbsolutePath();
+                    }
 
-                   ArrayList<Integer> selectedPlatformsArr = new ArrayList<>(); // 0 = no platform selected, will not be postet
-                   // checke ob auf Twitter gepostet werden soll:
-                   if( cbTwitter.isSelected() ) selectedPlatformsArr.add(1); // 1 = post on twitter
+                    ArrayList<Integer> selectedPlatformsArr = new ArrayList<>(); // 0 = no platform selected, will not be postet
+                    // checke ob auf Twitter gepostet werden soll:
+                    if (cbTwitter.isSelected()) selectedPlatformsArr.add(1); // 1 = post on twitter
 
-                   // checke ob auf Facebook Profil gepostet werden soll:
-                   if( cbFacebook.isSelected() ) selectedPlatformsArr.add(2); // 2 = post on facebook profile
+                    // checke ob auf Facebook Profil gepostet werden soll:
+                    if (cbFacebook.isSelected()) selectedPlatformsArr.add(2); // 2 = post on facebook profile
 
-                   /*
-                    * ToDo: hier eine Schleife nutzen um FB Gruppen / Pages DropdownMenue zu überprüfen und selectedPlatformsArr List mit .add() zu erweitern:
-                    *
-                    */
-                   for ( int i = 0; i < selectedPlatformsArr.size(); i++) {
+                    /*
+                     * ToDo: hier eine Schleife nutzen um FB Gruppen / Pages DropdownMenue zu überprüfen und selectedPlatformsArr List mit .add() zu erweitern:
+                     *
+                     */
+                    for (int i = 0; i < selectedPlatformsArr.size(); i++) {
 
-                       if(selectedPlatformsArr.get(i) != 0 || selectedPlatformsArr.get(i) != null) { // nichts ausgewählt
-                           int platform = selectedPlatformsArr.get(i);                  //platform    // use fbsite String if needed
-                           PostEintrag newPostEintrag = new PostEintrag(this.user.getId(), platform, "fbsiteinfo", posttext, mediafile, postTime, 0);  // 0  bedeutet neuer post
-                           boolean postInsertOK = PostEintragBean.insertNewPost(newPostEintrag);
+                        if (selectedPlatformsArr.get(i) != 0 || selectedPlatformsArr.get(i) != null) { // nichts ausgewählt
+                            int platform = selectedPlatformsArr.get(i);                  //platform    // use fbsite String if needed
+                            PostEintrag newPostEintrag = new PostEintrag(this.user.getId(), platform, "fbsiteinfo", posttext, mediafile, postTime, 0);  // 0  bedeutet neuer post
+                            boolean postInsertOK = PostEintragBean.insertNewPost(newPostEintrag);
 
-                           if (postInsertOK) {
-                               lbMessageStatus.setText("Post wurde in DB gespeichert!");
-                               taLog.appendText("Post für PlatformID:"+ platform +" wurde geplant.\n" );
-                               selectedFile = null;  // nach dem post, den selected File
-                               lbFilename.setText("Keine Bild oder Film Datei ausgewählt.");
-                           } else {
-                               lbMessageStatus.setText("DB Insert Fehler, Post konnte nicht gespeichert werden!");
-                               taLog.appendText("DB Insert Fehler bei Post für PlatformID:"+ platform +".\n" );
-                           }
-                       }else{
-                           lbMessageStatus.setText("Es ist keine Social Media Platform ausgewählt!");
-                       }
-                   }
-               }else{
-                   lbMessageStatus.setText("Es ist keine Social Media Platform ausgewählt! Min. 1 auswählen!");
-               }
-           }else{
+                            if (postInsertOK) {
+                                lbMessageStatus.setText("Post wurde in DB gespeichert!");
+                                taLog.appendText("Post für PlatformID:" + platform + " wurde geplant.\n");
+                                selectedFile = null;  // nach dem post, den selected File
+                                lbFilename.setText("Keine Bild oder Film Datei ausgewählt.");
+                            } else {
+                                lbMessageStatus.setText("DB Insert Fehler, Post konnte nicht gespeichert werden!");
+                                taLog.appendText("DB Insert Fehler bei Post für PlatformID:" + platform + ".\n");
+                            }
+                        } else {
+                            lbMessageStatus.setText("Es ist keine Social Media Platform ausgewählt!");
+                        }
+                    }
+                } else {
+                    lbMessageStatus.setText("Es ist keine Social Media Platform ausgewählt! Min. 1 auswählen!");
+                }
+            } else {
                 lbMessageStatus.setText("Kein Text/Content zum Posten eingegeben oder ausgewählt!");
-           }
-        }else{
+            }
+        } else {
             lbMessageStatus.setText("Datum und Zeit muss in der Zukunft liegen!");
         }
 
@@ -454,6 +455,7 @@ public class ControllerMain {
 
     /**
      * This method generates and sets a random date in DatePicker and generate and sets a random time in TextField Time
+     *
      * @param event fired from btnRandmDateTime button
      */
     @FXML
@@ -528,19 +530,19 @@ public class ControllerMain {
         String as = this.tfFBAppSecret.getText();
         String at = this.tfFBUserAccessToken.getText();
         String ud = this.tfFBPageAccessToken.getText();
-        if( uid != null && !ai.trim().equals("") && !as.trim().equals("") && !at.trim().equals("") && !ud.trim().equals("") ){
-            if(SocialmediaAccountBean.insertOrUpdateFacebookAccount(uid,ai,as,at,ud)) {  // insertOrUpdate db true
+        if (uid != null && !ai.trim().equals("") && !as.trim().equals("") && !at.trim().equals("") && !ud.trim().equals("")) {
+            if (SocialmediaAccountBean.insertOrUpdateFacebookAccount(uid, ai, as, at, ud)) {  // insertOrUpdate db true
                 this.socialmediaAccount.setUid(uid);
                 this.socialmediaAccount.setFbAppID(ai);
                 this.socialmediaAccount.setFbAppSecret(as);
                 this.socialmediaAccount.setFbUserAccessToken(at);
                 this.socialmediaAccount.setFbPageAccessToken(ud);
                 this.lblSaveFBAccountStatus.setText("Facebook Accountdaten gespeichert/aktualisiert.");
-            }else{
+            } else {
                 System.out.println("An Error occured while insert or update FBAccountdata into SocialMediaAccounts Table!");
                 this.lblSaveFBAccountStatus.setText("Konnte nicht gespeichert werden, Eingaben ueberpruefen!");
             }
-        }else{
+        } else {
             this.lblSaveFBAccountStatus.setText("Konnte nicht gespeichert werden, Felder duerfen nicht leer sein!");
         }
         resetText(this.lblSaveFBAccountStatus);
@@ -559,20 +561,20 @@ public class ControllerMain {
         String cs = this.ConsumerSecret.getText();
         String at = this.AccessToken.getText();
         String ats = this.AccessTokenSecret.getText();
-        if( uid != null && !ck.trim().equals("") && !cs.trim().equals("") && !at.trim().equals("") && !at.trim().equals("") ){
+        if (uid != null && !ck.trim().equals("") && !cs.trim().equals("") && !at.trim().equals("") && !at.trim().equals("")) {
             //SocialmediaAccountBean socialmediaAccountBean = new SocialmediaAccountBean();  // used static
-            if(SocialmediaAccountBean.insertOrUpdateTwitterAccount(uid,ck,cs,at,ats)){  // insertOrUpdate db true
+            if (SocialmediaAccountBean.insertOrUpdateTwitterAccount(uid, ck, cs, at, ats)) {  // insertOrUpdate db true
                 this.socialmediaAccount.setUid(uid);
                 this.socialmediaAccount.setTwConsumerKey(ck);
                 this.socialmediaAccount.setTwConsumerSecret(cs);
                 this.socialmediaAccount.setTwAccessToken(at);
                 this.socialmediaAccount.setTwAccessTokenSecret(ats);
                 this.lblSaveTWAccountStatus.setText("Twitter Accountdaten gespeichert/aktualisiert.");
-            }else{
+            } else {
                 System.out.println("An Error occured while insert or update TwitterAccountdata into SocialMediaAccounts Table!");
                 this.lblSaveTWAccountStatus.setText("Konnte nicht gespeichert werden, Eingaben ueberpruefen!");
             }
-        }else{
+        } else {
             this.lblSaveTWAccountStatus.setText("Konnte nicht gespeichert werden, Felder duerfen nicht leer sein!");
         }
         resetText(this.lblSaveTWAccountStatus);
@@ -581,47 +583,47 @@ public class ControllerMain {
     /**
      * loads the SocialmediaAccount Data of the active user with uid from user object (=UserEintrag object)
      */
-    private void loadSocialMediaAccountDataIntoTwitterAndFacebookFields(){
+    private void loadSocialMediaAccountDataIntoTwitterAndFacebookFields() {
 
-            if (this.user.getId() != null) {
+        if (this.user.getId() != null) {
 
-                this.socialmediaAccount = SocialmediaAccountBean.getSocialMediaAccountsByUid(this.user.getId());
-                if (this.socialmediaAccount == null) {
-                    // user has not yet set any Socialmedia Account informations , no row in table
-                    // only set the available uid from loggedin userobject in new socialmediaAccount Object
-                    this.socialmediaAccount = new SocialmediaAccount();
-                    this.socialmediaAccount.setUid(this.user.getId());
+            this.socialmediaAccount = SocialmediaAccountBean.getSocialMediaAccountsByUid(this.user.getId());
+            if (this.socialmediaAccount == null) {
+                // user has not yet set any Socialmedia Account informations , no row in table
+                // only set the available uid from loggedin userobject in new socialmediaAccount Object
+                this.socialmediaAccount = new SocialmediaAccount();
+                this.socialmediaAccount.setUid(this.user.getId());
 
-                } else {
-                    // show socialmedia account data  in Einstellungs textfields, so user can update and see what is actually set
-                    String fbAppID = this.socialmediaAccount.getFbAppID();
-                    String fbAppSecret = this.socialmediaAccount.getFbAppSecret();
-                    String fFBUserAccessToken = this.socialmediaAccount.getFbUserAccessToken();
-                    String fFBPageAccessToken = this.socialmediaAccount.getFbPageAccessToken();
+            } else {
+                // show socialmedia account data  in Einstellungs textfields, so user can update and see what is actually set
+                String fbAppID = this.socialmediaAccount.getFbAppID();
+                String fbAppSecret = this.socialmediaAccount.getFbAppSecret();
+                String fFBUserAccessToken = this.socialmediaAccount.getFbUserAccessToken();
+                String fFBPageAccessToken = this.socialmediaAccount.getFbPageAccessToken();
 
 
-                    if( fbAppID != null && fbAppSecret != null && fFBUserAccessToken != null && fFBPageAccessToken != null ) {
-                        this.tfFBAppID.setText(fbAppID);
-                        this.tfFBAppSecret.setText(fbAppSecret);
-                        this.tfFBUserAccessToken.setText(fFBUserAccessToken);
-                        this.tfFBPageAccessToken.setText(fFBPageAccessToken);
-                    }
+                if (fbAppID != null && fbAppSecret != null && fFBUserAccessToken != null && fFBPageAccessToken != null) {
+                    this.tfFBAppID.setText(fbAppID);
+                    this.tfFBAppSecret.setText(fbAppSecret);
+                    this.tfFBUserAccessToken.setText(fFBUserAccessToken);
+                    this.tfFBPageAccessToken.setText(fFBPageAccessToken);
+                }
 
-                    String twck = this.socialmediaAccount.getTwConsumerKey();
-                    String twcs = this.socialmediaAccount.getTwConsumerSecret();
-                    String twat = this.socialmediaAccount.getTwAccessToken();
-                    String twats = this.socialmediaAccount.getTwAccessTokenSecret();
+                String twck = this.socialmediaAccount.getTwConsumerKey();
+                String twcs = this.socialmediaAccount.getTwConsumerSecret();
+                String twat = this.socialmediaAccount.getTwAccessToken();
+                String twats = this.socialmediaAccount.getTwAccessTokenSecret();
 
-                    if ( twck != null && twcs != null && twat != null && twats != null ){
-                        this.ConsumerKey.setText(twck);
-                        this.ConsumerSecret.setText(twcs);
-                        this.AccessToken.setText(twat);
-                        this.AccessTokenSecret.setText(twats);
-                    }
-               }
-            }else{
-                System.out.println("Es gibt keine User ID, die geladen werden kann!");
+                if (twck != null && twcs != null && twat != null && twats != null) {
+                    this.ConsumerKey.setText(twck);
+                    this.ConsumerSecret.setText(twcs);
+                    this.AccessToken.setText(twat);
+                    this.AccessTokenSecret.setText(twats);
+                }
             }
+        } else {
+            System.out.println("Es gibt keine User ID, die geladen werden kann!");
+        }
     }
 
     /**
@@ -712,8 +714,8 @@ public class ControllerMain {
         // wait 3 sec till uid etc. loaded and set by ContollerLogin, put everything in here, if it needs to start short time after fxinits
         PauseTransition pause = new PauseTransition(javafx.util.Duration.seconds(3));
         pause.setOnFinished(event -> {
-                checkIfSocMediaAccountsAvailableAndEnableNewPostButton();
-            }
+                    checkIfSocMediaAccountsAvailableAndEnableNewPostButton();
+                }
         );
         pause.play();
 
@@ -724,13 +726,13 @@ public class ControllerMain {
      * This Method loads SocialMediaAccount informations, and sets the New Post Button to enabled if user has
      * Accounts in the Einstellungen and DB
      */
-    public void checkIfSocMediaAccountsAvailableAndEnableNewPostButton(){
+    public void checkIfSocMediaAccountsAvailableAndEnableNewPostButton() {
         loadSocialMediaAccountDataIntoTwitterAndFacebookFields();
-        if(tfFBAppID.getText().isEmpty() && ConsumerKey.getText().isEmpty()) { // socialmediaAccount
+        if (tfFBAppID.getText().isEmpty() && ConsumerKey.getText().isEmpty()) { // socialmediaAccount
             btnSavePost.setDisable(true); // disable the save post button, because user has not set TW or FB account.
             tbActivate.setDisable(true);  // disable the automatic post button, because user has not set TW or FB account.
             lbMessageStatus.setText("Bitte zuerst in den Einstellungen Twitter oder Facebook Informationen eingeben!");
-        }else{
+        } else {
             btnSavePost.setDisable(false);
             tbActivate.setDisable(false);
             lbMessageStatus.setText("");
@@ -762,11 +764,6 @@ public class ControllerMain {
         this.tvPosts.setItems(entries);
     }
 
-
-/*    String getHashtags(String content) {
-        return hashtags = content;
-    }*/
-
     /**
      * This method delete a Post entry in the database
      */
@@ -778,7 +775,7 @@ public class ControllerMain {
         PostEintragBean.delete(selectedEntry);
         System.out.println("Post entfernt");
 
-            getPostTable();
+        getPostTable();
 
     }
 

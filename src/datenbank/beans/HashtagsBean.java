@@ -94,6 +94,12 @@ public class HashtagsBean {
         return result;
     }
 
+    /**
+     * This method delete a selected Hashtag list from the database
+     *
+     * @param selectedHashList selected tableview entry
+     * @return true, if the delete was a success
+     */
     public static boolean delete(HashtagsEintrag selectedHashList) {
         boolean result = false;
 
@@ -139,11 +145,10 @@ public class HashtagsBean {
                 Datenbank.getInstance().rollback();
             }
 
-        } catch (SQLException ignored) {}
+        } catch (SQLException ignored) {
+        }
 
         return result;
     }
-
-    // TODO: Restliche Methoden einfügen
 
 }

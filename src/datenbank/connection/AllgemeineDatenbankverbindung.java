@@ -26,7 +26,7 @@ public abstract class AllgemeineDatenbankverbindung {
     /**
      * Diese Methode dient der Erstellung der Verbindung zur Datenbank. Diese MUSS das
      * Connection-Objekt 'con' korrekt setzen.
-     *
+     * <p>
      * Empfehlung: AutoCommit auf false setzen
      *
      * @return true bei erfolgreicher Verbindung zur Datenbank, false andernfalls.
@@ -48,7 +48,8 @@ public abstract class AllgemeineDatenbankverbindung {
                      * Fehlermeldung geworfen. Diese wird ignoriert und mit dem
                      * nächsten weitergemacht
                      */
-                } catch (SQLException ignored) {}
+                } catch (SQLException ignored) {
+                }
             }
 
             // Löschen aller Referenzen zu den PreparedStatements
@@ -88,6 +89,7 @@ public abstract class AllgemeineDatenbankverbindung {
 
     /**
      * Führt ein beliebiges SQL-Statement aus, und gibt etwaiige Fehler auf der Fehlerausgabe aus
+     *
      * @param sql SQL-Statement welches ausgeführt werden soll
      * @return gibt true zurück, wenn der Befehl ohne Fehler ausgeführt wurde, und false im Fehlerfall
      */
@@ -110,6 +112,7 @@ public abstract class AllgemeineDatenbankverbindung {
 
     /**
      * Führt ein beliebiges SELECT-SQL-Statement aus und gibt das ResultSet zurück
+     *
      * @param sql SQL-Statement welches ausgeführt werden soll
      * @return ResultSet des Ergebnisses des SELECT-Statements
      * @throws IllegalArgumentException wird geworfen, wenn das Statement nicht korrekt ausgeführt werden konnte
@@ -130,6 +133,7 @@ public abstract class AllgemeineDatenbankverbindung {
 
     /**
      * Diese Methode bereitet den übergebenen SQL-Code als PreparedStatement vor und gibt das erzeugte Objekt zurück
+     *
      * @param sql SQL-Statement
      * @return PreparedStatementzu dem übergebenen SQL-Code
      * @throws IllegalArgumentException wird geworfen, wenn das Statement nicht korrekt ausgeführt werden konnte

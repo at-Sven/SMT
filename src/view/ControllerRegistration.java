@@ -22,7 +22,7 @@ import java.util.regex.Pattern;
 import static utils.Codify.PwConverter;
 
 /**
- * Controllerklasse für die FXML Datei fxRegistration
+ * The Controller Class for the FXML file fxRegistration
  */
 public class ControllerRegistration {
 
@@ -44,6 +44,12 @@ public class ControllerRegistration {
     public UserBean userInsert = new UserBean();
     public UserEintrag newUser;
 
+    /**
+     * This method create a new User entry in the database.
+     * First check, if the entered E-Mail address is in a valid form
+     *
+     * @param event click on the "Registrieren" Button
+     */
     @FXML
     void createLoginAccount(ActionEvent event) {
         String regex = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
@@ -71,6 +77,11 @@ public class ControllerRegistration {
 
     }
 
+    /**
+     * This method calls the showLogin method, to opens the FXML File fxLogin
+     *
+     * @param event click on the "Abbrechen" Button
+     */
     @FXML
     void cancelRegistration(ActionEvent event) {
         showLogin(event);
@@ -81,6 +92,11 @@ public class ControllerRegistration {
     void initialize() {
     }
 
+    /**
+     * This method opens the FXML File fxLogin by call
+     *
+     * @param event click on the Buttons "Registrieren" of "Abbrechen"
+     */
     void showLogin(ActionEvent event) {
         Parent root = null;
         try {
@@ -94,7 +110,6 @@ public class ControllerRegistration {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
 
     }
 }
