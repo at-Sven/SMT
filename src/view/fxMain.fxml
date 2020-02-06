@@ -196,57 +196,57 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TextField fx:id="tfFBUserData" layoutX="150.0" layoutY="373.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="optional field" AnchorPane.leftAnchor="150.0">
+                        <TextField fx:id="tfFBUserData" layoutX="150.0" layoutY="386.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="PageAccessToken" AnchorPane.leftAnchor="150.0">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="tfFBAccessToken" layoutX="150.0" layoutY="316.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="AccessToken" AnchorPane.leftAnchor="150.0">
+                        <TextField fx:id="tfFBAccessToken" layoutX="150.0" layoutY="314.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="UserAccessToken" AnchorPane.leftAnchor="150.0">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="tfFBAppID" layoutX="150.0" layoutY="210.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="AppID" AnchorPane.leftAnchor="150.0">
+                        <TextField fx:id="tfFBAppID" layoutX="150.0" layoutY="170.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="AppID" AnchorPane.leftAnchor="150.0">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="tfFBAppSecret" layoutX="150.0" layoutY="263.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="AppSecret" AnchorPane.leftAnchor="150.0">
+                        <TextField fx:id="tfFBAppSecret" layoutX="150.0" layoutY="242.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="AppSecret" AnchorPane.leftAnchor="150.0">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="ConsumerKey" layoutX="583.0" layoutY="210.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="ConsumerKey" AnchorPane.rightAnchor="150.0">
+                        <TextField fx:id="ConsumerKey" layoutX="570.0" layoutY="170.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="ConsumerKey" AnchorPane.rightAnchor="150.0">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="ConsumerSecret" layoutX="583.0" layoutY="263.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="ConsumerSecret" AnchorPane.rightAnchor="150.0">
+                        <TextField fx:id="ConsumerSecret" layoutX="570.0" layoutY="242.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="ConsumerSecret" AnchorPane.rightAnchor="150.0">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="AccessToken" layoutX="583.0" layoutY="314.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="AccessToken" AnchorPane.rightAnchor="150.0">
+                        <TextField fx:id="AccessToken" layoutX="570.0" layoutY="314.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="AccessToken" AnchorPane.rightAnchor="150.0">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="AccessTokenSecret" layoutX="588.0" layoutY="365.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="AccessTokenSecret" AnchorPane.rightAnchor="150.0">
+                        <TextField fx:id="AccessTokenSecret" layoutX="570.0" layoutY="386.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="AccessTokenSecret" AnchorPane.rightAnchor="150.0">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </TextField>
-                        <Button fx:id="btnSaveSettingsTW" layoutX="591.0" layoutY="438.0" mnemonicParsing="false" onAction="#saveSettingsTW" prefHeight="41.0" prefWidth="238.0" text="Einstellungen Speichern" AnchorPane.bottomAnchor="152.0" AnchorPane.leftAnchor="591.0" AnchorPane.rightAnchor="171.0">
+                        <Button fx:id="btnSaveSettingsTW" layoutX="591.0" layoutY="438.0" mnemonicParsing="false" onAction="#saveSettingsTW" prefHeight="41.0" prefWidth="238.0" text="Einstellungen Speichern">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Button>
-                        <Label alignment="CENTER" layoutX="209.0" layoutY="162.0" prefHeight="38.0" prefWidth="162.0" text="Facebook" AnchorPane.leftAnchor="209.0">
+                        <Label alignment="CENTER" layoutX="209.0" layoutY="100.0" prefHeight="38.0" prefWidth="162.0" text="Facebook" AnchorPane.leftAnchor="209.0">
                            <font>
                               <Font name="System Bold" size="26.0" />
                            </font>
                         </Label>
-                        <Label alignment="CENTER" layoutX="654.0" layoutY="162.0" prefHeight="38.0" prefWidth="112.0" text="Twitter" AnchorPane.rightAnchor="234.0">
+                        <Label alignment="CENTER" layoutX="654.0" layoutY="100.0" prefHeight="38.0" prefWidth="112.0" text="Twitter" AnchorPane.rightAnchor="234.0">
                            <font>
                               <Font name="System Bold" size="26.0" />
                            </font>
@@ -271,6 +271,46 @@
                         <Label fx:id="lblSaveFBAccountStatus" alignment="CENTER" layoutX="74.0" layoutY="492.0" prefHeight="28.0" prefWidth="424.0">
                            <font>
                               <Font size="13.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblfb1" alignment="BOTTOM_LEFT" layoutX="152.0" layoutY="147.0" prefHeight="22.0" prefWidth="243.0" text="AppID:">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblfb11" alignment="BOTTOM_LEFT" layoutX="152.0" layoutY="220.0" prefHeight="22.0" prefWidth="243.0" text="AppSecret:">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblfb111" alignment="BOTTOM_LEFT" layoutX="152.0" layoutY="292.0" prefHeight="22.0" prefWidth="243.0" text="UserAccesToken:">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblfb1111" alignment="BOTTOM_LEFT" layoutX="152.0" layoutY="364.0" prefHeight="22.0" prefWidth="243.0" text="PageAccessToken:">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lbltw1" alignment="BOTTOM_LEFT" layoutX="572.0" layoutY="147.0" prefHeight="22.0" prefWidth="243.0" text="ConsumerKey:">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lbltw2" alignment="BOTTOM_LEFT" layoutX="572.0" layoutY="220.0" prefHeight="22.0" prefWidth="243.0" text="ConsumerSecret:">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lbltw3" alignment="BOTTOM_LEFT" layoutX="572.0" layoutY="292.0" prefHeight="22.0" prefWidth="243.0" text="AccessToken:">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lbltw4" alignment="BOTTOM_LEFT" layoutX="572.0" layoutY="364.0" prefHeight="22.0" prefWidth="243.0" text="AccessTokenSecret:">
+                           <font>
+                              <Font size="11.0" />
                            </font>
                         </Label>
                      </children></AnchorPane>

@@ -5,10 +5,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.time.Duration;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Optional;
@@ -226,7 +225,12 @@ public class ControllerMain {
     String hashtags = "";
     Timeline socialMediaWorkerTimer; // controls the SocialMediaWorker object
     SocialMediaWorker socialMediaWorker; // checks what/when to post to Social Media
-    int workerWaitSeconds = 3; // here use later 60 seconds, 3sec only for testing the loop
+
+    // ------ check posts every x seconds to send them to social media channels! ------------------
+    int workerWaitSeconds = 3; //  here use later 100 or more seconds, 3 sec only for tests ------------------
+    //---------------------------------------------------------------------------------------------
+
+    Date date = new Date();
 
     /**
      * This Method sets the userObject here, after login of the main user
@@ -345,19 +349,29 @@ public class ControllerMain {
      */
     @FXML
     void postAutomatic() {
+
         if (this.tbActivate.isSelected()) {
-            this.socialMediaWorker.init();// here we need to init() socialmediaworker with the posts from DB
+
+            // Todo: Checke ob User seine SocialMedia Account daten in Einstellungen eingegeben hat:
+
+            // socialMediaWorker mit uid und kanalinfos füttern:
+            this.socialMediaWorker.init(this.user.getId(),
+                                        tfFBAppID.getText(), tfFBAppSecret.getText(), tfFBAccessToken.getText(), tfFBUserData.getText(),
+                                        ConsumerKey.getText(), ConsumerSecret.getText(), AccessToken.getText(), AccessTokenSecret.getText());
+
+            // worker starten:
             this.socialMediaWorkerTimer.play();
             this.tbActivate.setStyle("-fx-background-color:cyan");
-            //System.out.println("Selected: " + tbActivate.isSelected());
             System.out.println("Automatisierung ist aktiviert");
+            LocalDateTime lt = LocalDateTime.now().withNano(0); // ohne millisecs
+            taLog.appendText(lt + ": Automatisierung ist aktiviert.\n");
         } else {
             this.socialMediaWorkerTimer.stop();
             this.tbActivate.setStyle("-fx-background-color:lightgrey");
-            //System.out.println("Selected: " + tbActivate.isSelected());
+            LocalDateTime lt = LocalDateTime.now().withNano(0); // ohne millisecs
             System.out.println("Automatisierung ist deaktiviert");
+            taLog.appendText(lt + ": Automatisierung ist deaktiviert.\n");
         }
-
     }
 
     /**
@@ -382,16 +396,36 @@ public class ControllerMain {
                        mediafile = selectedFile.getAbsolutePath();
                    }
 
+                   ArrayList<Integer> selectedPlatformsArr = new ArrayList<>(); // 0 = no platform selected, will not be postet
+                   // checke ob auf Twitter gepostet werden soll:
+                   if( cbTwitter.isSelected() ) selectedPlatformsArr.add(1); // 1 = post on twitter
+
+                   // checke ob auf Facebook Profil gepostet werden soll:
+                   if( cbFacebook.isSelected() ) selectedPlatformsArr.add(2); // 2 = post on facebook profile
                    /*
                     * ToDo: here count and check platforms, where to post and set new PostEinträge with for Schleife and platform / fbsite info:
                     */
-                   PostEintrag newPostEintrag = new PostEintrag(this.user.getId(), 1, "fbsite" , posttext, mediafile, postTime, 0 );  // 0  bedeutet neuer post
+                   /*
+                    * ToDo: hier eine Schleife nutzen um FB Gruppen / Pages DropdownMenue zu überprüfen und selectedPlatformsArr List zu erweitern:
+                    *
+                    */
+                   for ( int i = 0; i < selectedPlatformsArr.size(); i++) {
 
-                   boolean postInsertOK= PostEintragBean.insertNewPost(newPostEintrag);
-                   if(postInsertOK) {
-                       lbMessageStatus.setText("Post wurde in DB gespeichert!");
-                   }else{
-                       lbMessageStatus.setText("DB Insert Fehler, Post konnte nicht gespeichert werden!");
+                       if(selectedPlatformsArr.get(i) != 0 || selectedPlatformsArr.get(i) != null) { // nichts ausgewählt
+                           int platform = selectedPlatformsArr.get(i);                  //platform    // use fbsite String if needed
+                           PostEintrag newPostEintrag = new PostEintrag(this.user.getId(), platform, "fbsiteinfo", posttext, mediafile, postTime, 0);  // 0  bedeutet neuer post
+                           boolean postInsertOK = PostEintragBean.insertNewPost(newPostEintrag);
+
+                           if (postInsertOK) {
+                               lbMessageStatus.setText("Post wurde in DB gespeichert!");
+                               taLog.appendText("Post für PlatformID:"+ platform +" wurde geplant.\n" );
+                           } else {
+                               lbMessageStatus.setText("DB Insert Fehler, Post konnte nicht gespeichert werden!");
+                               taLog.appendText("DB Insert Fehler bei Post für PlatformID:"+ platform +".\n" );
+                           }
+                       }else{
+                           lbMessageStatus.setText("Es ist keine Social Media Platform ausgewählt!");
+                       }
                    }
                }else{
                    lbMessageStatus.setText("Es ist keine Social Media Platform ausgewählt! Min. 1 auswählen!");
@@ -487,7 +521,7 @@ public class ControllerMain {
     }
 
     /**
-     * This method saves the Content of the TextArea 'taLog' in a txt File
+     * This method saves the Content of the TextArea 'taLog' in a txt File and clears the 'taLog' textarea
      */
     @FXML
     void saveLog() {
@@ -503,10 +537,13 @@ public class ControllerMain {
             }
             bf.flush();
             bf.close();
+            // after saving to logfile reset the old log in taLog textarea:
+            taLog.setText("");
+            lbLogSavedFeedback.setText("Log als Datei gespeichert!");
         } catch (IOException e) {
+            lbLogSavedFeedback.setText("Log konnte NICHT als Datei gespeichert werden!");
             e.printStackTrace();
         }
-        lbLogSavedFeedback.setText("Log als Datei gespeichert!");
         resetText(lbLogSavedFeedback);
     }
 
@@ -705,8 +742,6 @@ public class ControllerMain {
             }
         });
 
-
-
         // wait 3 sec till uid etc. loaded and set by ContollerLogin, put everything in here, if it needs to start short time after fxinits
         PauseTransition pause = new PauseTransition(javafx.util.Duration.seconds(3));
         pause.setOnFinished(event -> {
@@ -714,11 +749,6 @@ public class ControllerMain {
             }
         );
         pause.play();
-
-
-        // if not need , set not needed FB Account Fields to invisible:
-        // this.tfFBUsername.setVisible(false);
-        // this.tfFBPassword.setVisible(false);
 
         getHashTable();
     }
@@ -730,10 +760,12 @@ public class ControllerMain {
     public void checkIfSocMediaAccountsAvailableAndEnableNewPostButton(){
         loadSocialMediaAccountDataIntoTwitterAndFacebookFields();
         if(tfFBAppID.getText().isEmpty() && ConsumerKey.getText().isEmpty()) { // socialmediaAccount
-            btnSavePost.setDisable(true); // disable the save post button, bceause user has not set TW or FB account.
+            btnSavePost.setDisable(true); // disable the save post button, because user has not set TW or FB account.
+            tbActivate.setDisable(true);  // disable the automatic post button, because user has not set TW or FB account.
             lbMessageStatus.setText("Bitte zuerst in den Einstellungen Twitter oder Facebook Informationen eingeben!");
         }else{
             btnSavePost.setDisable(false);
+            tbActivate.setDisable(false);
             lbMessageStatus.setText("");
         }
     }
@@ -770,21 +802,53 @@ public class ControllerMain {
     @FXML
     void deletePost() {
 
-            System.out.println("Post gelöscht");
-            // TODO:
+        PostEintrag selectedEntry = tvPosts.getSelectionModel().getSelectedItem();
+
+        PostEintragBean.delete(selectedEntry);
+        System.out.println("Post entfernt");
 
             getPostTable();
 
     }
 
+    /**
+     * This method update a Hashtag list entry in the database
+     */
     @FXML
     void updateHashEntry() {
         System.out.println("Liste aktualisiert");
         //TODO
 
+        HashtagsEintrag oldEntry = tvHashtags.getSelectionModel().getSelectedItem();
+
+        try {
+            Stage MainStage = new Stage();
+            FXMLLoader loader = new FXMLLoader();
+            Pane root = loader.load(getClass().getResource("fxUpdateHashtagListe.fxml").openStream());
+            root.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+
+            //Get controller of fxAddHashtagListe
+            ControllerUpdateHashtagListe updateList = loader.getController();
+
+            updateList.setOldEntry(oldEntry);
+
+            Scene scene = new Scene(root);
+
+            MainStage.setTitle("SMT - Social Media Tool: Hashtagliste Hinzufügen");
+            MainStage.setScene(scene);
+            MainStage.showAndWait();
+
+        } catch (IOException ex) {
+            ex.getStackTrace();
+        }
         getHashTable();
+
+        //getHashTable();
     }
 
+    /**
+     * This method delete a Hashtag list in the database
+     */
     @FXML
     void deleteHashList() {
 
@@ -792,7 +856,6 @@ public class ControllerMain {
 
         HashtagsBean.delete(selectedEntry);
         System.out.println("Liste entfernt");
-        //TODO
 
         getHashTable();
     }

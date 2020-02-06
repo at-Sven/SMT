@@ -1,21 +1,16 @@
 package view;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import datenbank.beans.HashtagsBean;
-import datenbank.beans.UserBean;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.HashtagsEintrag;
-import model.UserEintrag;
 
-import static utils.Codify.PwConverter;
-
+/**
+ * The Controller class of the fxml File fxAddHashtagListe
+ */
 public class ControllerAddHashtagListe {
 
     @FXML
@@ -30,8 +25,11 @@ public class ControllerAddHashtagListe {
     public HashtagsBean hashListInsert = new HashtagsBean();
     public HashtagsEintrag newList;
 
+    /**
+     * This method add a new Hashtag list in the database
+     */
     @FXML
-    void addNewList(ActionEvent event) {
+    void addNewList() {
         Stage stage = (Stage) this.btnAddNewList.getScene().getWindow();
 
         newList = new HashtagsEintrag(null, 1, this.tfNewList.getText(), taNewHashtags.getText());
@@ -40,8 +38,11 @@ public class ControllerAddHashtagListe {
         stage.close();
     }
 
+
     @FXML
     void initialize() {
 
     }
+
+
 }

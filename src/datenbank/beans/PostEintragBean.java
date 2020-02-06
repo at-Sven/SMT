@@ -16,7 +16,9 @@ public class PostEintragBean {
 
     private static PreparedStatement pstmtInsertPost;
     private static PreparedStatement pstmtSelectScheduledPostsWithUid;
+    private static PreparedStatement pstmtSelectScheduledPostsWithUidAndPoststatus;
     private static PreparedStatement pstmtGetPosts;
+    private static PreparedStatement pstmtDelete;
 
     private static HashMap<PostEintrag, Integer> idListe;
 
@@ -28,13 +30,15 @@ public class PostEintragBean {
         System.out.println("static-Block ausgeführt");
 
         // Statements vorbereiten
-
         pstmtInsertPost = Datenbank.getInstance().prepareStatement("INSERT INTO SocialmediaPosts (sid, uid, platform, fbsite, posttext, mediafile, posttime, poststatus) " +
                 " VALUES ( ?, (SELECT sid FROM SocialmediaAccounts WHERE uid = ?), ?, ?, ?, ?, ?, ?)");
-
         pstmtSelectScheduledPostsWithUid = Datenbank.getInstance().prepareStatement("SELECT * FROM SocialmediaPosts WHERE uid = ?;");
 
+        // hole nur posts die noch nicht gesendet wurden: (bedeutet poststatus == 0)
+        pstmtSelectScheduledPostsWithUidAndPoststatus = Datenbank.getInstance().prepareStatement("SELECT * FROM SocialmediaPosts WHERE uid = ? AND poststatus = 0;");
+
         pstmtGetPosts = Datenbank.getInstance().prepareStatement("SELECT posttext, posttime, platform FROM SocialmediaPosts;");
+        pstmtDelete = Datenbank.getInstance().prepareStatement("DELETE FROM SocialmediaPosts WHERE pid = ?;");
 
         idListe = new HashMap<>();
 
@@ -149,6 +153,45 @@ public class PostEintragBean {
 
     }
 
+    public static ArrayList<PostEintrag> selectScheduledPostsWithUidAndPoststatus(int uid) {
+        ArrayList<PostEintrag> result = null;
+
+        try {
+            // Datenbankabfrage ausführen
+            pstmtSelectScheduledPostsWithUidAndPoststatus.setInt(1,uid);
+
+            ResultSet rs = pstmtSelectScheduledPostsWithUidAndPoststatus.executeQuery();
+
+            // Result initialisieren
+            result = new ArrayList<>();
+
+            // Zurücksetzen der idListe
+            idListe.clear();
+
+            // Alle Datensätze abfragen und passend dazu neue Einträge generieren
+            while (rs.next()) {
+                PostEintrag eintrag = new PostEintrag(
+                        rs.getInt("pid"),
+                        rs.getInt("uid"),
+                        rs.getInt("sid"),
+                        rs.getInt("platform"),
+                        rs.getString("fbsite"),
+                        rs.getString("posttext"),
+                        rs.getString("mediafile"),
+                        rs.getString("posttime"),
+                        rs.getInt("poststatus")
+                );
+                result.add(eintrag);
+
+                // Objekt der idListe hinzufügen
+                idListe.put(eintrag, eintrag.getPid());
+            }
+
+        } catch (SQLException ignored) {}
+
+        return result;
+    }
+
     public static ArrayList<PostEintrag> selectAllPostsWithUid(int uid) {
         ArrayList<PostEintrag> result = null;
 
@@ -199,6 +242,7 @@ public class PostEintragBean {
 
 
 
+
     /**
      * This method take all saved Posts from the Database
      *
@@ -228,25 +272,25 @@ public class PostEintragBean {
     }
 
     /**
-     * Speichert einen übergebenen TelefonbuchEintrag in der Datenbank. Ob der Eintrag
-     * im Telefonbuch schon vorhanden ist oder nicht, also ob ein update oder ein
-     * insert-Befehl für die Datenbank ausgeführt werden muss, ist für den Aufruf von der GUI
-     * irrelevant. Dies findet diese Methode heraus.
+     * Löscht einen übergebenen PostEintrag aus der Datenbank
      *
-     * @param zuSpeichern TelefonbuchEintrag, der gespeichert werden soll
-     * @return true, wenn die Speicherung erfolgreich war, false andernfalls
-     */
-    public static boolean save(PostEintrag zuSpeichern) {
-        return true;
-    }
-
-    /**
-     * Löscht einen übergebenen TelefonbuchEintrag aus der Datenbank
-     *
-     * @param zuLoeschen TelefonbuchEintrag, der gelöscht werden soll
+     * @param selecedPost PostEintrag, der gelöscht werden soll
      * @return true, wenn das Löschen erfolgreich war, false andernfalls
      */
-    public static boolean delete(PostEintrag zuLoeschen) {
-        return true;
+    public static boolean delete(PostEintrag selecedPost) {
+        boolean result = false;
+
+        try {
+            pstmtDelete.setInt(1, selecedPost.getPid());
+            pstmtDelete.executeUpdate();
+            result = true;
+
+            Datenbank.getInstance().commit();
+
+        } catch (SQLException e) {
+            System.err.println("Fehler beim Löschen des TelefonbuchEintrags aus der Datenbank: " + e.getLocalizedMessage());
+        }
+
+        return result;
     }
 }

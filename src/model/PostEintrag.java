@@ -12,8 +12,6 @@ import java.util.Date;
  */
 public class PostEintrag {
 
-    // TODO: Comments noch machen, korrigieren
-
     private int pid;
     private int uid;
     private int platform;
@@ -35,10 +33,8 @@ public class PostEintrag {
     private String fbUserdata;
     private int fbAccessTokenExpireDate;
 
-
-
-    // wird nur in der fxMainfxml Tab AllePosts benötigt, und hier über setMediafile() mitgesetzt:
-    private String dateiname; // das ist nicht der Absolute Pfad, für posts mediafile String benutzen!!!
+    // variable wird nur in der fxMainfxml Tab AllePosts benötigt, und über einen constructor mitgesetzt:
+    private String dateiname; // das ist nicht der Absolute Pfad, für posts mediafile variable benutzen!
 
     /**
      * constructor für Posteintrag volles init
@@ -70,7 +66,7 @@ public class PostEintrag {
         this.platform = platform;
         this.fbsite = fbsite;
         this.posttext = posttext;
-        setMediafile(mediafile); // hier mit setter da, dateiname part mitgesetzt wird
+        this.mediafile = mediafile;   // absolute mediafile path with dateiname
         this.posttime = posttime;
         this.poststatus = poststatus; // check if the post was a success or not // 0 is new, 1 is sent , > 1 is error
 
@@ -103,11 +99,23 @@ public class PostEintrag {
         this.platform = platform;
         this.fbsite = fbsite;
         this.posttext = posttext;
-        this.mediafile = mediafile;
+        this.mediafile = mediafile; // absolute mediafile path with dateiname
         this.posttime = posttime;
         this.poststatus = poststatus; // check if the post was a success or not // 0 is new, 1 is sent , > 1 is error
     }
 
+    /**
+     * constructor für Eintrag with all data
+     * @param pid
+     * @param uid
+     * @param sid
+     * @param platform
+     * @param fbsite
+     * @param posttext
+     * @param mediafile
+     * @param posttime
+     * @param poststatus
+     */
     public PostEintrag(int pid, int uid, int sid, int platform, String fbsite, String posttext, String mediafile, String posttime, int poststatus ){
         this.pid = pid;
         this.uid = uid;
@@ -115,485 +123,280 @@ public class PostEintrag {
         this.platform = platform;
         this.fbsite = fbsite;
         this.posttext = posttext;
-        this.mediafile = mediafile;
-        this.dateiname = mediafile.substring(mediafile.lastIndexOf('\\') + 1);
+        this.mediafile = mediafile;  // absolute mediafile path with dateiname
+        this.dateiname = mediafile.substring(mediafile.lastIndexOf('\\') + 1); // substring the dateiname from absolute mediafile path
         this.posttime = posttime;
         this.poststatus = poststatus; // check if the post was a success or not // 0 is new, 1 is sent , > 1 is error
     }
 
+    /**
+     * default constructor
+     */
     public PostEintrag() {
-        /*
-        this.pid = pid; // ???
-        this.uid = uid;
-        this.sid = sid;
-        this.platform = platform;
-        this.fbsite = new String("");
-        this.posttext = new String("");
-        this.mediafile = new String("");
-        this.posttime = new String("");
-        this.poststatus = poststatus; // check if the post was a success or not // 0 is new, 1 is sent , > 1 is error
-        */
     }
 
+    /**
+     * Getter for pid
+     * @return pid
+     */
     public Integer getPid() {
         return pid;
     }
-
+    /**
+     * Setter for pid
+     * @param pid
+     */
     public void setPid(Integer pid) {
         this.pid = pid;
     }
-
+    /**
+     * Getter for uid
+     * @return uid
+     */
     public Integer getUid() {
         return uid;
     }
-
+    /**
+     * Setter for uid
+     * @param uid
+     */
     public void setUid(Integer uid) {
         this.uid = uid;
     }
-
+    /**
+     * Getter for platform
+     * @return platform
+     */
     public int getPlatform() {
         return platform;
     }
-
+    /**
+     * Setter for platform
+     * @param platform
+     */
     public void setPlatform(int platform) {
         this.platform = platform;
     }
-
+    /**
+     * Getter for fbsite
+     * @return fbsite
+     */
     public String getFbsite() {
         return fbsite;
     }
-
+    /**
+     * Setter for fbsite
+     * @param fbsite
+     */
     public void setFbsite(String fbsite) {
         this.fbsite = fbsite;
     }
-
+    /**
+     * Getter for posttext
+     * @return posttext
+     */
     public String getPosttext() {
         return posttext;
     }
-
+    /**
+     * Setter for posttext
+     * @param posttext
+     */
     public void setPosttext(String posttext) {
         this.posttext = posttext;
     }
-
+    /**
+     * Getter for mediafile
+     * @return mediafile
+     */
     public String getMediafile() {
         return mediafile;
     }
-
+    /**
+     * Setter for mediafile
+     * @param mediafile
+     */
     public void setMediafile(String mediafile) {
         //if (mediafile != null && !mediafile.isEmpty()) {
          this.mediafile = mediafile;
         //}
     }
-
+    /**
+     * Getter for posttime
+     * @return posttime
+     */
     public String getPosttime() {
         return posttime;
     }
-
+    /**
+     * Setter for posttime
+     * @param posttime
+     */
     public void setPosttime(String posttime) {
         this.posttime = posttime;
     }
-
+    /**
+     * Getter for poststatus
+     * @return poststatus
+     */
     public Integer getPoststatus() {
         return poststatus;
     }
-
+    /**
+     * Setter for poststatus
+     * @param poststatus
+     */
     public void setPoststatus(Integer poststatus) {
         this.poststatus = poststatus;
     }
-
+    /**
+     * Getter for sid
+     * @return sid
+     */
     public Integer getSid() {
         return sid;
     }
-
+    /**
+     * Setter for sid
+     * @param sid
+     */
     public void setSid(Integer sid) {
         this.sid = sid;
     }
-
+    /**
+     * Getter for twConsumerKey
+     * @return twConsumerKey
+     */
     public String getTwConsumerKey() {
         return twConsumerKey;
     }
-
+    /**
+     * Setter for twConsumerKey
+     * @param twConsumerKey
+     */
     public void setTwConsumerKey(String twConsumerKey) {
         this.twConsumerKey = twConsumerKey;
     }
-
+    /**
+     * Getter for twConsumerSecret
+     * @return twConsumerSecret
+     */
     public String getTwConsumerSecret() {
         return twConsumerSecret;
     }
-
+    /**
+     * Setter for twConsumerSecret
+     * @param twConsumerSecret
+     */
     public void setTwConsumerSecret(String twConsumerSecret) {
         this.twConsumerSecret = twConsumerSecret;
     }
-
+    /**
+     * Getter for twAccessToken
+     * @return twAccessToken
+     */
     public String getTwAccessToken() {
         return twAccessToken;
     }
-
+    /**
+     * Setter for twAccessToken
+     * @param twAccessToken
+     */
     public void setTwAccessToken(String twAccessToken) {
         this.twAccessToken = twAccessToken;
     }
-
+    /**
+     * Getter for twAccessTokenSecret
+     * @return twAccessTokenSecret
+     */
     public String getTwAccessTokenSecret() {
         return twAccessTokenSecret;
     }
-
+    /**
+     * Setter for twAccessTokenSecret
+     * @param twAccessTokenSecret
+     */
     public void setTwAccessTokenSecret(String twAccessTokenSecret) {
         this.twAccessTokenSecret = twAccessTokenSecret;
     }
-
+    /**
+     * Getter for fbAppID
+     * @return fbAppID
+     */
     public String getFbAppID() {
         return fbAppID;
     }
-
+    /**
+     * Setter for fbAppID
+     * @param fbAppID
+     */
     public void setFbAppID(String fbAppID) {
         this.fbAppID = fbAppID;
     }
-
+    /**
+     * Getter for fbAppSecret
+     * @return fbAppSecret
+     */
     public String getFbAppSecret() {
         return fbAppSecret;
     }
-
+    /**
+     * Setter for fbAppSecret
+     * @param fbAppSecret
+     */
     public void setFbAppSecret(String fbAppSecret) {
         this.fbAppSecret = fbAppSecret;
     }
-
+    /**
+     * Getter for fbAccessToken
+     * @return fbAccessToken
+     */
     public String getFbAccessToken() {
         return fbAccessToken;
     }
-
+    /**
+     * Setter for fbAccessToken
+     * @param fbAccessToken
+     */
     public void setFbAccessToken(String fbAccessToken) {
         this.fbAccessToken = fbAccessToken;
     }
-
+    /**
+     * Getter for fbUserdata
+     * @return fbUserdata
+     */
     public String getFbUserdata() {
         return fbUserdata;
     }
-
+    /**
+     * Setter for fbUserdata
+     * @param fbUserdata
+     */
     public void setFbUserdata(String fbUserdata) {
         this.fbUserdata = fbUserdata;
     }
-
+    /**
+     * Getter for fbAccessTokenExpireDate
+     * @return fbAccessTokenExpireDate
+     */
     public Integer getFbAccessTokenExpireDate() {
         return fbAccessTokenExpireDate;
     }
-
+    /**
+     * Setter for fbAccessTokenExpireDate
+     * @param fbAccessTokenExpireDate
+     */
     public void setFbAccessTokenExpireDate(Integer fbAccessTokenExpireDate) {
         this.fbAccessTokenExpireDate = fbAccessTokenExpireDate;
     }
 
-
-
+    /**
+     * Getter for dateiname
+     * @return dateiname
+     */
     public String getDateiname() {
         return dateiname;
     }
+
 }
 
-/*
-    /**
-     * Constructor for a Post to a Facebook account
-     *
-     * @param token    The Token from Facebook account
-     * @param appID    The App ID from the facebook account
-     * @param message  The message to post
-     * @param hashtags the used hashtags
-     * @param date     the defined date for the Post
-     * @param time     the defined time for the Post
-     * @param file     the uploaded file for the Post
-     *//*
-    public PostEintrag(String token, String appID, String message, String hashtags, String date, String time, File file) {
-        setToken(token);
-        setAppID(appID);
-        setMessage(message);
-        setHashtag(hashtags);
-        setDate(date);
-        setTime(time);
-        setFile(file);
-    }
-
-    *//**
-     * Constructor for a Post to a Twitter account
-     *
-     * @param consumerKey       The Consumer Key from the Twitter Account
-     * @param consumerSecret    The Consumer Secret from the Twitter Account
-     * @param accessToken       The Access Token from the Twitter Account
-     * @param accessTokenSecret The Access Token Secret from the Twitter Account
-     * @param message           The message to post
-     * @param hashtags          the used hashtags
-     * @param date              the defined date for the Post
-     * @param time              the defined time for the Post
-     * @param file              the uploaded file for the Post
-     *//*
-    public PostEintrag(String consumerKey, String consumerSecret, String accessToken, String accessTokenSecret,
-                       String message, String hashtags, String date, String time, File file) {
-        setToken(token);
-        setAppID(appID);
-        setMessage(message);
-        setHashtag(hashtags);
-        setDate(date);
-        setTime(time);
-        setFile(file);
-    }
-
-    *//**
-     * Get the message from a Post
-     *
-     * @return the Message as String
-     *//*
-    public String getMessage() {
-        return message;
-    }
-
-    *//**
-     * Set the message for a Post
-     *
-     * @param message the Postmessage
-     *//*
-    public void setMessage(String message) {
-        if (message == null || message.length() <= 2) {
-            throw new IllegalArgumentException("Ihre Nachricht muss mindestens 2 Zeichen beinhalten");
-        } else {
-            this.message = message;
-        }
-    }
-
-    *//**
-     * Get the hashtags
-     *
-     * @return The Hashtags as String
-     *//*
-    public String getHashtag() {
-        return hashtag;
-    }
-
-    *//**
-     * Set the hashtags for a Post
-     *
-     * @param hashtag the Hashtags
-     *//*
-    public void setHashtag(String hashtag) {
-        this.hashtag = hashtag;
-    }
-
-    *//**
-     * get the date from a Post
-     *
-     * @return the date as String
-     *//*
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        if (date == null || date.equals("")) {
-            throw new IllegalArgumentException("Eingabe für 'Datum' fehlt");
-        } else {
-            this.date = date;
-        }
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        if (time == null || time.equals("")) {
-            throw new IllegalArgumentException("Eingabe für 'Uhrzeit' fehlt");
-        } else {
-            this.time = time;
-        }
-    }
-
-    *//**
-     * get the file from a Post
-     *
-     * @return the file as File
-     *//*
-    public File getFile() {
-        return file;
-    }
-
-    *//**
-     * Set the File for a post
-     *
-     * @param file the File Object
-     *//*
-    public void setFile(File file) {
-        this.file = file;
-    }
-
-    *//**
-     * Get the Platform, where the post belong
-     *
-     * @return the platform as String
-     *//*
-    public String getPlatform() {
-        return platform;
-    }
-
-    *//**
-     * Set the Platform, where the post get send
-     *
-     * @param platform the name of the platform as String
-     *//*
-    public void setPlatform(String platform) {
-        if (platform == null) {
-            throw new IllegalArgumentException("Eingabe für 'Platform' fehlt");
-        } else {
-            this.platform = platform;
-        }
-    }
-
-    *//**
-     * get the Token to post on Facebook
-     *
-     * @return the Token as String
-     *//*
-    public String getToken() {
-        return token;
-    }
-
-    *//**
-     * Set the Token to post on a Facebook account
-     *
-     * @param token the Token from the User account
-     *//*
-    public void setToken(String token) {
-        if (token == null) {
-            throw new IllegalArgumentException("Eingabe für 'Token' fehlt");
-        } else {
-            this.token = token;
-        }
-    }
-
-    *//**
-     * Get the App ID to Post on a Facebook account
-     *
-     * @return the App ID as String
-     *//*
-    public String getAppID() {
-        return appID;
-    }
-
-    *//**
-     * Set the App ID to Post on a Facebook account
-     *
-     * @param appID the the App ID from the User account
-     *//*
-    public void setAppID(String appID) {
-        if (appID == null) {
-            throw new IllegalArgumentException("Eingabe für 'App ID' fehlt");
-        } else {
-            this.appID = appID;
-        }
-    }
-
-    *//**
-     * Get the Consumer Key to Post on a Twitter account
-     *
-     * @return the Conumer Key as String
-     *//*
-    public String getConsumerKey() {
-        return consumerKey;
-    }
-
-    *//**
-     * Set the Consumer Key to Post on a Twitter account
-     *
-     * @param consumerKey the Consumer Key from the User account
-     *//*
-    public void setConsumerKey(String consumerKey) {
-        if (consumerKey == null) {
-            throw new IllegalArgumentException("Eingabe für 'Consumer Key' fehlt");
-        } else {
-            this.consumerKey = consumerKey;
-        }
-    }
-
-    *//**
-     * Get the Consumer Secret to Post on a Twitter account
-     *
-     * @return the Consumer Secret as String
-     *//*
-    public String getConsumerSecret() {
-        return consumerSecret;
-    }
-
-    *//**
-     * Set the Consumer Secret to Post on a Twitter account
-     *
-     * @param consumerSecret the Consumer Secret from the User account
-     *//*
-    public void setConsumerSecret(String consumerSecret) {
-        if (consumerSecret == null) {
-            throw new IllegalArgumentException("Eingabe für 'Consumer Secret' fehlt");
-        } else {
-            this.consumerSecret = consumerSecret;
-        }
-    }
-
-    *//**
-     * Get the Access Token to Post on a Twitter account
-     *
-     * @return the Access Token as String
-     *//*
-    public String getAccessToken() {
-        return accessToken;
-    }
-
-    *//**
-     * Set the Access Token to Post on a Twitter account
-     *
-     * @param accessToken the Access Token from the User account
-     *//*
-    public void setAccessToken(String accessToken) {
-        if (accessToken == null) {
-            throw new IllegalArgumentException("Eingabe für 'Access Token' fehlt");
-        } else {
-            this.accessToken = accessToken;
-        }
-    }
-
-    *//**
-     * Get the Access Token Secret to Post on a Twitter account
-     *
-     * @return the Access Token Secret as String
-     *//*
-    public String getAccessTokenSecret() {
-        return accessTokenSecret;
-    }
-
-    *//**
-     * Set the Access Token Secret to Post on a Twitter account
-     *
-     * @param accessTokenSecret the Access Token Secret from the User account
-     *//*
-    public void setAccessTokenSecret(String accessTokenSecret) {
-        if (accessTokenSecret == null) {
-            throw new IllegalArgumentException("Eingabe für 'Access Token Secret' fehlt");
-        } else {
-            this.accessTokenSecret = accessTokenSecret;
-        }
-    }
-
-    *//**
-     * Get the success validation
-     *
-     * @return the success as int
-     *//*
-    public int getSuccess() {
-        return success;
-    }
-
-    *//**
-     * set the success to a specific value
-     *
-     * @param success value of success or not
-     *//*
-    public void setSuccess(int success) {
-        if (success < 0 || success > 1) {
-            throw new IllegalArgumentException("Der Wert muss zwischen 0 und 1 sein");
-        } else {
-            this.success = success;
-        }
-    }
-}*/
