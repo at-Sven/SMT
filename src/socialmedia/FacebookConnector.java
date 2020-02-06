@@ -6,6 +6,7 @@ import com.restfb.FacebookClient;
 import com.restfb.Version;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 /**
  *
@@ -107,7 +108,7 @@ public abstract class FacebookConnector {
 
     public abstract String PostToFacebookGroups(String groupID, String myMessage, String myLink, String pathToImage, String pathToVideo) throws IOException;
 
-    public abstract String[][] getUserJoinedGroups();
+    public abstract HashMap getUserJoinedGroups();
 
-    public abstract String[][] getUserAdminPages();
+    public abstract HashMap getUserAdminPages();
 }

@@ -9,6 +9,7 @@ import com.restfb.types.Page;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
 
 public class PostToFacebook extends FacebookConnector {
@@ -138,18 +139,14 @@ public class PostToFacebook extends FacebookConnector {
     }
 
     @Override
-    public String[][] getUserJoinedGroups () {
+    public HashMap getUserJoinedGroups () {
         Connection<Group> groups = fbUserClient.fetchConnection("me/groups", Group.class);
 
-        String[][] joinedGroups = new String[0][2];
+        HashMap joinedGroups = new HashMap();
         for (List<Group> groupPage : groups) {
             if(groupPage.size() > 0) {
-                joinedGroups = new String[groupPage.size()][2];
-                int i = 0;
                 for (Group aGroup : groupPage) {
-                    joinedGroups[i][0] = aGroup.getId();
-                    joinedGroups[i][1] = aGroup.getName();
-                    i++;
+                    joinedGroups.put(aGroup.getName(), aGroup.getId());
                 }
             }
         }
@@ -158,20 +155,14 @@ public class PostToFacebook extends FacebookConnector {
     }
 
     @Override
-    public String[][] getUserAdminPages () {
+    public HashMap getUserAdminPages () {
         Connection<Page> pages = fbUserClient.fetchConnection("me/accounts", Page.class);
 
-        String[][] adminPages = new String[0][2];
+        HashMap adminPages = new HashMap();
         for (List<Page> feedPage : pages) {
-            System.out.println(feedPage);
-            System.out.println(feedPage.size());
             if(feedPage.size() > 0) {
-                adminPages = new String[feedPage.size()][2];
-                int i = 0;
                 for (Page aPage : feedPage) {
-                    adminPages[i][0] = aPage.getId();
-                    adminPages[i][1] = aPage.getName();
-                    i++;
+                    adminPages.put(aPage.getName(), aPage.getId());
                 }
             }
         }
