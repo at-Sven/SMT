@@ -1,0 +1,3 @@
+2020-02-06T20:14:27: Automatisierung ist aktiviert.
+2020-02-06T20:14:44: Automatisierung ist deaktiviert.
+

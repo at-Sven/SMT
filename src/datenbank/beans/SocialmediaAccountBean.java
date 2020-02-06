@@ -39,8 +39,8 @@ public class SocialmediaAccountBean {
                 "uid, " +
                 "fbAppID, " +
                 "fbAppSecret," +
-                "fbAccessToken, " +
-                "fbUserdata ) " +
+                "fbUserAccessToken, " +
+                "fbPageAccessToken ) " +
                 "VALUES (?, ?, ?, ?, ? );");
 
         pstmtUpdateTwitterAccount = Datenbank.getInstance().prepareStatement("UPDATE SocialmediaAccounts SET " +
@@ -53,8 +53,8 @@ public class SocialmediaAccountBean {
         pstmtUpdateFacebookAccount = Datenbank.getInstance().prepareStatement("UPDATE SocialmediaAccounts SET " +
                 "fbAppID = ?, " +
                 "fbAppSecret = ?, " +
-                "fbAccessToken = ?, " +
-                "fbUserdata = ? " +
+                "fbUserAccessToken = ?, " +
+                "fbPageAccessToken = ? " +
                 "WHERE uid = ?;");
 
         pstmtSelectWithUid = Datenbank.getInstance().prepareStatement("SELECT * FROM SocialmediaAccounts WHERE uid = ?;");
@@ -142,8 +142,8 @@ public class SocialmediaAccountBean {
                 result.setTwAccessTokenSecret(rs.getString(6));
                 result.setFbAppID(rs.getString(7));
                 result.setFbAppSecret(rs.getString(8));
-                result.setFbAccessToken(rs.getString(9));
-                result.setFbUserdata(rs.getString(10));
+                result.setFbUserAccessToken(rs.getString(9));
+                result.setFbPageAccessToken(rs.getString(10));
                 result.setFbAccessTokenExpireDate(rs.getInt(11));
             }
 

@@ -200,12 +200,12 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TextField fx:id="tfFBUserData" layoutX="150.0" layoutY="386.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="PageAccessToken" AnchorPane.leftAnchor="150.0">
+                        <TextField fx:id="tfFBPageAccessToken" layoutX="150.0" layoutY="386.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="PageAccessToken" AnchorPane.leftAnchor="150.0">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="tfFBAccessToken" layoutX="150.0" layoutY="314.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="UserAccessToken" AnchorPane.leftAnchor="150.0">
+                        <TextField fx:id="tfFBUserAccessToken" layoutX="150.0" layoutY="314.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="280.0" promptText="UserAccessToken" AnchorPane.leftAnchor="150.0">
                            <font>
                               <Font size="18.0" />
                            </font>

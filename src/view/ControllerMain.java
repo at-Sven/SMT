@@ -47,174 +47,140 @@ import utils.Helper;
  * Controller class for the FXML file 'fxMain'
  */
 public class ControllerMain {
-
     @FXML
     public Label lblSaveTWAccountStatus;
-
     @FXML
     public Label lblSaveFBAccountStatus;
-
     @FXML
     public Tab tabEinstellungen; // Tab name id
-
     @FXML
     public Button btnRandmDateTime;
-
     @FXML
     public Tab tabAllePosts;
-
     @FXML
     public TableColumn<PostEintrag, String> tcPid;
-
     @FXML
     public TableColumn<PostEintrag, String> tcMedia;
-
     @FXML
     public Tab tabHashtags;
     @FXML
     public Tab tabNeuerPost;
-
+    @FXML
+    public MenuItem miCopyPost;
+    @FXML
+    public TableColumn tcHID;
+    @FXML
+    public ComboBox cbFBGruppen;
+    @FXML
+    public Label lblfb1;
+    @FXML
+    public Label lblfb11;
+    @FXML
+    public Label lblfb111;
+    @FXML
+    public Label lblfb1111;
+    @FXML
+    public Label lbltw1;
+    @FXML
+    public Label lbltw2;
+    @FXML
+    public Label lbltw3;
+    @FXML
+    public Label lbltw4;
     @FXML
     private AnchorPane anchorpane;
-
     @FXML
     private CheckBox cbFacebook;
-
     @FXML
     private CheckBox cbTwitter;
-
     @FXML
     private Button btnChooseHashtag;
-
     @FXML
     private Button btnRandomHashtag;
-
     @FXML
     private Button btnRandomDateTime;
-
     @FXML
     private Button btnSavePost;
-
     @FXML
     private Button btnResetFields;
-
     @FXML
     private TextArea taMessage;
-
     @FXML
     private TextArea taHashtags;
-
     @FXML
     private ListView<String> lvFBGruppen;
-
     @FXML
     private Label lbRestChar;
-
     @FXML
     private DatePicker dpDate;
-
     @FXML
     private TextField tfTime;
-
     @FXML
     private ComboBox<String> cbFBPage;
-
     @FXML
     private ToggleButton tbActivate;
-
     @FXML
     private Button btnPicture;
-
     @FXML
     private Label lbMessageStatus;
-
     @FXML
     private Label lbFilename;
-
     @FXML
     private TableView<PostEintrag> tvPosts;
-
     @FXML
     private TableColumn<PostEintrag, String> tcText;
-
     @FXML
     private TableColumn<PostEintrag, String> tcDate;
-
     @FXML
     private TableColumn<PostEintrag, String> tcPlatform;
-
     @FXML
     private TableColumn<PostEintrag, String> tcReaction;
-
     @FXML
     private TableColumn<PostEintrag, String> tcPostAction;
-
     @FXML
     private TableView<HashtagsEintrag> tvHashtags;
-
     @FXML
     private TableColumn<HashtagsEintrag, String> tcTheme;
-
     @FXML
     private TableColumn<HashtagsEintrag, String> tcHashtags;
-
     @FXML
     private TableColumn<HashtagsEintrag, String> tcHashAction;
-
     @FXML
     private Button btnNewList;
-
     @FXML
     private Button btnLogSave;
-
     @FXML
     private TextField tfFBUserAccessToken;
-
     @FXML
     private TextField tfFBPageAccessToken;
-
     @FXML
     private TextField tfFBAppID;
-
     @FXML
     private TextField tfFBAppSecret;
-
     @FXML
     private TextField ConsumerKey;
-
     @FXML
     private TextField ConsumerSecret;
-
     @FXML
     private TextField AccessToken;
-
     @FXML
     private TextField AccessTokenSecret;
-
     @FXML
     private Button btnSaveSettingsTW;
-
     @FXML
     private Button btnSaveSettingsFB;
-
     @FXML
     private TextArea taLog;
-
     @FXML
     private Label lbLogSavedFeedback;
-
     @FXML
     private ContextMenu cmPosts;
-
     @FXML
     private MenuItem miDeletePost;
-
     @FXML
     private ContextMenu cmHashtags;
-
     @FXML
     private MenuItem miUpdateHashList;
-
     @FXML
     private MenuItem miDeleteHashList;
 
@@ -404,7 +370,7 @@ public class ControllerMain {
                    if( cbFacebook.isSelected() ) selectedPlatformsArr.add(2); // 2 = post on facebook profile
 
                    /*
-                    * ToDo: hier eine Schleife nutzen um FB Gruppen / Pages DropdownMenue zu überprüfen und selectedPlatformsArr List zu erweitern:
+                    * ToDo: hier eine Schleife nutzen um FB Gruppen / Pages DropdownMenue zu überprüfen und selectedPlatformsArr List mit .add() zu erweitern:
                     *
                     */
                    for ( int i = 0; i < selectedPlatformsArr.size(); i++) {
@@ -417,6 +383,8 @@ public class ControllerMain {
                            if (postInsertOK) {
                                lbMessageStatus.setText("Post wurde in DB gespeichert!");
                                taLog.appendText("Post für PlatformID:"+ platform +" wurde geplant.\n" );
+                               selectedFile = null;  // nach dem post, den selected File
+                               lbFilename.setText("Keine Bild oder Film Datei ausgewählt.");
                            } else {
                                lbMessageStatus.setText("DB Insert Fehler, Post konnte nicht gespeichert werden!");
                                taLog.appendText("DB Insert Fehler bei Post für PlatformID:"+ platform +".\n" );
@@ -652,7 +620,7 @@ public class ControllerMain {
                     }
                }
             }else{
-                System.out.println("nixzuladen");
+                System.out.println("Es gibt keine User ID, die geladen werden kann!");
             }
     }
 
@@ -706,7 +674,6 @@ public class ControllerMain {
             public void handle(Event t) {
                 if (tabEinstellungen.isSelected()) {
                     loadSocialMediaAccountDataIntoTwitterAndFacebookFields();
-                    System.out.println("Einstellungen Tab clicked.");
                 }
             }
         });
@@ -718,8 +685,6 @@ public class ControllerMain {
             public void handle(Event t) {
                 if (tabAllePosts.isSelected()) {
                     getPostTable();
-                    System.out.println("Tab AllePosts clicked.");
-
                 }
             }
         });
@@ -875,11 +840,5 @@ public class ControllerMain {
         taMessage.setText(selectedEntry.getPosttext());
         countPost();
     }
-
-
-
-
-
-
 
 }

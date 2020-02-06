@@ -48,8 +48,17 @@ public class SocialMediaWorker implements EventHandler<ActionEvent> {
     }
 
     /**
-     * init method
-     * @param
+     * init methode
+     * @param uid
+     * @param fbAppID
+     * @param fbAppSecret
+     * @param fbPageAccessToken
+     * @param fbUserAccessToken
+     * @param twConsumerKey
+     * @param twConsumerSecret
+     * @param twAccessToken
+     * @param twAccesTokenSecret
+     * @param taLog ControllerMain Übersicht Textarea zum loggen
      */
     public void init(int uid,String fbAppID, String fbAppSecret, String fbPageAccessToken, String fbUserAccessToken,
                     String twConsumerKey, String twConsumerSecret, String twAccessToken, String twAccesTokenSecret, TextArea taLog){

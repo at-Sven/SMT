@@ -31,7 +31,7 @@ public class PostEintragBean {
      * Wird ausgeführt wenn die Klasse erzeugt wird
      */
     static {
-        System.out.println("static-Block ausgeführt");
+        // System.out.println("static-Block ausgeführt");
 
         // Statements vorbereiten
         pstmtInsertPost = Datenbank.getInstance().prepareStatement("INSERT INTO SocialmediaPosts (sid, uid, platform, fbsite, posttext, mediafile, posttime, poststatus) " +
