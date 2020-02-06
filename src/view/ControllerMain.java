@@ -105,7 +105,7 @@ public class ControllerMain {
     private TextArea taHashtags;
 
     @FXML
-    private ListView<?> lvFBGruppen;
+    private ListView<String> lvFBGruppen;
 
     @FXML
     private Label lbRestChar;
@@ -117,7 +117,7 @@ public class ControllerMain {
     private TextField tfTime;
 
     @FXML
-    private ComboBox<?> cbFBPage;
+    private ComboBox<String> cbFBPage;
 
     @FXML
     private ToggleButton tbActivate;
@@ -693,6 +693,8 @@ public class ControllerMain {
     @FXML
     void initialize() {
 
+        //this.cbFBPage.getItems().add();
+
         /* -------- Automate Posts Section ------------------------------- */
         this.tbActivate.setSelected(false);  // on start set automated posting to false.
         this.tbActivate.setStyle("-fx-background-color:lightgrey");
@@ -878,4 +880,11 @@ public class ControllerMain {
         taMessage.setText(selectedEntry.getPosttext());
         countPost();
     }
+
+
+
+
+
+
+
 }
