@@ -14,7 +14,7 @@ public class UserEintrag {
     private final StringProperty passwort;
 
     /**
-     * Constructor to create a new User
+     * Constructor to create a empty new User
      *
      * @param email    The E-Mail Address of the User
      * @param passwort The Password of the User
@@ -43,11 +43,6 @@ public class UserEintrag {
         return email.get();
     }
 
-    /**
-     * TODO
-     *
-     * @return The E-Mail Address of the User
-     */
     public StringProperty emailProperty() {
         return email;
     }
@@ -65,11 +60,6 @@ public class UserEintrag {
         return passwort.get();
     }
 
-    /**
-     * TODO
-     *
-     * @return the Password of the User
-     */
     public StringProperty passwortProperty() {
         return passwort;
     }
@@ -85,12 +75,18 @@ public class UserEintrag {
 
     /**
      * Getter method for the user id in the database
+     *
      * @return the uid in the database
      */
     public Integer getId() {
         return id;
     }
 
+    /**
+     * Setter method for the user id in the database
+     *
+     * @param id the ID as int value
+     */
     public void setId(Integer id) {
         this.id = id;
     }

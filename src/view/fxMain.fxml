@@ -9,6 +9,7 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -120,6 +121,8 @@
                            <contextMenu>
                               <ContextMenu fx:id="cmPosts">
                                 <items>
+                                    <MenuItem fx:id="miCopyPost" mnemonicParsing="false" onAction="#copyPost" text="Post Kopieren" />
+                                    <SeparatorMenuItem mnemonicParsing="false" />
                                     <MenuItem fx:id="miDeletePost" mnemonicParsing="false" onAction="#deletePost" text="Post Löschen" />
                                 </items>
                               </ContextMenu>
@@ -173,6 +176,7 @@
                               <ContextMenu fx:id="cmHashtags">
                                 <items>
                                   <MenuItem fx:id="miUpdateHashList" mnemonicParsing="false" onAction="#updateHashEntry" text="Liste Bearbeiten" />
+                                    <SeparatorMenuItem mnemonicParsing="false" />
                                     <MenuItem fx:id="miDeleteHashList" mnemonicParsing="false" onAction="#deleteHashList" text="Liste Löschen" />
                                 </items>
                               </ContextMenu>

@@ -529,7 +529,8 @@ public class ControllerMain {
             ObservableList<CharSequence> paragraph = taLog.getParagraphs();
             Iterator<CharSequence> iter = paragraph.iterator();
             BufferedWriter bf;
-            bf = new BufferedWriter(new FileWriter(new File("SMT_Log_Report.txt")));
+            String dt = new SimpleDateFormat("dd-MM-yyy").format(new Date());
+            bf = new BufferedWriter(new FileWriter(new File("SMT_Log_Report_"+dt+".txt")));
             while (iter.hasNext()) {
                 CharSequence seq = iter.next();
                 bf.append(seq);
@@ -541,7 +542,7 @@ public class ControllerMain {
             taLog.setText("");
             lbLogSavedFeedback.setText("Log als Datei gespeichert!");
         } catch (IOException e) {
-            lbLogSavedFeedback.setText("Log konnte NICHT als Datei gespeichert werden!");
+            lbLogSavedFeedback.setText("Log konnte nicht gespeichert werden!");
             e.printStackTrace();
         }
         resetText(lbLogSavedFeedback);
@@ -770,6 +771,9 @@ public class ControllerMain {
         }
     }
 
+    /**
+     * This method load the saved Hashtag Lists from the Database in the Hashtag Tableview
+     */
     void getHashTable() {
         ObservableList<HashtagsEintrag> entries = FXCollections.observableArrayList(HashtagsBean.getThemes());
         this.tcTheme.setCellValueFactory(new PropertyValueFactory<HashtagsEintrag, String>("theme"));
@@ -847,7 +851,7 @@ public class ControllerMain {
     }
 
     /**
-     * This method delete a Hashtag list in the database
+     * This method delete the selected Hashtag list in the database
      */
     @FXML
     void deleteHashList() {
@@ -860,4 +864,15 @@ public class ControllerMain {
         getHashTable();
     }
 
+    /**
+     * This method copies the text from an selected post entry and pastes it into the "New Post" tab textarea
+     *
+     * @param actionEvent with the click of the menuitem miCopyPost
+     */
+    public void copyPost(ActionEvent actionEvent) {
+        PostEintrag selectedEntry = tvPosts.getSelectionModel().getSelectedItem();
+
+        taMessage.setText(selectedEntry.getPosttext());
+        countPost();
+    }
 }

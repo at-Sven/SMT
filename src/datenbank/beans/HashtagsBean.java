@@ -10,6 +10,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * The Bean Class for the Hashtag Lists in the database
+ */
 public class HashtagsBean {
 
     // PreparedStatements
