@@ -16,6 +16,7 @@ public class PostEintragBean {
 
     private static PreparedStatement pstmtInsertPost;
     private static PreparedStatement pstmtSelectScheduledPostsWithUid;
+    private static PreparedStatement pstmtSelectScheduledPostsWithUidAndPoststatus;
     private static PreparedStatement pstmtGetPosts;
     private static PreparedStatement pstmtDelete;
 
@@ -32,6 +33,10 @@ public class PostEintragBean {
         pstmtInsertPost = Datenbank.getInstance().prepareStatement("INSERT INTO SocialmediaPosts (sid, uid, platform, fbsite, posttext, mediafile, posttime, poststatus) " +
                 " VALUES ( ?, (SELECT sid FROM SocialmediaAccounts WHERE uid = ?), ?, ?, ?, ?, ?, ?)");
         pstmtSelectScheduledPostsWithUid = Datenbank.getInstance().prepareStatement("SELECT * FROM SocialmediaPosts WHERE uid = ?;");
+
+        // hole nur posts die noch nicht gesendet wurden: (bedeutet poststatus == 0)
+        pstmtSelectScheduledPostsWithUidAndPoststatus = Datenbank.getInstance().prepareStatement("SELECT * FROM SocialmediaPosts WHERE uid = ? AND poststatus = 0;");
+
         pstmtGetPosts = Datenbank.getInstance().prepareStatement("SELECT posttext, posttime, platform FROM SocialmediaPosts;");
         pstmtDelete = Datenbank.getInstance().prepareStatement("DELETE FROM SocialmediaPosts WHERE pid = ?;");
 
@@ -146,6 +151,45 @@ public class PostEintragBean {
         return result;
 
 
+    }
+
+    public static ArrayList<PostEintrag> selectScheduledPostsWithUidAndPoststatus(int uid) {
+        ArrayList<PostEintrag> result = null;
+
+        try {
+            // Datenbankabfrage ausführen
+            pstmtSelectScheduledPostsWithUidAndPoststatus.setInt(1,uid);
+
+            ResultSet rs = pstmtSelectScheduledPostsWithUidAndPoststatus.executeQuery();
+
+            // Result initialisieren
+            result = new ArrayList<>();
+
+            // Zurücksetzen der idListe
+            idListe.clear();
+
+            // Alle Datensätze abfragen und passend dazu neue Einträge generieren
+            while (rs.next()) {
+                PostEintrag eintrag = new PostEintrag(
+                        rs.getInt("pid"),
+                        rs.getInt("uid"),
+                        rs.getInt("sid"),
+                        rs.getInt("platform"),
+                        rs.getString("fbsite"),
+                        rs.getString("posttext"),
+                        rs.getString("mediafile"),
+                        rs.getString("posttime"),
+                        rs.getInt("poststatus")
+                );
+                result.add(eintrag);
+
+                // Objekt der idListe hinzufügen
+                idListe.put(eintrag, eintrag.getPid());
+            }
+
+        } catch (SQLException ignored) {}
+
+        return result;
     }
 
     public static ArrayList<PostEintrag> selectAllPostsWithUid(int uid) {

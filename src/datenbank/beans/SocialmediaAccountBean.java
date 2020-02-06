@@ -211,14 +211,6 @@ public class SocialmediaAccountBean {
     }
 }
 
-
-
-
-
-
-
-
-
 /* socialmediaaccoutns table Structur zur Info, später hier rauslöschen:
 execute("CREATE TABLE IF NOT EXISTS \"SocialmediaAccounts\" (" +
                     "sid INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
