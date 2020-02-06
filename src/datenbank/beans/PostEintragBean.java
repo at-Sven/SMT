@@ -22,6 +22,7 @@ public class PostEintragBean {
     private static PreparedStatement pstmtSelectScheduledPostsWithUidAndPoststatus;
     private static PreparedStatement pstmtGetPosts;
     private static PreparedStatement pstmtDelete;
+    private static PreparedStatement pstmtUpdatePostStatusToSuccessfulOrError;
 
     private static HashMap<PostEintrag, Integer> idListe;
 
@@ -41,7 +42,10 @@ public class PostEintragBean {
         pstmtSelectScheduledPostsWithUidAndPoststatus = Datenbank.getInstance().prepareStatement("SELECT * FROM SocialmediaPosts WHERE uid = ? AND poststatus = 0;");
 
         pstmtGetPosts = Datenbank.getInstance().prepareStatement("SELECT posttext, posttime, platform FROM SocialmediaPosts;");
+
         pstmtDelete = Datenbank.getInstance().prepareStatement("DELETE FROM SocialmediaPosts WHERE pid = ?;");
+
+        pstmtUpdatePostStatusToSuccessfulOrError = Datenbank.getInstance().prepareStatement("UPDATE SocialmediaPosts SET poststatus = ? WHERE pid = ?;");
 
         idListe = new HashMap<>();
 
@@ -72,6 +76,33 @@ public class PostEintragBean {
                                                                         "telefonnr = ? WHERE telefonnr = ?;");
         pstmtDelete = Datenbank.getInstance().prepareStatement("DELETE FROM table_telefonbuch WHERE telefonnr = ?;");*/
 
+    }
+
+    /**
+     * Setzt den poststatus eines postes zu entweder Erfolgreich mit 1 oder Error mit 2
+     * damit es keine duplizierten posts gibt bzw. fehlerhafte posts nicht erneut Fehler über die APIs verursachen.
+     * @param pid int ist postid des bearbeiteteten / geposteten Posts
+     * @param status wenn Erfolgreich = 1, Fehler = 2 oder grösser 2
+     * @return true im Erfolgsfall, false andernfalls
+     */
+    public static boolean updatePostStatusToSuccessfulOrError(int pid, int status) {
+        boolean result = false;
+
+        try {
+            pstmtUpdatePostStatusToSuccessfulOrError.setInt(1, status);
+            pstmtUpdatePostStatusToSuccessfulOrError.setInt(2, pid);
+
+            pstmtUpdatePostStatusToSuccessfulOrError.executeUpdate();
+
+            // Prüfen ob der Eintrag erfolgreich war. Wenn ja, dann werden die Informationen in die Datenbank
+            // übertragen (commit). Wenn nicht, werden sie verworfen (rollback)
+
+            Datenbank.getInstance().commit();
+            result = true;
+
+        } catch (SQLException ignored) {}
+
+        return result;
     }
 
     /**

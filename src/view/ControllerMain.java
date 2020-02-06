@@ -227,7 +227,7 @@ public class ControllerMain {
     SocialMediaWorker socialMediaWorker; // checks what/when to post to Social Media
 
     // ------ check posts every x seconds to send them to social media channels! ------------------
-    int workerWaitSeconds = 3; //  here use later 100 or more seconds, 3 sec only for tests ------------------
+    int workerWaitSeconds = 10; //  here use later 100 or more seconds, 3 sec only for tests ------------------
     //---------------------------------------------------------------------------------------------
 
     Date date = new Date();
@@ -357,7 +357,7 @@ public class ControllerMain {
             // socialMediaWorker mit uid und kanalinfos füttern:
             this.socialMediaWorker.init(this.user.getId(),
                                         tfFBAppID.getText(), tfFBAppSecret.getText(), tfFBAccessToken.getText(), tfFBUserData.getText(),
-                                        ConsumerKey.getText(), ConsumerSecret.getText(), AccessToken.getText(), AccessTokenSecret.getText());
+                                        ConsumerKey.getText(), ConsumerSecret.getText(), AccessToken.getText(), AccessTokenSecret.getText(), taLog);
 
             // worker starten:
             this.socialMediaWorkerTimer.play();
@@ -402,9 +402,7 @@ public class ControllerMain {
 
                    // checke ob auf Facebook Profil gepostet werden soll:
                    if( cbFacebook.isSelected() ) selectedPlatformsArr.add(2); // 2 = post on facebook profile
-                   /*
-                    * ToDo: here count and check platforms, where to post and set new PostEinträge with for Schleife and platform / fbsite info:
-                    */
+
                    /*
                     * ToDo: hier eine Schleife nutzen um FB Gruppen / Pages DropdownMenue zu überprüfen und selectedPlatformsArr List zu erweitern:
                     *
@@ -436,10 +434,7 @@ public class ControllerMain {
         }else{
             lbMessageStatus.setText("Datum und Zeit muss in der Zukunft liegen!");
         }
-        /*
-        System.out.println(dpDate.getValue());
-        System.out.println(tfTime.getText());
-        */
+
         resetText(lbMessageStatus);
     }
 
@@ -847,7 +842,6 @@ public class ControllerMain {
         }
         getHashTable();
 
-        //getHashTable();
     }
 
     /**

@@ -59,7 +59,7 @@ public class Twitterer {
             }
             Status status = twitter.updateStatus(statusUpdate);
             statusText = status.getText();
-            System.out.println("Successfully updated the status to [" + statusText + "].");
+            System.out.println("Tweet wurde erfolgreich abgesetzt: [" + statusText + "].");
         }catch (TwitterException e) {
             statusText = "Error";
             e.printStackTrace();

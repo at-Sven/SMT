@@ -9,7 +9,9 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import model.PostEintrag;
 import model.SocialmediaAccount;
+import utils.Helper;
 
+import javafx.scene.control.TextArea;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -33,8 +35,11 @@ public class SocialMediaWorker implements EventHandler<ActionEvent> {
     public String twAccesTokenSecret;
 
     private Twitterer twitterer;
-    private ArrayList<PostEintrag> scheduledPostsArrayList;
+    //private ArrayList<PostEintrag> scheduledPostsArrayList;
 
+    public TextArea taLog;
+
+    Helper helper = new Helper();
 
     /**
      *  constructor
@@ -47,7 +52,7 @@ public class SocialMediaWorker implements EventHandler<ActionEvent> {
      * @param
      */
     public void init(int uid,String fbAppID, String fbAppSecret, String fbPageAccessToken, String fbUserAccessToken,
-                    String twConsumerKey, String twConsumerSecret, String twAccessToken, String twAccesTokenSecret){
+                    String twConsumerKey, String twConsumerSecret, String twAccessToken, String twAccesTokenSecret, TextArea taLog){
         // init vars here:
         this.uid = uid;
 
@@ -65,29 +70,27 @@ public class SocialMediaWorker implements EventHandler<ActionEvent> {
 
         this.twitterer = new Twitterer();
 
+        this.taLog = taLog; // ContollerMains Textarea taLog für loggin in die textarea
 
     }
 
-    /* example for Timeline:
-    Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.seconds(5), new EventHandler<ActionEvent>() {
-
-        @Override
-        public void handle(ActionEvent event) {
-            System.out.println("this is called every 5 seconds on UI thread");
-        }
-        }));
-    fiveSecondsWonder.setCycleCount(Timeline.INDEFINITE);
-    fiveSecondsWonder.play();
+    /**
+     * Überschriebene methode wird von Timeline in gewissen Zeitabständen aufgerufen, um
+     * die Posts liste des Users zu überprüfen, ob Posts anstehen, die auf Social Media
+     * gepostet werden sollen.
+     * Nach einem Post oder Fehlerhaften Post wird das PostEintrag Object aus der Arraylist scheduledPostsArrayList
+     * entfenrt und die Postdaten des Posts in der Datenbanktable SocialmediaPosts wird auf poststatus grösser 0 gesetzt,
+     * damit die schon bearbeiteten Posts nicht wieder abgearbeitet und gepostet werden!
+     * function wird in der ControllerMain in der postAutomatic() über this.socialMediaWorkerTimer.play(); gestartet
+     * bzw. gestoppt!
+     * @param actionEvent event über Timeline scheduling
      */
-
     @Override
     public void handle(ActionEvent actionEvent) {
         //System.out.println("this is called every x seconds");
 
-        // Todo: use data from DB Table
-
         //  hole nur die posts die noch nicht versendet wurden: (bedeutet poststatus == 0)
-        scheduledPostsArrayList = PostEintragBean.selectScheduledPostsWithUidAndPoststatus(this.uid);
+        ArrayList<PostEintrag> scheduledPostsArrayList = PostEintragBean.selectScheduledPostsWithUidAndPoststatus(this.uid);
 
         for( int i = 0 ; i < scheduledPostsArrayList.size() ; i++ ){
 
@@ -95,25 +98,44 @@ public class SocialMediaWorker implements EventHandler<ActionEvent> {
 
             // überprüfe ob der Post für Twitter ist:
             if(scheduledPostsArrayList.get(i).getPlatform() == 1){  // 1 = Twitter
-
+                File file = null; // var for Media file
                 // check if postdate is in the past here!
+                if(helper.timeNowIsAfterPosttime(scheduledPostsArrayList.get(i).getPosttime())){ // wenn postzeit in Vergangenheit ist true
 
+                    this.twitterer = new Twitterer();  //  connector zur Twitter API
+                    this.twitterer.setTwitterAuthCredentials(this.twConsumerKey, this.twConsumerSecret, this.twAccessToken, this.twAccesTokenSecret);
+                    String mediafilepath = scheduledPostsArrayList.get(i).getMediafile();
+                    if(mediafilepath != null && !mediafilepath.isEmpty()) {
+                        file = new File(mediafilepath);
+                    }
 
+                    int statusInteger = 2; // default Wert erst auf fehler setzen
+                    String statustext = twitterer.sendTweet(scheduledPostsArrayList.get(i).getPosttext(),file);  // Send Tweet with Postttext and Media File
 
+                    if(statustext != "Error" && !statustext.isEmpty()){ // Falls kein Fehler
+                        statusInteger = 1; // Post war Erfolgreich!!!
+                        this.taLog.appendText("Geplanter Tweet mit folgendem Text wurde erfolgreich verschickt:" + scheduledPostsArrayList.get(i).getPosttext() + "\n"); // loggt in Mainfxml
+                    } else {
+                        this.taLog.appendText("Geplanter Tweet mit folgendem Text wurde wegen einem Fehler nicht verschickt:" + scheduledPostsArrayList.get(i).getPosttext() + "\n"); // loggt in Mainfxml
+                    }
+                    // Update SocialmediaPosts Table Row mit der pid des posts entweder auf Erfolgreich = 1 oder Error = 2
+                    PostEintragBean.updatePostStatusToSuccessfulOrError(scheduledPostsArrayList.get(i).getPid(), statusInteger);
 
-                sendPostToTwitter(scheduledPostsArrayList.get(i));  // sends PostEintrags Object to function
+                    scheduledPostsArrayList.remove(i); // nach erfolgreichem Tweet oder einem Fehler, den Post aus der Array Liste löschen, damit in der For Schleife nicht erneut retweetet wird.
+                    //System.out.println(statustext);
 
+                }
             }
 
 
 
+            // TODO: ************* Facebook posting part: *******************
 
 
 
 
 
 
-            // ************* Facebook posting part: *******************
 
 
 
@@ -121,34 +143,6 @@ public class SocialMediaWorker implements EventHandler<ActionEvent> {
 
 
         }
-    }
-
-
-    public void sendPostToTwitter(PostEintrag post) {
-        /*
-        this.twitterer = new Twitterer();
-        this.twitterer.setTwitterAuthCredentials(this.twConsumerKey, this.twConsumerSecret, this.twAccessToken, this.twAccesTokenSecret);
-        if(post.getMediafile() != null && !post.getMediafile().isEmpty()) {
-            File file = new File(post.getMediafile());
-            twitterer.sendTweet(post.getPosttext(),file);
-        }else{
-            twitterer.sendTweet(post.getPosttext(),null);  // if no file/image upload, send null
-        }
-        */
-        System.out.println("twitter post test: " + post.getPosttext() + " Poststatus: " + post.getPoststatus());
-
-
-
-
-
-        /* for test:
-        // send Tweet: (Text and image file path would also come from Database)
-        String tweetString = "Test Tweet using twitter4j at JAVA SE course #alfatraining #germany";
-        File file = new File("/images/image.jpg");
-
-        twitterer.sendTweet(tweetString,file);  // if no file/image upload, send null
-        */
-
     }
 
 }
