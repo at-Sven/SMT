@@ -34,7 +34,7 @@ public class PostEintragBean {
 
         // Statements vorbereiten
         pstmtInsertPost = Datenbank.getInstance().prepareStatement("INSERT INTO SocialmediaPosts (sid, uid, platform, fbsite, posttext, mediafile, posttime, poststatus) " +
-                " VALUES ( ?, (SELECT sid FROM SocialmediaAccounts WHERE uid = ?), ?, ?, ?, ?, ?, ?)");
+                " VALUES ( (SELECT sid FROM SocialmediaAccounts WHERE uid = ?) , ?, ?, ?, ?, ?, ?, ?)");
         pstmtSelectScheduledPostsWithUid = Datenbank.getInstance().prepareStatement("SELECT * FROM SocialmediaPosts WHERE uid = ?;");
 
         // hole nur posts die noch nicht gesendet wurden: (bedeutet poststatus == 0)
@@ -233,16 +233,6 @@ public class PostEintragBean {
 
         return result;
     }
-
-
-
-
-
-
-
-
-
-
 
 
 
