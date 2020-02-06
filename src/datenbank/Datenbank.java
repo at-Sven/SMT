@@ -55,8 +55,8 @@ public class Datenbank extends SQLiteDatenbankverbindung {
                     "twAccessTokenSecret VARCHAR(200)," +
                     "fbAppID VARCHAR(500), " +            // facebook AppID
                     "fbAppSecret VARCHAR(500), " +        // facebook AppSecret
-                    "fbAccessToken VARCHAR(500), " +      // fb accesstoken field, if needed
-                    "fbUserdata VARCHAR(500), " +         // fbuserdata extra field , if needed
+                    "fbUserAccessToken VARCHAR(500), " +  // facebook fbUserAccessToken
+                    "fbPageAccessToken VARCHAR(500), " +  // facebook fbPageAccessToken
                     "fbAccessTokenExpireDate INTEGER, " +  // temp feld, falls andere noch benoetigt werden sollten
                     "soc1 VARCHAR(300), " +               // temp feld, falls andere noch benoetigt werden sollten
                     "soc2 VARCHAR(300), " +               // temp feld, falls andere noch benoetigt werden sollten

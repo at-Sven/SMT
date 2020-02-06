@@ -105,7 +105,7 @@ public class ControllerMain {
     private TextArea taHashtags;
 
     @FXML
-    private ListView<?> lvFBGruppen;
+    private ListView<String> lvFBGruppen;
 
     @FXML
     private Label lbRestChar;
@@ -117,7 +117,7 @@ public class ControllerMain {
     private TextField tfTime;
 
     @FXML
-    private ComboBox<?> cbFBGruppen;
+    private ComboBox<String> cbFBPage;
 
     @FXML
     private ToggleButton tbActivate;
@@ -168,10 +168,10 @@ public class ControllerMain {
     private Button btnLogSave;
 
     @FXML
-    private TextField tfFBAccessToken;
+    private TextField tfFBUserAccessToken;
 
     @FXML
-    private TextField tfFBUserData;
+    private TextField tfFBPageAccessToken;
 
     @FXML
     private TextField tfFBAppID;
@@ -356,7 +356,7 @@ public class ControllerMain {
 
             // socialMediaWorker mit uid und kanalinfos füttern:
             this.socialMediaWorker.init(this.user.getId(),
-                                        tfFBAppID.getText(), tfFBAppSecret.getText(), tfFBAccessToken.getText(), tfFBUserData.getText(),
+                                        tfFBAppID.getText(), tfFBAppSecret.getText(), tfFBUserAccessToken.getText(), tfFBPageAccessToken.getText(),
                                         ConsumerKey.getText(), ConsumerSecret.getText(), AccessToken.getText(), AccessTokenSecret.getText(), taLog);
 
             // worker starten:
@@ -388,7 +388,7 @@ public class ControllerMain {
             // message,hashtags und selectedfile können nicht alle empty sein, da sonst kein Post content:
            if( !(taMessage.getText().isEmpty() && taHashtags.getText().isEmpty() && selectedFile == null)){
                // check if any socialmedia platform is selected:
-               if((cbFacebook.isSelected() && cbFBGruppen.getValue() != null) || cbTwitter.isSelected()){
+               if((cbFacebook.isSelected() && cbFBPage.getValue() != null) || cbTwitter.isSelected()){
                    // Speichere Post hier in die SocialmediaPosts table
                    String posttext = taMessage.getText() + " " + taHashtags.getText();
                    String mediafile = "";
@@ -522,17 +522,21 @@ public class ControllerMain {
     void saveLog() {
         try {
             ObservableList<CharSequence> paragraph = taLog.getParagraphs();
-            Iterator<CharSequence> iter = paragraph.iterator();
-            BufferedWriter bf;
             String dt = new SimpleDateFormat("dd-MM-yyy").format(new Date());
-            bf = new BufferedWriter(new FileWriter(new File("SMT_Log_Report_"+dt+".txt")));
+            Iterator<CharSequence> iter = paragraph.iterator();
+            File file = new File("SMT_Log_Report_" + dt + ".txt");
+            FileWriter fr = new FileWriter(file, true);
+            BufferedWriter bf = new BufferedWriter(fr);
+
             while (iter.hasNext()) {
                 CharSequence seq = iter.next();
                 bf.append(seq);
                 bf.newLine();
             }
+
             bf.flush();
             bf.close();
+            fr.close();
             // after saving to logfile reset the old log in taLog textarea:
             taLog.setText("");
             lbLogSavedFeedback.setText("Log als Datei gespeichert!");
@@ -554,15 +558,15 @@ public class ControllerMain {
         Integer uid = this.user.getId();
         String ai = this.tfFBAppID.getText();
         String as = this.tfFBAppSecret.getText();
-        String at = this.tfFBAccessToken.getText();
-        String ud = this.tfFBUserData.getText();
+        String at = this.tfFBUserAccessToken.getText();
+        String ud = this.tfFBPageAccessToken.getText();
         if( uid != null && !ai.trim().equals("") && !as.trim().equals("") && !at.trim().equals("") && !ud.trim().equals("") ){
             if(SocialmediaAccountBean.insertOrUpdateFacebookAccount(uid,ai,as,at,ud)) {  // insertOrUpdate db true
                 this.socialmediaAccount.setUid(uid);
                 this.socialmediaAccount.setFbAppID(ai);
                 this.socialmediaAccount.setFbAppSecret(as);
-                this.socialmediaAccount.setFbAccessToken(at);
-                this.socialmediaAccount.setFbUserdata(ud);
+                this.socialmediaAccount.setFbUserAccessToken(at);
+                this.socialmediaAccount.setFbPageAccessToken(ud);
                 this.lblSaveFBAccountStatus.setText("Facebook Accountdaten gespeichert/aktualisiert.");
             }else{
                 System.out.println("An Error occured while insert or update FBAccountdata into SocialMediaAccounts Table!");
@@ -624,15 +628,15 @@ public class ControllerMain {
                     // show socialmedia account data  in Einstellungs textfields, so user can update and see what is actually set
                     String fbAppID = this.socialmediaAccount.getFbAppID();
                     String fbAppSecret = this.socialmediaAccount.getFbAppSecret();
-                    String fbAccessToken = this.socialmediaAccount.getFbAccessToken();
-                    String fbUserExtraData = this.socialmediaAccount.getFbUserdata();
+                    String fFBUserAccessToken = this.socialmediaAccount.getFbUserAccessToken();
+                    String fFBPageAccessToken = this.socialmediaAccount.getFbPageAccessToken();
 
 
-                    if( fbAppID != null && fbAppSecret != null && fbAccessToken != null && fbUserExtraData != null ) {
+                    if( fbAppID != null && fbAppSecret != null && fFBUserAccessToken != null && fFBPageAccessToken != null ) {
                         this.tfFBAppID.setText(fbAppID);
                         this.tfFBAppSecret.setText(fbAppSecret);
-                        this.tfFBAccessToken.setText(fbAccessToken);
-                        this.tfFBUserData.setText(fbUserExtraData);
+                        this.tfFBUserAccessToken.setText(fFBUserAccessToken);
+                        this.tfFBPageAccessToken.setText(fFBPageAccessToken);
                     }
 
                     String twck = this.socialmediaAccount.getTwConsumerKey();
@@ -683,6 +687,8 @@ public class ControllerMain {
      */
     @FXML
     void initialize() {
+
+        //this.cbFBPage.getItems().add();
 
         /* -------- Automate Posts Section ------------------------------- */
         this.tbActivate.setSelected(false);  // on start set automated posting to false.
@@ -791,9 +797,10 @@ public class ControllerMain {
         this.tvPosts.setItems(entries);
     }
 
-    String getHashtags(String content) {
+
+/*    String getHashtags(String content) {
         return hashtags = content;
-    }
+    }*/
 
     /**
      * This method delete a Post entry in the database
@@ -816,7 +823,6 @@ public class ControllerMain {
     @FXML
     void updateHashEntry() {
         System.out.println("Liste aktualisiert");
-        //TODO
 
         HashtagsEintrag oldEntry = tvHashtags.getSelectionModel().getSelectedItem();
 
@@ -869,4 +875,11 @@ public class ControllerMain {
         taMessage.setText(selectedEntry.getPosttext());
         countPost();
     }
+
+
+
+
+
+
+
 }

@@ -12,8 +12,8 @@ public class SocialmediaAccount {
     private StringProperty twAccessTokenSecret;
     private StringProperty fbAppID;
     private StringProperty fbAppSecret;
-    private StringProperty fbAccessToken;
-    private StringProperty fbUserdata;
+    private StringProperty fbUserAccessToken;
+    private StringProperty fbPageAccessToken;
     private Integer fbAccessTokenExpireDate;
 
     /*
@@ -146,32 +146,32 @@ public class SocialmediaAccount {
      * getter for facebook AccessToken
      * @return fbAccessToken String
      */
-    public String getFbAccessToken() {
-        return fbAccessToken.get();
+    public String getFbUserAccessToken() {
+        return fbUserAccessToken.get();
     }
 
     /**
      * setter for facebook AccessToken
-     * @param fbAccessToken String
+     * @param fbUserAccessToken String
      */
-    public void setFbAccessToken(String fbAccessToken) {
-        this.fbAccessToken = new SimpleStringProperty(fbAccessToken);
+    public void setFbUserAccessToken(String fbUserAccessToken) {
+        this.fbUserAccessToken = new SimpleStringProperty(fbUserAccessToken);
     }
 
     /**
      * getter for facebook fbUserdata
      * @return fbUserdata String
      */
-    public String getFbUserdata() {
-        return fbUserdata.get();
+    public String getFbPageAccessToken() {
+        return fbPageAccessToken.get();
     }
 
     /**
      * setter for facebook fbUserdata
-     * @param fbUserdata String
+     * @param fbPageAccessToken String
      */
-    public void setFbUserdata(String fbUserdata) {
-        this.fbUserdata = new SimpleStringProperty(fbUserdata);
+    public void setFbPageAccessToken(String fbPageAccessToken) {
+        this.fbPageAccessToken = new SimpleStringProperty(fbPageAccessToken);
     }
 
     /**
