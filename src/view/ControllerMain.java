@@ -527,17 +527,21 @@ public class ControllerMain {
     void saveLog() {
         try {
             ObservableList<CharSequence> paragraph = taLog.getParagraphs();
-            Iterator<CharSequence> iter = paragraph.iterator();
-            BufferedWriter bf;
             String dt = new SimpleDateFormat("dd-MM-yyy").format(new Date());
-            bf = new BufferedWriter(new FileWriter(new File("SMT_Log_Report_"+dt+".txt")));
+            Iterator<CharSequence> iter = paragraph.iterator();
+            File file = new File("SMT_Log_Report_" + dt + ".txt");
+            FileWriter fr = new FileWriter(file, true);
+            BufferedWriter bf = new BufferedWriter(fr);
+
             while (iter.hasNext()) {
                 CharSequence seq = iter.next();
                 bf.append(seq);
                 bf.newLine();
             }
+
             bf.flush();
             bf.close();
+            fr.close();
             // after saving to logfile reset the old log in taLog textarea:
             taLog.setText("");
             lbLogSavedFeedback.setText("Log als Datei gespeichert!");
@@ -796,9 +800,10 @@ public class ControllerMain {
         this.tvPosts.setItems(entries);
     }
 
-    String getHashtags(String content) {
+
+/*    String getHashtags(String content) {
         return hashtags = content;
-    }
+    }*/
 
     /**
      * This method delete a Post entry in the database
@@ -821,7 +826,6 @@ public class ControllerMain {
     @FXML
     void updateHashEntry() {
         System.out.println("Liste aktualisiert");
-        //TODO
 
         HashtagsEintrag oldEntry = tvHashtags.getSelectionModel().getSelectedItem();
 
@@ -847,7 +851,6 @@ public class ControllerMain {
         }
         getHashTable();
 
-        //getHashTable();
     }
 
     /**
