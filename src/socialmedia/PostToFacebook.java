@@ -3,13 +3,10 @@ package socialmedia;
 import com.restfb.*;
 import com.restfb.types.FacebookType;
 import com.restfb.types.GraphResponse;
+import com.restfb.types.Group;
 import com.restfb.types.Page;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -26,19 +23,33 @@ public class PostToFacebook extends FacebookConnector {
     public int pageID;
     public int meID;
 
-    public PostToFacebook(String aID, String aSecret, String aToken) {
-        super(aID, aSecret, aToken);
+    public PostToFacebook(String aID, String aSecret, String aToken, String option) {
+        super(aID, aSecret, aToken, option);
     }
 
     @Override
     public String PostToFacebookTimeline (String myMessage , String myLink, String pathToImage, String pathToVideo) {
-        GraphResponse publishMessageResult = fbClient.publish("me/feed", GraphResponse.class, Parameter.with("message", myMessage));
+        GraphResponse publishMessageResult = fbUserClient.publish("me/feed", GraphResponse.class, Parameter.with("message", myMessage));
         return publishMessageResult.getId();
     }
 
     @Override
+    public String buildFullFbURL (String postID) {
+        //   107778870786744_109804447250853
+        // https://www.facebook.com/JavaProjekt/posts/109825213915443
+        // https://www.facebook.com/watch/?v=110337977197500
+        String postURL = "https://www.facebook.com/" + postID.substring(0, postID.lastIndexOf("_")) + "/posts/" + postID.substring(postID.lastIndexOf("_")+1);
+
+        GetPageName (postID.substring(0, postID.lastIndexOf("_")));
+
+        return postURL;
+    }
+
+    @Override
     public String GetPageName (String pageID) {
-        Page myPage = fbClient.fetchObject(pageID, Page.class);
+        Page myPage = fbPageClient.fetchObject(pageID, Page.class);
+
+        System.out.println(myPage);
         return myPage.getName();
     }
 
@@ -56,7 +67,7 @@ public class PostToFacebook extends FacebookConnector {
                 e.printStackTrace();
             }
 
-            FacebookType result = fbClient.publish(pageID + "/photos", FacebookType.class,
+            FacebookType result = fbPageClient.publish(pageID + "/photos", FacebookType.class,
                     BinaryAttachment.with(imageName, data),
                     Parameter.with("message", myMessage),
                     Parameter.with("Link", myLink));
@@ -68,14 +79,14 @@ public class PostToFacebook extends FacebookConnector {
 
             data = Files.readAllBytes(Paths.get(pathToVideo));
 
-            FacebookType result = fbClient.publish(pageID + "/videos", FacebookType.class,
+            FacebookType result = fbPageClient.publish(pageID + "/videos", FacebookType.class,
                     BinaryAttachment.with(videoName, data, Files.probeContentType(Paths.get(pathToVideo))),
                     Parameter.with("description", myMessage),
                     Parameter.with("Link", myLink));
 
             return result.getId();
         } else {
-            FacebookType result = fbClient.publish(pageID + "/feed", FacebookType.class,
+            FacebookType result = fbPageClient.publish(pageID + "/feed", FacebookType.class,
                     Parameter.with("message", myMessage),
                     Parameter.with("link", myLink));
 
@@ -86,8 +97,86 @@ public class PostToFacebook extends FacebookConnector {
 
 
     @Override
-    public void PostToFacebookGroups (Array groupID, String myMessage, String myLink, String pathToImage, String pathToVideo) {
+    public String PostToFacebookGroups (String groupID, String myMessage, String myLink, String pathToImage, String pathToVideo) throws IOException {
         // Gruppe 187479062657054
+        if(pathToImage != "") {
+            String imageName = pathToImage.substring(pathToImage.lastIndexOf("\\")+1);
+            byte[] data = new byte[0];
+
+            try {
+                data = Files.readAllBytes(Paths.get(pathToImage));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            FacebookType result = fbUserClient.publish(groupID + "/photos", FacebookType.class,
+                    BinaryAttachment.with(imageName, data),
+                    Parameter.with("message", myMessage),
+                    Parameter.with("Link", myLink));
+
+            return result.getId();
+        } else if(pathToVideo != "") {
+            String videoName = pathToVideo.substring(pathToImage.lastIndexOf("\\")+1);
+            byte[] data = new byte[0];
+
+            data = Files.readAllBytes(Paths.get(pathToVideo));
+
+            FacebookType result = fbUserClient.publish(groupID + "/videos", FacebookType.class,
+                    BinaryAttachment.with(videoName, data, Files.probeContentType(Paths.get(pathToVideo))),
+                    Parameter.with("description", myMessage),
+                    Parameter.with("Link", myLink));
+
+            return result.getId();
+        } else {
+            FacebookType result = fbUserClient.publish(groupID + "/feed", FacebookType.class,
+                    Parameter.with("message", myMessage),
+                    Parameter.with("link", myLink));
+
+            return result.getId();
+        }
+
+    }
+
+    @Override
+    public String[][] getUserJoinedGroups () {
+        Connection<Group> groups = fbUserClient.fetchConnection("me/groups", Group.class);
+
+        String[][] joinedGroups = new String[0][2];
+        for (List<Group> groupPage : groups) {
+            if(groupPage.size() > 0) {
+                joinedGroups = new String[groupPage.size()][2];
+                int i = 0;
+                for (Group aGroup : groupPage) {
+                    joinedGroups[i][0] = aGroup.getId();
+                    joinedGroups[i][1] = aGroup.getName();
+                    i++;
+                }
+            }
+        }
+
+        return joinedGroups;
+    }
+
+    @Override
+    public String[][] getUserAdminPages () {
+        Connection<Page> pages = fbUserClient.fetchConnection("me/accounts", Page.class);
+
+        String[][] adminPages = new String[0][2];
+        for (List<Page> feedPage : pages) {
+            System.out.println(feedPage);
+            System.out.println(feedPage.size());
+            if(feedPage.size() > 0) {
+                adminPages = new String[feedPage.size()][2];
+                int i = 0;
+                for (Page aPage : feedPage) {
+                    adminPages[i][0] = aPage.getId();
+                    adminPages[i][1] = aPage.getName();
+                    i++;
+                }
+            }
+        }
+
+        return adminPages;
     }
 
 }
