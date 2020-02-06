@@ -117,7 +117,7 @@ public class ControllerMain {
     private TextField tfTime;
 
     @FXML
-    private ComboBox<?> cbFBGruppen;
+    private ComboBox<?> cbFBPage;
 
     @FXML
     private ToggleButton tbActivate;
@@ -388,7 +388,7 @@ public class ControllerMain {
             // message,hashtags und selectedfile können nicht alle empty sein, da sonst kein Post content:
            if( !(taMessage.getText().isEmpty() && taHashtags.getText().isEmpty() && selectedFile == null)){
                // check if any socialmedia platform is selected:
-               if((cbFacebook.isSelected() && cbFBGruppen.getValue() != null) || cbTwitter.isSelected()){
+               if((cbFacebook.isSelected() && cbFBPage.getValue() != null) || cbTwitter.isSelected()){
                    // Speichere Post hier in die SocialmediaPosts table
                    String posttext = taMessage.getText() + " " + taHashtags.getText();
                    String mediafile = "";
