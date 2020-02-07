@@ -134,25 +134,12 @@ public class SocialMediaWorker implements EventHandler<ActionEvent> {
                     //System.out.println(statustext);
 
                 }
+            } else if(scheduledPostsArrayList.get(i).getPlatform() == 2) {
+                // ************* Facebook posting part: *******************
+
+
             }
-
-
-
-            // TODO: ************* Facebook posting part: *******************
-
-
-
-
-
-
-
-
-
-
-
-
         }
     }
 
 }
-

@@ -7,10 +7,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 import datenbank.beans.HashtagsBean;
@@ -39,6 +36,7 @@ import model.HashtagsEintrag;
 import model.PostEintrag;
 import model.SocialmediaAccount;
 import model.UserEintrag;
+import socialmedia.PostToFacebook;
 import socialmedia.SocialMediaWorker;
 import datenbank.beans.SocialmediaAccountBean;
 import utils.Helper;
@@ -370,13 +368,11 @@ public class ControllerMain {
                     // checke ob auf Facebook Profil gepostet werden soll:
                     if (cbFacebook.isSelected()) selectedPlatformsArr.add(2); // 2 = post on facebook profile
 
-                    // hier eine Schleife nutzen um FB Gruppen / Pages DropdownMenue zu überprüfen und selectedPlatformsArr List mit .add() zu erweitern:
-
                     for (int i = 0; i < selectedPlatformsArr.size(); i++) {
 
                         if (selectedPlatformsArr.get(i) != 0 || selectedPlatformsArr.get(i) != null) { // nichts ausgewählt
                             int platform = selectedPlatformsArr.get(i);                  //platform    // use fbsite String if needed
-                            PostEintrag newPostEintrag = new PostEintrag(this.user.getId(), platform, "fbsiteinfo", posttext, mediafile, postTime, 0);  // 0  bedeutet neuer post
+                            PostEintrag newPostEintrag = new PostEintrag(this.user.getId(), platform, cbFBGruppen.getId(), posttext, mediafile, postTime, 0);  // 0  bedeutet neuer post
                             boolean postInsertOK = PostEintragBean.insertNewPost(newPostEintrag);
 
                             if (postInsertOK) {
@@ -655,9 +651,6 @@ public class ControllerMain {
      */
     @FXML
     void initialize() {
-
-        //this.cbFBPage.getItems().add();
-
         /* -------- Automate Posts Section ------------------------------- */
         this.tbActivate.setSelected(false);  // on start set automated posting to false.
         this.tbActivate.setStyle("-fx-background-color:lightgrey");
@@ -726,11 +719,23 @@ public class ControllerMain {
      */
     public void checkIfSocMediaAccountsAvailableAndEnableNewPostButton() {
         loadSocialMediaAccountDataIntoTwitterAndFacebookFields();
+
         if (tfFBAppID.getText().isEmpty() && ConsumerKey.getText().isEmpty()) { // socialmediaAccount
             btnSavePost.setDisable(true); // disable the save post button, because user has not set TW or FB account.
             tbActivate.setDisable(true);  // disable the automatic post button, because user has not set TW or FB account.
             lbMessageStatus.setText("Bitte zuerst in den Einstellungen Twitter oder Facebook Informationen eingeben!");
         } else {
+            if(tfFBAppID.getText() != "" && tfFBAppID.getText() != "" && tfFBAppSecret.getText() != "" && tfFBUserAccessToken.getText() != "") {
+                PostToFacebook userPost = new PostToFacebook(tfFBAppID.getText(), tfFBAppSecret.getText(), tfFBUserAccessToken.getText(), "user");
+                HashMap<String, String> pageResult = userPost.getUserAdminPages();
+                for (String key : pageResult.keySet()) {
+                    this.cbFBGruppen.getItems().add(key);
+                }
+                HashMap<String, String> groupResult = userPost.getUserJoinedGroups();
+                for (String key : groupResult.keySet()) {
+                    this.lvFBGruppen.getItems().add(key);
+                }
+            }
             btnSavePost.setDisable(false);
             tbActivate.setDisable(false);
             lbMessageStatus.setText("");
