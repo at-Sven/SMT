@@ -133,10 +133,11 @@ public class ControllerLogin {
         }
     }
 
+    /**
+     * initialize method
+     */
     @FXML
     void initialize() {
-        // TODO: später auskommentieren !!!! ist nur TEST USER!!!
-        tfEmail.setText("a@a.aa");
-        pwfPassword.setText("aaa");
+
     }
 }

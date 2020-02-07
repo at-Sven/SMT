@@ -370,10 +370,8 @@ public class ControllerMain {
                     // checke ob auf Facebook Profil gepostet werden soll:
                     if (cbFacebook.isSelected()) selectedPlatformsArr.add(2); // 2 = post on facebook profile
 
-                    /*
-                     * ToDo: hier eine Schleife nutzen um FB Gruppen / Pages DropdownMenue zu überprüfen und selectedPlatformsArr List mit .add() zu erweitern:
-                     *
-                     */
+                    // hier eine Schleife nutzen um FB Gruppen / Pages DropdownMenue zu überprüfen und selectedPlatformsArr List mit .add() zu erweitern:
+
                     for (int i = 0; i < selectedPlatformsArr.size(); i++) {
 
                         if (selectedPlatformsArr.get(i) != 0 || selectedPlatformsArr.get(i) != null) { // nichts ausgewählt
