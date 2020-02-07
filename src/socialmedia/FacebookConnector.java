@@ -1,17 +1,15 @@
 package socialmedia;
 
-
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
 import com.restfb.Version;
-
 import java.io.IOException;
 import java.util.HashMap;
 
 /**
- *
- * @author Kilian Spohr
- * @version 0.1
+ * abstract class FacebookConnector
+ * This class handles all methods you need for a connection to Facebook
+ * and for posting messages on your Page and in Groups you are in.
  */
 
 public abstract class FacebookConnector {
@@ -23,6 +21,14 @@ public abstract class FacebookConnector {
     public FacebookClient fbUserClient;
     public FacebookClient fbPageClient;
 
+    /**
+     * Constructor of the abstract class FacebookConnector
+     *
+     * @param appID
+     * @param appSecret
+     * @param accessToken
+     * @param option
+     */
     public FacebookConnector(String appID, String appSecret, String accessToken, String option) {
         setAppID(appID);
         setAppSecret(appSecret);
@@ -31,6 +37,14 @@ public abstract class FacebookConnector {
         checkAccessToken(option);
     }
 
+    /**
+     * The class connectToFb manage the connections to Facebook.
+     * The connection to Facebook depends on what you want to do.
+     * If you want to post on your Page Feed you need a connection with the option "page".
+     * If you want to post in a Group where you are in you need a connection with the option "user".
+     *
+     * @param option
+     */
     private void connectToFb(String option) {
         if(option == "user") {
             FacebookClient fbUserClient = new DefaultFacebookClient(userAccessToken, Version.LATEST);
@@ -42,8 +56,13 @@ public abstract class FacebookConnector {
         }
     }
 
+    /**
+     * The class checkAccessToken checks your AccessToken and will expend and save the new Token in the Database
+     *
+     * @param option
+     */
     private void checkAccessToken(String option){
-        System.out.println("Neue Token:");
+        //System.out.println("Neue Token:");
 
         if(option == "page") {
             FacebookClient.AccessToken exAccessToken = fbPageClient.obtainExtendedAccessToken(appID, appSecret);
@@ -51,8 +70,8 @@ public abstract class FacebookConnector {
                 setAccessToken("page", exAccessToken.getAccessToken());
                 FacebookClient fbPageClient = new DefaultFacebookClient(exAccessToken.getAccessToken(), Version.LATEST);
                 setFbClient("page", fbPageClient);
-
-                System.out.println("Page: " + exAccessToken.getAccessToken());
+                // TODO: ************* Store new Token into Database *******************
+                //System.out.println("Page: " + exAccessToken.getAccessToken());
             }
         }
         if(option == "user") {
@@ -61,12 +80,18 @@ public abstract class FacebookConnector {
                 setAccessToken("user", exAccessToken.getAccessToken());
                 FacebookClient fbUserClient = new DefaultFacebookClient(exAccessToken.getAccessToken(), Version.LATEST);
                 setFbClient("user", fbUserClient);
-
-                System.out.println("User: " + exAccessToken.getAccessToken());
+                // TODO: ************* Store new Token into Database *******************
+                //System.out.println("User: " + exAccessToken.getAccessToken());
             }
         }
     };
-    
+
+    /**
+     * Setter class for the connection Object fbUserClient and fbPageClient
+     *
+     * @param option
+     * @param fbClient
+     */
     public void setFbClient(String option, FacebookClient fbClient) {
         if(option == "user") {
             this.fbUserClient = fbClient;
@@ -76,6 +101,12 @@ public abstract class FacebookConnector {
         }
     }
 
+    /**
+     * Setter class for the String userAccessToken and pageAccessToken
+     *
+     * @param option
+     * @param accessToken
+     */
     public void setAccessToken(String option, String accessToken) {
         if(option == "user") {
             this.userAccessToken = accessToken;
@@ -86,29 +117,89 @@ public abstract class FacebookConnector {
 
     }
 
+    /**
+     * Setter class the timestamp accessTokenExpireDate.
+     * Not implemented yet
+     *
+     * @param accessTokenExpireDate
+     */
     public void setAccessTokenExpireDate(int accessTokenExpireDate) {
         this.accessTokenExpireDate = accessTokenExpireDate;
     }
 
+    /**
+     * Setter class for the String appID.
+     *
+     * @param appID
+     */
     public void setAppID(String appID) {
         this.appID = appID;
     }
 
+    /**
+     * Setter classe for the String appSecret
+     *
+     * @param appSecret
+     */
     public void setAppSecret(String appSecret) {
         this.appSecret = appSecret;
     }
 
-    public abstract String PostToFacebookTimeline(String myMessage, String myLink, String pathToImage, String pathToVideo);
+    //public abstract String PostToFacebookTimeline(String myMessage, String myLink, String pathToImage, String pathToVideo);
 
+    /**
+     * abstract class buildFullFbURL
+     *
+     * @param postID
+     * @return
+     */
     public abstract String buildFullFbURL(String postID);
 
-    public abstract String GetPageName(String pageID);
+    /**
+     * abstract class getPageName
+     *
+     * @param pageID
+     * @return
+     */
+    public abstract String getPageName(String pageID);
 
-    public abstract String PostToFacebookPage(String pageID, String myMessage, String myLink, String pathToImage, String pathToVideo) throws IOException;
+    /**
+     * abstract class postToFacebookPage
+     *
+     * @param pageID
+     * @param myMessage
+     * @param myLink
+     * @param pathToImage
+     * @param pathToVideo
+     * @return
+     * @throws IOException
+     */
+    public abstract String postToFacebookPage(String pageID, String myMessage, String myLink, String pathToImage, String pathToVideo) throws IOException;
 
-    public abstract String PostToFacebookGroups(String groupID, String myMessage, String myLink, String pathToImage, String pathToVideo) throws IOException;
+    /**
+     * abstract class postToFacebookGroups
+     *
+     * @param groupID
+     * @param myMessage
+     * @param myLink
+     * @param pathToImage
+     * @param pathToVideo
+     * @return
+     * @throws IOException
+     */
+    public abstract String postToFacebookGroups(String groupID, String myMessage, String myLink, String pathToImage, String pathToVideo) throws IOException;
 
-    public abstract HashMap getUserJoinedGroups();
+    /**
+     * abstract class getUserJoinedGroups
+     *
+     * @return
+     */
+    public abstract HashMap<String, String> getUserJoinedGroups();
 
-    public abstract HashMap getUserAdminPages();
+    /**
+     * abstract class getUserAdminPages
+     *
+     * @return
+     */
+    public abstract HashMap<String, String> getUserAdminPages();
 }

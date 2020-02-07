@@ -2,62 +2,83 @@ package socialmedia;
 
 import com.restfb.*;
 import com.restfb.types.FacebookType;
-import com.restfb.types.GraphResponse;
 import com.restfb.types.Group;
 import com.restfb.types.Page;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * class PostToFacebook.
+ * This class extends the abstract class FacebookConnector
+ */
 public class PostToFacebook extends FacebookConnector {
-
     public int uid;
-    public String fbPost;
-    public String hashTags;
-    public String pathToImage;
-    public String pathToVideo;
-    public String postOption;
-    public int groupID;
-    public int pageID;
-    public int meID;
 
+    /**
+     * Constructor of the class PostToFacebook
+     *
+     * @param aID
+     * @param aSecret
+     * @param aToken
+     * @param option
+     */
     public PostToFacebook(String aID, String aSecret, String aToken, String option) {
         super(aID, aSecret, aToken, option);
     }
 
+    /*
     @Override
     public String PostToFacebookTimeline (String myMessage , String myLink, String pathToImage, String pathToVideo) {
         GraphResponse publishMessageResult = fbUserClient.publish("me/feed", GraphResponse.class, Parameter.with("message", myMessage));
         return publishMessageResult.getId();
     }
+    */
 
+    /**
+     * This class builds a complete Facebook-URL from the returned postID of a posted message on your Page
+     *
+     * @param postID
+     * @return
+     */
     @Override
     public String buildFullFbURL (String postID) {
-        //   107778870786744_109804447250853
+        // 107778870786744_109804447250853
         // https://www.facebook.com/JavaProjekt/posts/109825213915443
         // https://www.facebook.com/watch/?v=110337977197500
         String postURL = "https://www.facebook.com/" + postID.substring(0, postID.lastIndexOf("_")) + "/posts/" + postID.substring(postID.lastIndexOf("_")+1);
 
-        GetPageName (postID.substring(0, postID.lastIndexOf("_")));
-
+        getPageName (postID.substring(0, postID.lastIndexOf("_")));
         return postURL;
     }
 
+    /**
+     * This class gets the Name of a Page by given pageID. Needed for the method buildFullFbURL
+     *
+     * @param pageID
+     * @return
+     */
     @Override
-    public String GetPageName (String pageID) {
+    public String getPageName (String pageID) {
         Page myPage = fbPageClient.fetchObject(pageID, Page.class);
-
-        System.out.println(myPage);
         return myPage.getName();
     }
 
+    /**
+     * This class handles the message, picture or movie you want to post on your Page.
+     *
+     * @param pageID
+     * @param myMessage
+     * @param myLink
+     * @param pathToImage
+     * @param pathToVideo
+     * @return
+     * @throws IOException
+     */
     @Override
-    public String PostToFacebookPage (String pageID, String myMessage , String myLink, String pathToImage, String pathToVideo) throws IOException {
-        // Seite 107778870786744
-
+    public String postToFacebookPage (String pageID, String myMessage , String myLink, String pathToImage, String pathToVideo) throws IOException {
         if(pathToImage != "") {
             String imageName = pathToImage.substring(pathToImage.lastIndexOf("\\")+1);
             byte[] data = new byte[0];
@@ -95,10 +116,19 @@ public class PostToFacebook extends FacebookConnector {
         }
     }
 
-
-
+    /**
+     * This class handles the message, picture or movie you want to post in a Group.
+     *
+     * @param groupID
+     * @param myMessage
+     * @param myLink
+     * @param pathToImage
+     * @param pathToVideo
+     * @return
+     * @throws IOException
+     */
     @Override
-    public String PostToFacebookGroups (String groupID, String myMessage, String myLink, String pathToImage, String pathToVideo) throws IOException {
+    public String postToFacebookGroups (String groupID, String myMessage, String myLink, String pathToImage, String pathToVideo) throws IOException {
         // Gruppe 187479062657054
         if(pathToImage != "") {
             String imageName = pathToImage.substring(pathToImage.lastIndexOf("\\")+1);
@@ -138,11 +168,16 @@ public class PostToFacebook extends FacebookConnector {
 
     }
 
+    /**
+     * This class gets all Facebook Groups you have joined.
+     *
+     * @return
+     */
     @Override
-    public HashMap getUserJoinedGroups () {
+    public HashMap<String, String> getUserJoinedGroups () {
         Connection<Group> groups = fbUserClient.fetchConnection("me/groups", Group.class);
 
-        HashMap joinedGroups = new HashMap();
+        HashMap<String, String> joinedGroups = new HashMap<String, String>();
         for (List<Group> groupPage : groups) {
             if(groupPage.size() > 0) {
                 for (Group aGroup : groupPage) {
@@ -154,11 +189,16 @@ public class PostToFacebook extends FacebookConnector {
         return joinedGroups;
     }
 
+    /**
+     * This class gets all Facebook Pages where you are Admin.
+     *
+     * @return
+     */
     @Override
-    public HashMap getUserAdminPages () {
+    public HashMap<String, String> getUserAdminPages () {
         Connection<Page> pages = fbUserClient.fetchConnection("me/accounts", Page.class);
 
-        HashMap adminPages = new HashMap();
+        HashMap<String, String> adminPages = new HashMap<String, String>();
         for (List<Page> feedPage : pages) {
             if(feedPage.size() > 0) {
                 for (Page aPage : feedPage) {
@@ -169,5 +209,4 @@ public class PostToFacebook extends FacebookConnector {
 
         return adminPages;
     }
-
 }
